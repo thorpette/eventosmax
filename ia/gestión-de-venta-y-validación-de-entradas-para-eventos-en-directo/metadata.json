@@ -1,0 +1,27 @@
+{
+  "id": "125688d7-b1ed-4905-93d0-d599abe25439",
+  "name": "Gesti\u00f3n de Venta y Validaci\u00f3n de Entradas para Eventos en Directo",
+  "description": "Sistema para la venta de entradas a eventos en directo y su validaci\u00f3n en locales mediante Bluetooth y c\u00f3digos QR, con control de acceso por edad y tipolog\u00eda VIP.",
+  "color": "#2563EB",
+  "icon": "rocket",
+  "tags": [
+    "IA-generado"
+  ],
+  "diagram_ids": [
+    "d677d66a-8617-4fbb-a08f-821bb757c738",
+    "f3af0700-46a3-4524-8a38-0e1f1e0dd978",
+    "955da87e-43b3-491e-b170-40ec16a04e25",
+    "0ace1461-4b92-40d0-9261-f5050e58f9af",
+    "02afcec7-97f8-41fb-897d-8def727cdfdb",
+    "e2f14a06-7d22-4e25-85da-92ea756453cd",
+    "fb5b07a3-f841-4d3f-b2b6-6bfc10acf88c",
+    "0e467faf-4cd5-4682-b272-662eb822a027"
+  ],
+  "created_by": "oscar.hidalgo.puertas@gmail.com",
+  "created_at": "2026-10-09T10:10:50.713508+00:00",
+  "updated_at": "2026-10-09T10:10:50.713508+00:00",
+  "github_default_branch": "main",
+  "github_repo_url": "https://github.com/thorpette/eventosmax",
+  "github_sync_path": "ia/",
+  "exported_at": "2026-10-09T10:57:22.341185+00:00"
+}
