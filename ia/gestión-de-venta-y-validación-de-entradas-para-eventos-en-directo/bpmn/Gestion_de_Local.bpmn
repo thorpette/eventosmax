@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  id="Definitions_1">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1" name="Inicio administración de Local">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_Operacion" name="Seleccionar operación">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Alta" name="Alta de Local">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Consulta" name="Consulta de Local">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Edicion" name="Edición de Local">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Baja" name="Baja de Local">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Merge" name="Continuar">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_1" name="Administración de Local finalizada">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Gateway_Operacion" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Gateway_Operacion" targetRef="Task_Alta" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Gateway_Operacion" targetRef="Task_Consulta" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Gateway_Operacion" targetRef="Task_Edicion" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Gateway_Operacion" targetRef="Task_Baja" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Alta" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Consulta" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Task_Edicion" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_Baja" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Gateway_Merge" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Operacion_di" bpmnElement="Gateway_Operacion">
+        <dc:Bounds x="380" y="193" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Alta_di" bpmnElement="Task_Alta">
+        <dc:Bounds x="580" y="178" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Consulta_di" bpmnElement="Task_Consulta">
+        <dc:Bounds x="580" y="278" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Edicion_di" bpmnElement="Task_Edicion">
+        <dc:Bounds x="580" y="378" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Baja_di" bpmnElement="Task_Baja">
+        <dc:Bounds x="580" y="478" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Merge_di" bpmnElement="Gateway_Merge">
+        <dc:Bounds x="800" y="193" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="1000" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="216" y="218" />
+        <di:waypoint x="380" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="430" y="218" />
+        <di:waypoint x="580" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="430" y="218" />
+        <di:waypoint x="505" y="218" />
+        <di:waypoint x="505" y="318" />
+        <di:waypoint x="580" y="318" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="430" y="218" />
+        <di:waypoint x="505" y="218" />
+        <di:waypoint x="505" y="418" />
+        <di:waypoint x="580" y="418" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="430" y="218" />
+        <di:waypoint x="505" y="218" />
+        <di:waypoint x="505" y="518" />
+        <di:waypoint x="580" y="518" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="680" y="218" />
+        <di:waypoint x="800" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="680" y="318" />
+        <di:waypoint x="740" y="318" />
+        <di:waypoint x="740" y="218" />
+        <di:waypoint x="800" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="680" y="418" />
+        <di:waypoint x="740" y="418" />
+        <di:waypoint x="740" y="218" />
+        <di:waypoint x="800" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="680" y="518" />
+        <di:waypoint x="740" y="518" />
+        <di:waypoint x="740" y="218" />
+        <di:waypoint x="800" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="850" y="218" />
+        <di:waypoint x="1000" y="218" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
