@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PassLive Core - Proceso de Validación de Entradas en Acceso</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#373433",
+            "secondary-container": "#00a572",
+            "surface-container": "#221f1e",
+            "surface-dim": "#151312",
+            "on-secondary": "#003824",
+            "tertiary": "#ffb95f",
+            "surface-container-lowest": "#100e0d",
+            "on-error": "#690005",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed-dim": "#ffb95f",
+            "secondary-fixed": "#6ffbbe",
+            "primary-fixed": "#b1f0ce",
+            "on-secondary-container": "#00311f",
+            "on-tertiary-fixed-variant": "#653e00",
+            "outline": "#8a938c",
+            "on-tertiary-fixed": "#2a1700",
+            "on-surface": "#e8e1df",
+            "tertiary-container": "#865400",
+            "on-secondary-fixed": "#002113",
+            "surface-bright": "#3c3837",
+            "error-container": "#93000a",
+            "inverse-on-surface": "#33302e",
+            "on-primary-fixed": "#002114",
+            "on-tertiary-container": "#ffd29e",
+            "primary-fixed-dim": "#95d4b3",
+            "surface-tint": "#95d4b3",
+            "on-primary-container": "#a8e7c5",
+            "on-background": "#e8e1df",
+            "background": "#151312",
+            "secondary-fixed-dim": "#4edea3",
+            "on-tertiary": "#472a00",
+            "surface-container-low": "#1d1b1a",
+            "secondary": "#4edea3",
+            "inverse-primary": "#2c694e",
+            "on-primary-fixed-variant": "#0e5138",
+            "error": "#ffb4ab",
+            "surface-container-high": "#2c2928",
+            "primary-container": "#2d6a4f",
+            "surface": "#151312",
+            "outline-variant": "#404943",
+            "inverse-surface": "#e8e1df",
+            "on-surface-variant": "#bfc9c1",
+            "surface-variant": "#373433",
+            "on-error-container": "#ffdad6",
+            "primary": "#95d4b3",
+            "on-primary": "#003824",
+            "tertiary-fixed": "#ffddb8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "gutter-desktop": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin-desktop": "2rem",
+            "gutter": "1rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "label-sm": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "label-md": ["JetBrains Mono"],
+            "label-lg": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #100e0d;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2c2928;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary min-h-screen">
+<!-- TOP BAR FIJA (SHARED COMPONENT: TopNavBar Execution) -->
+<header class="w-full h-16 flex items-center justify-between px-6 bg-surface-container-lowest dark:bg-surface-container-lowest border-b border-outline-variant/30 sticky top-0 z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-container to-surface-dim border border-primary/40 flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-headline-md" data-icon="confirmation_number">confirmation_number</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md font-bold text-primary tracking-tight">PassLive Core</span>
+<span class="text-label-sm font-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-primary border border-outline-variant/40">v1.2</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Control de Acceso &amp; Torniquetes</p>
+</div>
+</div>
+<!-- Links de navegación de cabecera -->
+<nav class="hidden md:flex items-center gap-6 ml-4">
+<a class="text-primary dark:text-primary border-b-2 border-primary font-label-md py-5" href="#">Torniquetes</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md hover:text-on-surface transition-colors py-5" href="#">Audit Log</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md hover:text-on-surface transition-colors py-5" href="#">Gate Telemetry</a>
+</nav>
+</div>
+<!-- Indicadores en vivo y quick metrics -->
+<div class="flex items-center gap-5">
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-primary tracking-wide">GATEWAY-04 · ACTIVO (ONLINE)</span>
+</div>
+<div class="hidden xl:flex items-center gap-4 px-3 py-1 rounded-lg bg-surface-container-low border border-outline-variant/20 text-label-md font-label-md">
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface-variant">Tasa de paso:</span>
+<span class="text-primary font-semibold">142/min</span>
+</div>
+<span class="text-outline-variant">|</span>
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface-variant">Éxito:</span>
+<span class="text-secondary font-semibold">99.4%</span>
+</div>
+</div>
+<!-- Icon Actions -->
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-2 rounded-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 relative" title="Sensores">
+<span class="material-symbols-outlined text-headline-md" data-icon="sensors">sensors</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" title="BLE Tethering">
+<span class="material-symbols-outlined text-headline-md" data-icon="wifi_tethering">wifi_tethering</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 relative" title="Notificaciones">
+<span class="material-symbols-outlined text-headline-md" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-tertiary"></span>
+</button>
+</div>
+<!-- Botón Sincronizar (Secundario) & Modo Emergencia (Primario Trailing) -->
+<div class="flex items-center gap-2">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface text-label-md font-label-md hover:bg-surface-variant transition-colors duration-150 active:scale-[0.98]">
+<span class="material-symbols-outlined text-body-md" data-icon="sync">sync</span>
+          Sincronizar
+        </button>
+<button class="px-3 py-1.5 rounded-lg bg-error-container text-on-error-container border border-error/30 text-label-md font-label-md hover:bg-on-error hover:text-error transition-colors duration-150 active:scale-[0.98]">
+          Modo Emergencia
+        </button>
+</div>
+<!-- Operador Terminal Acceso 04 -->
+<div class="flex items-center gap-3 pl-2 border-l border-outline-variant/30">
+<div class="relative">
+<img class="w-8 h-8 rounded-full border border-primary/40 object-cover" data-alt="A close-up portrait of an event security operations supervisor wearing a dark utility headset and lanyard badge in a dim control room setting. Cinematic deep emerald shadows, subtle high-tech interface reflections, photorealistic digital camera style, neutral focused expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWbqyX6PalG38yPq9ZpTQJwsqZtsF2a5rPqomgqBLNo5WeVqWECJFKny9zio7A7Qpa4eebkmsStjDSP1EkjEEUJvo4ICs6HQxSePfq2_aGBMLxVsIjKZSrs_AoNpRL-Fg2qHmY-sHjkRXsIDVljvO0KX8Y-2PEip-llB8MGoTzWzbAm90b9CQ5rOrYguhDoKmJuYj1j3bH4UGjBRJJifu04zEEALlTGh0NAienkJQ9wIKUR0QBXwQDtq2Rdho-yDIQQ4ujcGfFvAwp"/>
+<span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-secondary border border-surface-container-lowest"></span>
+</div>
+<div class="hidden 2xl:block text-left">
+<p class="text-body-sm font-body-sm font-semibold text-on-surface leading-none">Terminal #04 Norte</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Operador de Guardia</span>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTENEDOR PRINCIPAL: SIDEBAR + WORKSPACE -->
+<div class="flex min-h-[calc(100vh-4rem)]">
+<!-- BARRA LATERAL (SHARED COMPONENT: SideNavBar Execution) -->
+<aside class="flex flex-col justify-between h-[calc(100vh-4rem)] w-64 p-4 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant/30 sticky left-0 z-40 overflow-y-auto custom-scrollbar">
+<div class="space-y-6">
+<!-- Header Info Drawer -->
+<div class="p-3 rounded-xl bg-surface-container border border-outline-variant/20 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary-container/40 border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-headline-md" data-icon="verified_user">verified_user</span>
+</div>
+<div class="min-w-0">
+<h2 class="text-body-sm font-body-sm font-semibold text-on-surface truncate">Puerta Principal Norte</h2>
+<p class="text-label-sm font-label-sm text-primary truncate">Terminal #04 · BLE Activo</p>
+</div>
+</div>
+<!-- Categoría 1: OPERACIONES EN VIVO -->
+<div>
+<span class="px-3 text-label-sm font-label-sm text-outline uppercase tracking-wider block mb-2">Operaciones en Vivo</span>
+<nav class="space-y-1">
+<!-- Pestaña Activa: Validación en Acceso (Validación Live) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-high dark:bg-surface-container-high text-primary dark:text-primary border-l-2 border-primary font-label-md" href="#">
+<span class="material-symbols-outlined text-headline-md" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span>Validación Live</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-headline-md" data-icon="gate">gate</span>
+<span>Torniquetes BLE</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-headline-md" data-icon="verified_user">verified_user</span>
+<span>Acreditaciones VIP</span>
+</a>
+</nav>
+</div>
+<!-- Categoría 2: SUPERVISIÓN -->
+<div>
+<span class="px-3 text-label-sm font-label-sm text-outline uppercase tracking-wider block mb-2">Supervisión</span>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-headline-md" data-icon="gpp_maybe">gpp_maybe</span>
+<span>Contingencias</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-headline-md" data-icon="history_edu">history_edu</span>
+<span>Auditoría Cripto</span>
+</a>
+</nav>
+</div>
+<!-- Card ADN de Diseño / Seguridad -->
+<div class="p-3.5 rounded-xl bg-surface-container border border-outline-variant/30 space-y-2">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-primary uppercase">Módulo Cripto Seguro</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Enclave criptográfico HMAC-SHA256 con sincronización local tolerante a cortes WAN.</p>
+<div class="pt-2 border-t border-outline-variant/20 grid grid-cols-2 gap-1 text-label-sm font-label-sm text-outline">
+<span>ENC: AES-256</span>
+<span class="text-right text-secondary">TTL: 14s</span>
+<span>RSSI: -58 dBm</span>
+<span class="text-right text-primary">SYNC: OK</span>
+</div>
+</div>
+<!-- Botón CTA de Acceso Forzado -->
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container-high border border-outline-variant/40 hover:border-tertiary text-tertiary hover:bg-surface-variant text-label-md font-label-md flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-body-md" data-icon="lock_open">lock_open</span>
+          Acceso Forzado
+        </button>
+</div>
+<!-- Footer Rail Nav -->
+<div class="pt-4 border-t border-outline-variant/30 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-body-lg" data-icon="network_check">network_check</span>
+<span>Diagnóstico Red</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-body-lg" data-icon="tune">tune</span>
+<span>Ajustes Hardware</span>
+</a>
+</div>
+</aside>
+<!-- ÁREA DE CONTENIDO PRINCIPAL -->
+<main class="flex-1 p-6 lg:p-8 space-y-6 overflow-x-hidden">
+<!-- 3. HERO DE SECCIÓN DE PROCESO (BPMN / WORKFLOW) -->
+<section class="p-8 rounded-2xl bg-gradient-to-br from-primary-container via-surface-container-low to-surface-container-lowest text-on-surface shadow-xl border border-primary/30 relative overflow-hidden">
+<!-- Halo decorativo -->
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 right-1/3 w-64 h-64 bg-primary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-label-sm font-label-sm font-semibold uppercase tracking-wider border border-primary/40">
+                PROCESO: PROCESS_1
+              </span>
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-label-sm text-secondary" data-icon="timer">timer</span>
+                Latencia: 32ms
+              </span>
+</div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm bg-surface-container-low/80 backdrop-blur px-3 py-1.5 rounded-lg border border-outline-variant/30 text-on-surface-variant">
+<span>Flujo:</span>
+<span class="text-primary font-semibold">Torniquete Físico BLE + Óptico 2D</span>
+</div>
+</div>
+<div class="max-w-4xl">
+<h1 class="text-headline-xl font-headline-xl tracking-tight text-on-surface font-bold">Proceso de Validación de Entradas en Acceso</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 leading-relaxed">
+              Orquestación transaccional desde que el cliente arriba al torniquete, bifurcación para la selección del método criptográfico de validación (BLE Pasivo vs. QR 2D Activo), motor de verificación multi-criterio y resolución de apertura de barrera electromecánica.
+            </p>
+</div>
+<!-- Barra visual de progreso del flujo BPMN interactiva (5 hitos clave) -->
+<div class="pt-6">
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur border border-outline-variant/30">
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-3 flex items-center justify-between">
+<span>Diagrama de Estado Transaccional (BPMN v2.0 Runtime)</span>
+<span class="text-primary">Fase Actual: Tarea 1 en Ejecución</span>
+</div>
+<!-- Hitos -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
+<!-- Hito 1: Inicio -->
+<div class="p-3 rounded-lg bg-surface-container-high/60 border border-secondary/40 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-secondary font-bold">01 · INICIO</span>
+<span class="material-symbols-outlined text-body-sm text-secondary" data-icon="check_circle">check_circle</span>
+</div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Cliente en Torniquete</p>
+<span class="text-label-sm font-label-sm text-secondary mt-1">Completado (Sensor PIR)</span>
+</div>
+<!-- Hito 2: Task_1 (En curso / Foco) -->
+<div class="p-3 rounded-lg bg-primary-container/40 border-2 border-primary shadow-lg shadow-primary-container/20 flex flex-col justify-between relative ring-1 ring-primary/40">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-primary font-bold">02 · TASK_1</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</div>
+<p class="text-body-sm font-body-sm font-bold text-on-surface">Solicitar Entrada</p>
+<span class="text-label-sm font-label-sm text-primary-fixed mt-1">En Curso (Esperando Token)</span>
+</div>
+<!-- Hito 3: InclusiveGateway_1 -->
+<div class="p-3 rounded-lg bg-surface-container-high/40 border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-outline font-semibold">03 · BIFURCACIÓN</span>
+<span class="material-symbols-outlined text-body-sm text-outline" data-icon="alt_route">alt_route</span>
+</div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Método: BLE vs QR</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-1">Doble Gateway Activo</span>
+</div>
+<!-- Hito 4: Decisión -->
+<div class="p-3 rounded-lg bg-surface-container-high/40 border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-outline font-semibold">04 · GATEWAYS</span>
+<span class="material-symbols-outlined text-body-sm text-outline" data-icon="rule">rule</span>
+</div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Validar Reglas Negocio</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-1">HMAC + Aforo + Edad</span>
+</div>
+<!-- Hito 5: Fin -->
+<div class="p-3 rounded-lg bg-surface-container-high/40 border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-outline font-semibold">05 · FIN</span>
+<span class="material-symbols-outlined text-body-sm text-outline" data-icon="flag">flag</span>
+</div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Apertura o Rechazo</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-1">Pulso Relé 8s / Notif.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. ÁREA PRINCIPAL DE TRABAJO (2 COLUMNAS / GRID ASIMÉTRICO 7:5) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- COLUMNA IZQUIERDA (7 COLS): FLUJO DE ENTRADA Y FORMULARIOS DE OPERACIÓN -->
+<div class="lg:col-span-7 space-y-6">
+<!-- FORMULARIO TAREA 1: SOLICITAR ENTRADA AL CLIENTE -->
+<div class="bg-surface-container rounded-2xl p-6 border border-outline-variant/30 shadow-md space-y-5">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-headline-md">
+                  1
+                </div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface font-semibold">Tarea 1: Solicitar entrada al cliente</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Recepción del token criptográfico y lectura de credenciales físicas o digitales.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/30 text-label-sm font-label-sm font-semibold">
+                EN PROCESO
+              </span>
+</div>
+<!-- Selector de método de validación (Decision Point 1) -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block">Selección de Método de Captura</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-lg bg-surface-container-high border-2 border-primary text-primary transition-all text-label-md font-label-md shadow-sm" type="button">
+<span class="material-symbols-outlined text-headline-md" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span>Escaneo QR Dinámico</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-lg bg-surface-container-low border border-outline-variant/30 hover:border-outline text-on-surface-variant hover:text-on-surface transition-all text-label-md font-label-md" type="button">
+<span class="material-symbols-outlined text-headline-md" data-icon="bluetooth_searching">bluetooth_searching</span>
+<span>Bluetooth BLE</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-lg bg-surface-container-low border border-outline-variant/30 hover:border-outline text-on-surface-variant hover:text-on-surface transition-all text-label-md font-label-md" type="button">
+<span class="material-symbols-outlined text-headline-md" data-icon="badge">badge</span>
+<span>Búsqueda Manual / DNI</span>
+</button>
+</div>
+</div>
+<!-- Input de código / localizador con escáner integrado -->
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-md font-label-md">
+<label class="text-on-surface-variant" for="locator-input">Código Criptográfico / Token Localizador</label>
+<span class="text-outline font-label-sm">Formato: #PL-XXXX-XXX</span>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-3 text-outline">
+<span class="material-symbols-outlined text-body-lg" data-icon="key">key</span>
+</div>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-lg pl-10 pr-28 py-3 text-on-surface font-label-md text-label-md focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors" id="locator-input" placeholder="Escanee o tipee el código de entrada..." type="text" value="PL-8921-VIP-e5a9f24c"/>
+<div class="absolute right-2 flex items-center gap-1">
+<button class="px-2.5 py-1.5 rounded-md bg-surface-container-high border border-outline-variant/40 hover:bg-surface-variant text-on-surface text-label-sm font-label-sm flex items-center gap-1 transition-colors" title="Activar láser de pistola" type="button">
+<span class="material-symbols-outlined text-body-md text-primary" data-icon="barcode_scanner">barcode_scanner</span>
+                    Láser
+                  </button>
+</div>
+</div>
+</div>
+<!-- Botón principal de validación -->
+<div class="pt-2 flex items-center justify-between gap-4">
+<button class="w-full h-12 bg-primary-container hover:bg-inverse-primary text-on-primary font-body-md font-semibold rounded-lg px-6 flex items-center justify-center gap-2.5 transition-all shadow-md active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-headline-md" data-icon="task_alt">task_alt</span>
+                Procesar Entrada (Validar Token)
+              </button>
+<button class="h-12 px-4 rounded-lg bg-surface-container-low border border-outline-variant/30 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center" title="Limpiar Entrada" type="button">
+<span class="material-symbols-outlined text-headline-md" data-icon="backspace">backspace</span>
+</button>
+</div>
+</div>
+<!-- INDICADOR DE DECISIÓN & TELEMETRÍA DE ESTADO EN TIEMPO REAL -->
+<div class="bg-surface-container rounded-2xl p-6 border border-outline-variant/30 shadow-md space-y-4">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-3">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-headline-md" data-icon="hub">hub</span>
+<h3 class="text-headline-md font-headline-md text-on-surface font-semibold">Motor de Decisión Multi-Criterio</h3>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary/15 text-secondary border border-secondary/40 text-label-sm font-label-sm font-bold flex items-center gap-1.5 animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                AUTORIZADO PARA APERTURA
+              </span>
+</div>
+<!-- Checklist de Validaciones Criptográficas y de Negocio -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+<div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-headline-md" data-icon="security_update_good">security_update_good</span>
+<div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">HMAC-SHA256 Token</p>
+<span class="text-label-sm font-label-sm text-outline">Firma criptográfica válida</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded bg-secondary/20 text-secondary border border-secondary/30">VÁLIDO</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-headline-md" data-icon="group">group</span>
+<div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Control de Aforo</p>
+<span class="text-label-sm font-label-sm text-outline">Sector VIP (73% ocupación)</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded bg-secondary/20 text-secondary border border-secondary/30">DENTRO LÍMITE</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-headline-md" data-icon="replay">replay</span>
+<div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Anti-Replay Protection</p>
+<span class="text-label-sm font-label-sm text-outline">Entrada única sin reutilización</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded bg-secondary/20 text-secondary border border-secondary/30">UN SOLO USO</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-headline-md" data-icon="verified">verified</span>
+<div>
+<p class="text-body-sm font-body-sm font-medium text-on-surface">Regla de Edad (+18)</p>
+<span class="text-label-sm font-label-sm text-outline">Documento verificado (26 años)</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 rounded bg-secondary/20 text-secondary border border-secondary/30">CUMPLE</span>
+</div>
+</div>
+<!-- Telemetría de BLE Handshake -->
+<div class="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-between text-label-sm font-label-sm">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-body-md" data-icon="podcasts">podcasts</span>
+<span>Proximidad BLE Confirmada: RSSI -54 dBm (Distancia óptima 0.45m)</span>
+</div>
+<span class="text-primary font-semibold">T-Delta: 18ms</span>
+</div>
+</div>
+<!-- FORMULARIO TAREA 2: DENEGAR ACCESO Y NOTIFICAR AL CLIENTE (CONTINGENCIA) -->
+<div class="bg-surface-container rounded-2xl p-6 border border-error/30 shadow-md space-y-4 relative overflow-hidden">
+<div class="flex items-center justify-between border-b border-error/20 pb-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error-container text-on-error-container flex items-center justify-center font-bold text-headline-md">
+<span class="material-symbols-outlined text-headline-md" data-icon="gpp_bad">gpp_bad</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface font-semibold">Tarea 2: Denegar acceso y notificar al cliente</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Protocolo de contingencia y rechazo formal en caso de anomalía.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error/20 text-error border border-error/40 text-label-sm font-label-sm font-semibold">
+                CONTINGENCIA
+              </span>
+</div>
+<!-- Motivo de Denegación (Select Dropdown) -->
+<div class="space-y-1.5">
+<label class="text-label-md font-label-md text-on-surface-variant block" for="rejection-reason">Motivo Oficial de Denegación</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-lg p-2.5 text-on-surface font-body-md text-body-md focus:border-error focus:ring-1 focus:ring-error focus:outline-none" id="rejection-reason">
+<option value="already_used">Entrada ya utilizada (Duplicada / Re-entry sin pase de salida)</option>
+<option value="invalid_token">Token criptográfico inválido o caducado</option>
+<option value="age_restriction">Restricción de edad menor a +18</option>
+<option value="revoked">Entrada revocada por organización / Fraude detectado</option>
+</select>
+</div>
+<!-- Campo de notas operativas adicionales -->
+<div class="space-y-1.5">
+<label class="text-label-md font-label-md text-on-surface-variant block" for="operational-notes">Notas Operativas para Auditoría de Seguridad</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-lg p-2.5 text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:border-error focus:ring-1 focus:ring-error focus:outline-none" id="operational-notes" placeholder="Indicar detalles del portador, incidencia con staff o estado del soporte físico..." rows="2"></textarea>
+</div>
+<!-- Selector de canal de notificación al cliente -->
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface-variant block">Canal de Notificación Inmediata al Portador</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/30 cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="rounded border-outline text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-label-sm font-label-sm text-on-surface">SMS Instantáneo</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/30 cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="rounded border-outline text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-label-sm font-label-sm text-on-surface">Push PassLive</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/30 cursor-pointer hover:bg-surface-container-high transition-colors">
+<input class="rounded border-outline text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-label-sm font-label-sm text-on-surface">Imprimir Ticket</span>
+</label>
+</div>
+</div>
+<!-- Botones de Acción -->
+<div class="pt-2 flex flex-col sm:flex-row items-center justify-end gap-3">
+<button class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-surface-container-low border border-outline-variant/40 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface text-label-md font-label-md transition-colors" type="button">
+                Registrar Incidencia y Expulsar de Cola
+              </button>
+<button class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-error-container text-on-error-container hover:bg-error hover:text-on-error border border-error/40 text-label-md font-label-md font-semibold transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-body-md" data-icon="block">block</span>
+                Denegar Acceso y Emitir Notificación
+              </button>
+</div>
+</div>
+</div>
+<!-- COLUMNA DERECHA (5 COLS): PANEL DE ACREDITACIÓN, TELEMETRÍA Y AUDIT FEED -->
+<div class="lg:col-span-5 space-y-6">
+<!-- FICHA DEL ASISTENTE Y ENTRADA DETECTADA -->
+<div class="bg-surface-container rounded-2xl p-6 border border-outline-variant/30 shadow-md space-y-5">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-headline-md" data-icon="badge">badge</span>
+<h3 class="text-headline-md font-headline-md text-on-surface font-semibold">Credencial en Lectura</h3>
+</div>
+<!-- Badge VIP Gold -->
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-container/40 text-tertiary border border-tertiary/40 text-label-sm font-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-body-sm text-tertiary" data-icon="star">star</span>
+                VIP GOLD ACCESS
+              </span>
+</div>
+<!-- Card Visual de Pase con formato ticket stub -->
+<div class="rounded-xl bg-surface-container-lowest border border-outline-variant/40 p-4 space-y-4 relative">
+<div class="flex items-start gap-3.5">
+<div class="relative">
+<img class="w-14 h-14 rounded-xl object-cover border-2 border-tertiary/60" data-alt="A portrait of an event attendee in late twenties with modern festival style, ambient dark green stage backlighting, natural expression, ultra-clear digital photography portrait shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB96cQZtBf1-8mNm8Km0jarMdYaPjX9fikAOvdWQc6uJt6E_lZpuVXLNHPNhIVWqVonUFTKwsuIOdGR8G0d9Ms1Rdlfqo-zjzl-kiGn4Fm5Nvjf9fLAmWzPLZFmS51AHLGm_6Nc8SNGEv90PN9Sd1Xn3PL6xI54uxD3DKA9mRXZA5FmJdEluUkT6A52NtLNGz48EeHRLLd4qxNv6GZnByVFELqxD9gEWLW0aGf6xyoGznpCqPkeH54e4ya97Gltgt3NRISEExVPWoGr"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-secondary border-2 border-surface-container-lowest flex items-center justify-center text-[8px] text-on-secondary font-bold">✓</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h4 class="text-headline-md font-headline-md font-bold text-on-surface truncate">Valentina Montes de Oca</h4>
+</div>
+<p class="text-label-md font-label-md text-primary mt-0.5">#PL-8921-VIP</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Acceso VIP Front Stage + Barra Libre</p>
+</div>
+</div>
+<!-- Malla de Metadatos de la Entrada -->
+<div class="pt-3 border-t border-outline-variant/20 grid grid-cols-2 gap-3 text-label-sm font-label-sm">
+<div>
+<span class="text-outline block">CONTROL DE EDAD</span>
+<span class="text-on-surface font-semibold">26 años (Verificado NFC)</span>
+</div>
+<div>
+<span class="text-outline block">HORA EMISIÓN</span>
+<span class="text-on-surface font-semibold">21:42:08 UTC+2</span>
+</div>
+<div>
+<span class="text-outline block">SECTOR DE ENTRADA</span>
+<span class="text-on-surface font-semibold">Palco Imperial A-12</span>
+</div>
+<div>
+<span class="text-outline block">COMPAÑÍA DE SEGURO</span>
+<span class="text-on-surface font-semibold">Cobertura PassLive Plus</span>
+</div>
+</div>
+<!-- Simulación de corte de ticket stub -->
+<div class="pt-3 border-t border-dashed border-outline-variant/40 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-outline font-label-md">PAYLOAD HASH:</span>
+<span class="text-secondary font-label-md">0x9F4A...88E1C</span>
+</div>
+</div>
+<!-- Estado de Torniquete Físico -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-secondary/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-lg" data-icon="lock_open_right">lock_open_right</span>
+</div>
+<div>
+<p class="text-body-sm font-body-sm font-bold text-on-surface">Torniquete #04 - Desbloqueado</p>
+<span class="text-label-sm font-label-sm text-secondary">Apertura confirmada durante 8s</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-headline-md font-headline-md font-bold text-secondary">06s</span>
+<span class="block text-label-sm font-label-sm text-outline">Restante</span>
+</div>
+</div>
+</div>
+<!-- REGISTRO DE AUDITORÍA DE VALIDACIONES RECIENTES (AUDIT FEED) -->
+<div class="bg-surface-container rounded-2xl p-6 border border-outline-variant/30 shadow-md space-y-4">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-headline-md" data-icon="history">history</span>
+<h3 class="text-headline-md font-headline-md text-on-surface font-semibold">Últimas Validaciones en Acceso</h3>
+</div>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Ver Audit Completo</a>
+</div>
+<!-- Tabla Compacta de Auditoría -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 text-label-sm font-label-sm text-outline">
+<th class="pb-2 font-medium">Hora</th>
+<th class="pb-2 font-medium">Método</th>
+<th class="pb-2 font-medium">Localizador</th>
+<th class="pb-2 font-medium">Tipo</th>
+<th class="pb-2 font-medium text-right">Resultado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/15 text-label-sm font-label-sm">
+<!-- Validación 1 -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 font-label-md text-on-surface-variant">21:42:15</td>
+<td class="py-2.5">
+<span class="inline-flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-body-sm" data-icon="qr_code">qr_code</span>
+                        QR 2D
+                      </span>
+</td>
+<td class="py-2.5 font-label-md text-on-surface">#PL-8921-VIP</td>
+<td class="py-2.5 text-on-surface-variant font-body-sm">VIP Gold</td>
+<td class="py-2.5 text-right">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 text-label-sm font-semibold">Válida</span>
+</td>
+</tr>
+<!-- Validación 2 -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 font-label-md text-on-surface-variant">21:42:01</td>
+<td class="py-2.5">
+<span class="inline-flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-body-sm" data-icon="bluetooth">bluetooth</span>
+                        BLE
+                      </span>
+</td>
+<td class="py-2.5 font-label-md text-on-surface">#PL-8920-GEN</td>
+<td class="py-2.5 text-on-surface-variant font-body-sm">General A</td>
+<td class="py-2.5 text-right">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 text-label-sm font-semibold">Válida</span>
+</td>
+</tr>
+<!-- Validación 3 (Denegada) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-error/5">
+<td class="py-2.5 font-label-md text-error">21:41:48</td>
+<td class="py-2.5">
+<span class="inline-flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-body-sm" data-icon="qr_code">qr_code</span>
+                        QR 2D
+                      </span>
+</td>
+<td class="py-2.5 font-label-md text-error">#PL-8919-GEN</td>
+<td class="py-2.5 text-on-surface-variant font-body-sm">Pista General</td>
+<td class="py-2.5 text-right">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container border border-error/40 text-label-sm font-semibold">Denegada</span>
+</td>
+</tr>
+<!-- Validación 4 -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 font-label-md text-on-surface-variant">21:41:30</td>
+<td class="py-2.5">
+<span class="inline-flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-body-sm" data-icon="bluetooth">bluetooth</span>
+                        BLE
+                      </span>
+</td>
+<td class="py-2.5 font-label-md text-on-surface">#PL-8918-STA</td>
+<td class="py-2.5 text-on-surface-variant font-body-sm">Staff / Crew</td>
+<td class="py-2.5 text-right">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 text-label-sm font-semibold">Válida</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pt-2 text-center">
+<span class="text-label-sm font-label-sm text-outline">Transmisión de eventos sincronizada con el clúster central (TLS 1.3)</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
