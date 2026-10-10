@@ -7,6 +7,81 @@ Generado a partir de los 8 diagramas **BPMN** y las 8 **pantallas Stitch** del r
 
 ---
 
+## 🚀 Inicio rápido (para probar la demo)
+
+> Copia y pega los bloques en orden. Solo necesitas **Git** y **Node.js ≥ 20**.
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/thorpette/eventosmax.git
+cd eventosmax
+```
+
+### 2. Instalar dependencias (un único comando)
+
+```bash
+npm run install:all
+```
+
+> Equivale a `npm install` en `passlive/server` y `passlive/web`. Tarda 1–3 minutos.
+
+### 3. (Opcional) Cargar datos de demostración
+
+```bash
+npm run seed
+```
+
+Crea un local, un evento **+18** con dos tipologías (General 45 € / VIP 110 €) y dos clientes.
+Imprime los IDs creados. Repetible: si ya existen, no duplica nada.
+
+### 4. Arrancar API + frontend a la vez
+
+```bash
+npm run demo
+```
+
+Abre en el navegador: **<http://localhost:5173>**
+
+| Servicio | URL |
+|---|---|
+| Frontend | <http://localhost:5173> |
+| API (health) | <http://localhost:4000/api/health> |
+| API key (si llamas a la API a mano) | cabecera `x-api-key: passlive-dev-key` |
+
+> `npm run demo` arranca ambos procesos en ventanas/terminales del mismo comando.
+> Si prefieres dos terminales separadas: `npm run dev:server` (terminal 1) y
+> `npm run dev:web` (terminal 2).
+
+### 5. Recorrido de prueba en 2 minutos
+
+1. **`/`** → selecciona el evento → añade 2 General + 1 VIP → elige cliente →
+   **«Completar Compra y Emitir Pases»** → verás 3 QR emitidos (212,00 €).
+2. **`/validacion`** → pega uno de los QR emitidos → **«Validar entrada»** →
+   **«Registrar acceso»** → panel con `RESULTADO: ALLOWED`.
+3. **`/restricciones`** → pega el ID de una entrada (o el QR en `/entradas`) →
+   **«Verificar edad y tipo»** → ves los tres gateways del BPMN.
+4. **`/eventos`, `/locales`, `/clientes`, `/entradas`** → ABM completo.
+
+### 6. (Opcional) Pruebas
+
+```bash
+npm test    # 25 backend + 2 frontend
+```
+
+### Solución de problemas
+
+| Síntoma | Causa / solución |
+|---|---|
+| `EADDRINUSE` en el puerto 4000 o 5173 | Otro proceso usa el puerto: `netstat -ano \| findstr :4000` y ciérralo, o cambia `PORT` en `passlive/server/.env` |
+| `command not found: git` / `npm` | Instala [Git](https://git-scm.com) y [Node.js ≥ 20 LTS](https://nodejs.org) y reinicia la terminal |
+| Frontend no carga datos | Comprueba que la API está en pie: <http://localhost:4000/api/health> debe devolver `{"status":"ok"}` |
+| «API key inválida o ausente» | Usa `x-api-key: passlive-dev-key` (o la que fijes en `API_KEY`) |
+| Quiero probar desde el móvil en la misma red | Arranca el frontend con `npx vite --host` dentro de `passlive/web` y abre `http://TU_IP_LOCAL:5173` |
+
+---
+
+
 ## Estructura del repositorio
 
 ```
@@ -76,7 +151,9 @@ implementado sobre el puerto `Repository` del dominio (ver *SUPUESTOS*).
 
 ---
 
-## Pasos de ejecución
+## Pasos de ejecución (detallado)
+
+> Los comandos siguientes se ejecutan desde `passlive/` (el atajo `npm run demo` de arriba es el más rápido).
 
 ```bash
 # 1. Instalar dependencias
@@ -89,11 +166,11 @@ cp server/.env.example server/.env     # valores por defecto válidos
 # 3. (Opcional) Datos de demostración: local + evento +18 + clientes
 cd ../server && npm run seed           # imprime los IDs creados
 
-# 4. Arrancar la API (puerto 4000)
-cd ../server && npm run dev
+# 4. Arrancar API (puerto 4000) — terminal 1
+npm run dev:server
 
-# 5. Arrancar el frontend (puerto 5173, proxy /api → 4000)
-cd ../web && npm run dev
+# 5. Arrancar el frontend (puerto 5173, proxy /api → 4000) — terminal 2
+npm run dev:web
 ```
 
 Abrir <http://localhost:5173>.
