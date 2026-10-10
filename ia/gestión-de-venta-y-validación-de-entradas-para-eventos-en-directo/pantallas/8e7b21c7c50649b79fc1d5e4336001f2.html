@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PassLive Console · Gestión de Eventos (Process_1)</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Typography Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Theme Ingestion -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#472a00",
+            "surface-bright": "#3c3837",
+            "tertiary": "#ffb95f",
+            "surface-variant": "#373433",
+            "surface-container-high": "#2c2928",
+            "primary-fixed": "#b1f0ce",
+            "on-primary-fixed-variant": "#0e5138",
+            "on-secondary-fixed-variant": "#334f00",
+            "on-primary-container": "#a8e7c5",
+            "inverse-on-surface": "#33302e",
+            "error": "#ffb4ab",
+            "secondary-container": "#83c300",
+            "primary": "#95d4b3",
+            "tertiary-fixed": "#ffddb8",
+            "on-primary": "#003824",
+            "outline-variant": "#404943",
+            "on-error": "#690005",
+            "surface-dim": "#151312",
+            "tertiary-fixed-dim": "#ffb95f",
+            "on-surface": "#e8e1df",
+            "on-error-container": "#ffdad6",
+            "surface-container-highest": "#373433",
+            "error-container": "#93000a",
+            "background": "#151312",
+            "tertiary-container": "#865400",
+            "on-primary-fixed": "#002114",
+            "on-tertiary-container": "#ffd29e",
+            "on-surface-variant": "#bfc9c1",
+            "inverse-surface": "#e8e1df",
+            "surface-tint": "#95d4b3",
+            "on-tertiary-fixed": "#2a1700",
+            "secondary-fixed-dim": "#98da27",
+            "surface-container": "#221f1e",
+            "primary-fixed-dim": "#95d4b3",
+            "surface-container-low": "#1d1b1a",
+            "inverse-primary": "#2c694e",
+            "on-tertiary-fixed-variant": "#653e00",
+            "on-background": "#e8e1df",
+            "on-secondary-container": "#304b00",
+            "secondary": "#9ddf2e",
+            "outline": "#8a938c",
+            "secondary-fixed": "#b2f746",
+            "surface-container-lowest": "#100e0d",
+            "primary-container": "#2d6a4f",
+            "surface": "#151312",
+            "on-secondary-fixed": "#121f00",
+            "on-secondary": "#213600"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "margin": "1rem",
+            "space-sm": "0.5rem",
+            "space-xxs": "0.125rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-3xl": "4rem",
+            "space-2xl": "3rem",
+            "gutter": "1rem",
+            "gutter-desktop": "2rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter-tablet": "1.5rem",
+            "margin-desktop": "3rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Inter"],
+            "code-md": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "code-lg": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "code-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "code-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "code-lg": ["20px", { "lineHeight": "26px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- ==================== 1. CABECERA FIJA (TOP BAR) ==================== -->
+<header class="sticky top-0 z-50 h-16 bg-surface-container-low border-b border-outline-variant shadow-none">
+<div class="flex items-center justify-between px-space-lg w-full max-w-[1440px] mx-auto h-full">
+<!-- Left Anchor & Title Brand -->
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-white flex items-center justify-center shadow-sm ring-2 ring-emerald-500/20 shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">PassLive Console</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">·</span>
+<span class="font-code-sm text-code-sm text-primary font-medium tracking-wide">Gestión de Eventos (Process_1)</span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5">
+<span class="inline-flex items-center gap-1.5 font-code-sm text-code-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Sistema Operativo BLE Activo
+            </span>
+<span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-medium">v1.2 Verde Mate</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links from Shared Components -->
+<nav class="hidden xl:flex items-center gap-space-lg h-full">
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-4 transition-colors" href="#telemetria">Telemetría Ingress</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-4 transition-colors" href="#aforos">Control de Aforos</a>
+<a class="text-primary border-b-2 border-primary font-label-md text-label-md py-4" href="#validacion">Validación BLE</a>
+</nav>
+<!-- Right Trailing Cluster -->
+<div class="flex items-center gap-space-sm">
+<!-- Hardware / Action Icons from Shared Components -->
+<div class="hidden sm:flex items-center gap-1 border-r border-outline-variant pr-space-sm mr-space-xs">
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" title="Wifi Tethering BLE">
+<span class="material-symbols-outlined text-[20px]">wifi_tethering</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors relative" title="Notificaciones Ingress">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors" onclick="document.documentElement.classList.toggle('dark')" title="Alternar Modo Oscuro/Claro">
+<span class="material-symbols-outlined text-[20px]">dark_mode</span>
+</button>
+</div>
+<!-- Trailing Secondary / Primary Actions -->
+<button class="hidden lg:inline-flex items-center gap-1.5 px-space-sm py-1.5 rounded-lg border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+          Modo Autónomo
+        </button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold border border-primary hover:bg-inverse-primary hover:text-white transition-all active:scale-[0.98]" onclick="document.getElementById('form-alta').scrollIntoView({ behavior: 'smooth' })">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+          Nuevo Evento
+        </button>
+<!-- User / Shift Badge -->
+<div class="flex items-center gap-2 pl-space-xs">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center font-code-sm text-code-sm font-bold text-primary" title="Avatar de Operador Principal de Turno y Control de Acceso">
+            OP-42
+          </div>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== BODY WRAPPER (SIDEBAR + MAIN CANVAS) ==================== -->
+<div class="w-full max-w-[1440px] mx-auto px-space-md sm:px-space-lg py-space-lg flex gap-space-lg">
+<!-- ==================== 2. NAVEGACIÓN LATERAL (SIDEBAR) ==================== -->
+<aside class="w-64 shrink-0 hidden md:block sticky top-20 self-start">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col justify-between min-h-[calc(100vh-6.5rem)]">
+<div class="space-y-space-md">
+<!-- Terminal Identification -->
+<div class="pb-space-sm border-b border-outline-variant">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Gestión de Eventos</h2>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant mt-0.5">Consola Terminal P1-04</p>
+</div>
+<!-- Grupos de Navegación: FLUJO DE OPERACIONES -->
+<div>
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider block px-space-sm mb-space-xs font-semibold">Flujo de Operaciones</span>
+<nav class="space-y-1">
+<!-- Item Activo: Seleccionar Operación -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md border-l-4 border-secondary transition-colors" href="#selector-operacion">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>Seleccionar Operación</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#form-alta">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Alta de Evento</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#modulo-consulta">
+<span class="material-symbols-outlined text-[18px]">manage_search</span>
+<span>Consulta de Evento</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#modulo-edicion">
+<span class="material-symbols-outlined text-[18px]">edit_calendar</span>
+<span>Edición de Evento</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#modulo-baja">
+<span class="material-symbols-outlined text-[18px]">event_busy</span>
+<span>Baja de Evento</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#historial">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+<span>Historial y Auditoría</span>
+</a>
+</nav>
+</div>
+<!-- Grupos de Navegación: SISTEMA Y HARDWARE -->
+<div>
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider block px-space-sm mb-space-xs font-semibold">Sistema y Hardware</span>
+<nav class="space-y-1">
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#diagnostico">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+<span>Diagnóstico BLE</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md rounded-lg transition-colors" href="#ajustes">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Ajustes Hardware</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Footer Card: ADN de Diseño / Estado Gateway -->
+<div class="mt-space-md space-y-space-sm">
+<div class="p-3 rounded-xl bg-surface-container border border-outline-variant text-xs space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-primary font-bold">Process_1 · BPMN</span>
+<span class="px-1.5 py-0.5 rounded bg-emerald-950/80 text-emerald-400 font-mono text-[10px] border border-emerald-800">ONLINE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">
+              Gateway de decisión: <strong class="text-on-surface">¿Qué operación?</strong> evaluando bifurcación condicional de ingress.
+            </p>
+<div class="pt-1.5 border-t border-outline-variant/60 flex items-center justify-between text-[11px] font-mono text-outline">
+<span>BLE Sync: -44 dBm</span>
+<span class="text-secondary">QR 2D: OK</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg border border-outline-variant hover:border-error hover:bg-error-container/20 text-on-surface-variant hover:text-error text-xs font-medium transition-colors">
+<span class="material-symbols-outlined text-[16px]">power_settings_new</span>
+            Desconectar Sesión
+          </button>
+</div>
+</div>
+</aside>
+<!-- ==================== 3. ÁREA PRINCIPAL DE CONTENIDO ==================== -->
+<main class="flex-1 min-w-0 space-y-space-xl">
+<!-- ==================== STEPPER / FLUJO BPMN VISUAL ==================== -->
+<section class="bg-surface-container-low border border-outline-variant rounded-xl p-space-md">
+<div class="flex items-center justify-between mb-space-sm pb-space-xs border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Workflow BPMN Activo · Process_1: Gestión de Evento</h3>
+</div>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant">
+            Engine v1.2 · Sync Mode
+          </span>
+</div>
+<!-- Diagram Nodes Flow -->
+<div class="overflow-x-auto py-2">
+<div class="flex items-center min-w-[820px] justify-between text-xs">
+<!-- Start Event -->
+<div class="flex flex-col items-center text-center">
+<div class="w-9 h-9 rounded-full bg-emerald-950 border-2 border-emerald-500 flex items-center justify-center text-emerald-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</div>
+<span class="font-code-sm text-code-sm mt-1 text-on-surface font-medium">StartEvent_1</span>
+<span class="text-[11px] text-on-surface-variant">Inicio Gestión</span>
+<span class="mt-1 font-mono text-[9px] px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">Completado</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary-container mx-1"></div>
+<!-- Task_1 -->
+<div class="flex flex-col items-center text-center">
+<div class="px-2.5 py-1.5 rounded-lg bg-primary-container border-2 border-secondary text-on-primary-container font-semibold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">fact_check</span>
+<span>Task_1</span>
+</div>
+<span class="text-[11px] text-secondary font-medium mt-1">Seleccionar Operación</span>
+<span class="mt-1 font-mono text-[9px] px-1.5 py-0.2 rounded bg-secondary-container/20 text-secondary border border-secondary">En curso</span>
+</div>
+<div class="h-0.5 flex-1 bg-outline-variant mx-1"></div>
+<!-- Gateway_1 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-8 h-8 rotate-45 bg-surface-container-high border-2 border-tertiary flex items-center justify-center text-tertiary shadow-sm">
+<span class="rotate-[-45deg] material-symbols-outlined text-[16px]">call_split</span>
+</div>
+<span class="font-code-sm text-code-sm mt-1 text-tertiary font-medium">Gateway_1</span>
+<span class="text-[11px] text-on-surface-variant">¿Qué operación?</span>
+<span class="mt-1 font-mono text-[9px] px-1.5 py-0.2 rounded bg-tertiary-container/30 text-tertiary border border-tertiary">Bifurcación</span>
+</div>
+<div class="h-0.5 flex-1 bg-outline-variant mx-1"></div>
+<!-- Ramas Paralelas / Opciones -->
+<div class="flex flex-col gap-1 py-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-[10px] font-mono text-primary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Task_2: Alta
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-[10px] font-mono text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Task_3: Consulta
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-[10px] font-mono text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Task_4: Edición
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-[10px] font-mono text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Task_5: Baja
+              </span>
+</div>
+<div class="h-0.5 flex-1 bg-outline-variant mx-1"></div>
+<!-- Gateway_2 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-8 h-8 rotate-45 bg-surface-container-high border border-outline-variant flex items-center justify-center text-on-surface-variant shadow-sm">
+<span class="rotate-[-45deg] material-symbols-outlined text-[16px]">merge</span>
+</div>
+<span class="font-code-sm text-code-sm mt-1 text-on-surface-variant font-medium">Gateway_2</span>
+<span class="text-[11px] text-on-surface-variant">Reunión flujos</span>
+<span class="mt-1 font-mono text-[9px] px-1.5 py-0.2 rounded bg-surface-container-high text-outline border border-outline-variant">Pendiente</span>
+</div>
+<div class="h-0.5 flex-1 bg-outline-variant mx-1"></div>
+<!-- End Event -->
+<div class="flex flex-col items-center text-center">
+<div class="w-9 h-9 rounded-full bg-surface-container-high border-2 border-outline-variant flex items-center justify-center text-on-surface-variant shadow-sm">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</div>
+<span class="font-code-sm text-code-sm mt-1 text-on-surface-variant font-medium">EndEvent_1</span>
+<span class="text-[11px] text-on-surface-variant">Fin Gestión</span>
+<span class="mt-1 font-mono text-[9px] px-1.5 py-0.2 rounded bg-surface-container-high text-outline border border-outline-variant">Pendiente</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== HERO SECTION ==================== -->
+<section class="bg-gradient-to-br from-emerald-900 via-stone-900 to-stone-950 text-white rounded-2xl p-8 border border-emerald-800/40 shadow-xl relative overflow-hidden">
+<!-- Subtle radar watermark -->
+<div class="absolute -right-12 -top-12 w-64 h-64 border border-emerald-500/10 rounded-full pointer-events-none flex items-center justify-center">
+<div class="w-48 h-48 border border-emerald-500/15 rounded-full flex items-center justify-center">
+<div class="w-32 h-32 border border-emerald-500/20 rounded-full"></div>
+</div>
+</div>
+<div class="relative z-10 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 font-mono text-xs tracking-wider mb-4">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            PROCESO PRINCIPAL · WORKFLOW ACTIVO
+          </div>
+<h1 class="font-headline-xl text-headline-xl text-white tracking-tight font-bold mb-3">
+            Gestión Integral de Eventos y Espectáculos
+          </h1>
+<p class="font-body-lg text-body-lg text-stone-300 leading-relaxed mb-6">
+            Módulo central de aprovisionamiento de salas de concierto, arenas y discotecas. Orqueste cupos de aforo, parámetros de control perimetral y políticas de verificación dual (BLE pasivo por proximidad + QR dinámico criptográfico 2D) con persistencia auditada.
+          </p>
+<!-- Grid de Métricas Técnicas (4 Columnas) -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm pt-4 border-t border-emerald-800/40">
+<div class="p-3 rounded-xl bg-stone-900/60 border border-stone-800">
+<span class="block font-code-sm text-code-sm text-stone-400">Eventos Activos</span>
+<span class="font-code-lg text-code-lg text-white font-bold">18</span>
+<span class="block text-[11px] text-emerald-400 font-mono mt-0.5">+3 en cola hoy</span>
+</div>
+<div class="p-3 rounded-xl bg-stone-900/60 border border-stone-800">
+<span class="block font-code-sm text-code-sm text-stone-400">Validación BLE</span>
+<span class="font-code-lg text-code-lg text-emerald-400 font-bold">99.4%</span>
+<span class="block text-[11px] text-stone-400 font-mono mt-0.5">Media 12ms ping</span>
+</div>
+<div class="p-3 rounded-xl bg-stone-900/60 border border-stone-800">
+<span class="block font-code-sm text-code-sm text-stone-400">Aforo Promedio</span>
+<span class="font-code-lg text-code-lg text-secondary font-bold">84%</span>
+<span class="block text-[11px] text-stone-400 font-mono mt-0.5">24.580 asistentes</span>
+</div>
+<div class="p-3 rounded-xl bg-stone-900/60 border border-stone-800">
+<span class="block font-code-sm text-code-sm text-stone-400">Restricción +18</span>
+<span class="font-code-lg text-code-lg text-amber-400 font-bold">14 Salas</span>
+<span class="block text-[11px] text-stone-400 font-mono mt-0.5">Filtro DNI activo</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== PUNTO DE DECISIÓN: SELECTOR DE OPERACIÓN ==================== -->
+<section class="space-y-space-sm" id="selector-operacion">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-code-sm text-code-sm text-primary font-bold uppercase tracking-wider">Gateway_1: Bifurcación Condicional</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">¿Qué operación desea ejecutar?</h2>
+</div>
+<span class="text-xs font-mono text-on-surface-variant bg-surface-container px-2.5 py-1 rounded border border-outline-variant">
+            Estado: Selección de Ruta
+          </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1: Alta -->
+<div class="cursor-pointer group p-space-md rounded-xl bg-surface-container border-2 border-primary hover:border-secondary hover:bg-surface-container-high transition-all active:scale-[0.99] relative" onclick="document.getElementById('form-alta').scrollIntoView({ behavior: 'smooth' })">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-space-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-primary transition-colors">Alta de Evento</h3>
+<span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-semibold">Task_2</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Crear nuevo evento en recinto físico o virtual con asignación de zonas, cupos máximos y filtros perimetrales.
+            </p>
+<div class="mt-4 pt-2 border-t border-outline-variant flex items-center justify-between text-xs text-primary font-semibold">
+<span>Configurar formulario</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2: Consulta -->
+<div class="cursor-pointer group p-space-md rounded-xl bg-surface-container border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all active:scale-[0.99]" onclick="document.getElementById('modulo-consulta').scrollIntoView({ behavior: 'smooth' })">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface flex items-center justify-center mb-space-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">manage_search</span>
+</div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-primary transition-colors">Consulta de Evento</h3>
+<span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-outline">Task_3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Buscar, filtrar y auditar métricas de asistencia, telemetría de puertas y ratios de tickets escaneados en directo.
+            </p>
+<div class="mt-4 pt-2 border-t border-outline-variant flex items-center justify-between text-xs text-on-surface-variant group-hover:text-primary font-semibold">
+<span>Explorar catálogo</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 3: Edición -->
+<div class="cursor-pointer group p-space-md rounded-xl bg-surface-container border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all active:scale-[0.99]" onclick="document.getElementById('modulo-edicion').scrollIntoView({ behavior: 'smooth' })">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface flex items-center justify-center mb-space-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">edit_calendar</span>
+</div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-primary transition-colors">Edición de Evento</h3>
+<span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-outline">Task_4</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Modificar cupos de sala, umbrales de aforo de seguridad, precios por tramo y rangos de sincronización Bluetooth.
+            </p>
+<div class="mt-4 pt-2 border-t border-outline-variant flex items-center justify-between text-xs text-on-surface-variant group-hover:text-primary font-semibold">
+<span>Actualizar parámetros</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Card 4: Baja -->
+<div class="cursor-pointer group p-space-md rounded-xl bg-surface-container border border-outline-variant hover:border-error hover:bg-surface-container-high transition-all active:scale-[0.99]" onclick="document.getElementById('modulo-baja').scrollIntoView({ behavior: 'smooth' })">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-error flex items-center justify-center mb-space-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">event_busy</span>
+</div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-error transition-colors">Baja de Evento</h3>
+<span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high text-outline">Task_5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Desactivar evento en tornos de acceso, revocar firmas de pases en carteras móviles e iniciar auditoría de cancelación.
+            </p>
+<div class="mt-4 pt-2 border-t border-outline-variant flex items-center justify-between text-xs text-on-surface-variant group-hover:text-error font-semibold">
+<span>Gestión de cese</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== FORMULARIO DE ALTA DE EVENTO (TASK_2) ==================== -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg space-y-space-lg" id="form-alta">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-space-sm border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Alta de Evento · Configuración Operativa</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Task_2: Registro canónico de metadatos, recinto físico y políticas criptográficas de acceso.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-sm text-code-sm text-outline">ID Sugerido:</span>
+<span class="font-code-md text-code-md px-2.5 py-1 rounded bg-surface-container text-primary border border-outline-variant font-bold">EVT-2025-BCN-094</span>
+</div>
+</div>
+<form class="space-y-space-lg" onsubmit="event.preventDefault(); alert('Evento creado y propagado a los gateways BLE de la sala.');">
+<!-- 3 Columns Architecture -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Columna A: Datos Generales del Evento -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-space-md space-y-space-md">
+<div class="flex items-center gap-2 pb-2 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">A. Datos Generales</h3>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Nombre del Evento</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" type="text" value="Nocturna Sound Wave: Festival Electrónico"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Categoría / Tipo de Espectáculo</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Festival Masivo Nocturno (Outdoor/Indoor)</option>
+<option>Concierto Live &amp; Tour Acústico</option>
+<option>Clubbing &amp; Sesión Electrónica de Sala</option>
+<option>Gala Teatral y Espectáculo Escénico</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Fecha de Inicio</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-2.5 py-2 font-code-sm text-code-sm text-on-surface focus:border-primary outline-none" type="date" value="2025-05-18"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Hora de Apertura</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-2.5 py-2 font-code-sm text-code-sm text-on-surface focus:border-primary outline-none" type="time" value="21:00"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Cierre Previsto de Ingress</label>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-2.5 py-2 font-code-sm text-code-sm text-on-surface focus:border-primary outline-none" type="time" value="04:30"/>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Tornos rechazan reingreso post-cierre</span>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Código de Referencia ERP</label>
+<input class="w-full font-code-md text-code-md bg-surface-container border border-outline-variant rounded-lg px-3 py-2 text-primary focus:border-primary outline-none uppercase font-mono" type="text" value="ERP-NOCT-5582"/>
+</div>
+</div>
+<!-- Columna B: Asignación de Local y Aforo -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-space-md space-y-space-md">
+<div class="flex items-center gap-2 pb-2 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]">stadium</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">B. Asignación de Local y Aforo</h3>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Recinto / Discoteca / Arena</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option selected="">Sala Apolo Central (Recinto Histórico 1)</option>
+<option>Teatro Principal Barcelona</option>
+<option>Sant Jordi Club Indoor Hall</option>
+<option>Razzmatazz 1 Sala Mayor</option>
+</select>
+</div>
+<div class="p-3 rounded-lg bg-surface-container border border-outline-variant space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Capacidad Nominal Homologada:</span>
+<span class="font-mono font-bold text-on-surface">2.400 personas</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Puertas Físicas Ingress:</span>
+<span class="font-mono text-primary font-bold">6 Torniquetes BLE</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Aforo Máximo Autorizado para Evento</label>
+<div class="relative">
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 font-code-md text-code-md text-on-surface focus:border-primary outline-none font-bold" type="number" value="2250"/>
+<span class="absolute right-3 top-2.5 font-code-sm text-code-sm text-outline">Plazas</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline text-[11px] mt-1">Margen de seguridad operacional del 6.25%.</p>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1.5">Distribución de Sectores</label>
+<div class="space-y-1.5 font-mono text-xs">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container border border-outline-variant">
+<span class="text-on-surface">Pista General</span>
+<span class="text-primary font-bold">1.600 pax</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container border border-outline-variant">
+<span class="text-tertiary">VIP Gold Frontstage</span>
+<span class="text-tertiary font-bold">450 pax</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container border border-outline-variant">
+<span class="text-secondary">Palco Técnico &amp; Staff</span>
+<span class="text-secondary font-bold">200 pax</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Columna C: Restricción de Edad y Validación de Acceso -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-space-md space-y-space-md">
+<div class="flex items-center gap-2 pb-2 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]">security</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">C. Restricción y Validación</h3>
+</div>
+<!-- Selector de Edad -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Restricción de Edad Requerida</label>
+<div class="grid grid-cols-2 gap-2">
+<label class="cursor-pointer border border-outline-variant p-2 rounded-lg text-center flex flex-col items-center hover:bg-surface-container">
+<input class="sr-only" name="edad" type="radio"/>
+<span class="text-xs font-bold text-on-surface-variant">Todo Público</span>
+<span class="font-mono text-[10px] text-outline mt-0.5">+0 años</span>
+</label>
+<label class="cursor-pointer border border-outline-variant p-2 rounded-lg text-center flex flex-col items-center hover:bg-surface-container">
+<input class="sr-only" name="edad" type="radio"/>
+<span class="text-xs font-bold text-on-surface-variant">Acceso Jóvenes</span>
+<span class="font-mono text-[10px] text-outline mt-0.5">+16 con tutor</span>
+</label>
+<label class="cursor-pointer border-2 border-amber-500/80 bg-amber-950/20 p-2 rounded-lg text-center flex flex-col items-center">
+<input checked="" class="sr-only" name="edad" type="radio"/>
+<span class="text-xs font-bold text-amber-400">Estricto Mayores</span>
+<span class="font-mono text-[10px] text-amber-300 mt-0.5">+18 años (DNI)</span>
+</label>
+<label class="cursor-pointer border border-outline-variant p-2 rounded-lg text-center flex flex-col items-center hover:bg-surface-container">
+<input class="sr-only" name="edad" type="radio"/>
+<span class="text-xs font-bold text-on-surface-variant">Exclusivo Adultos</span>
+<span class="font-mono text-[10px] text-outline mt-0.5">+21 años</span>
+</label>
+</div>
+</div>
+<!-- Modos de Validación -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Modos de Validación Criptográfica</label>
+<div class="space-y-2">
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container border border-outline-variant cursor-pointer">
+<input checked="" class="mt-0.5 rounded border-outline bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<div>
+<span class="block text-xs font-bold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">bluetooth_searching</span>
+                        Validación BLE Beacon Pasivo
+                      </span>
+<span class="text-[11px] text-on-surface-variant block mt-0.5">Detección a 1.2m sin sacar smartphone del bolsillo.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container border border-outline-variant cursor-pointer">
+<input checked="" class="mt-0.5 rounded border-outline bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<div>
+<span class="block text-xs font-bold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">qr_code_2</span>
+                        Escaneo Dinámico QR 2D Anti-captura
+                      </span>
+<span class="text-[11px] text-on-surface-variant block mt-0.5">Refresco TOTP token cada 7 segundos.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container border border-outline-variant cursor-pointer">
+<input checked="" class="mt-0.5 rounded border-outline bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<div>
+<span class="block text-xs font-bold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">contact_emergency</span>
+                        Verificación DNI / Acreditación VIP
+                      </span>
+<span class="text-[11px] text-on-surface-variant block mt-0.5">Validación física aleatoria por turnstile staff.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Acciones de Enrutamiento del Formulario -->
+<div class="pt-space-md border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-2 text-xs font-mono text-outline">
+<span class="material-symbols-outlined text-[16px] text-primary">cloud_done</span>
+<span>Propagación instantánea a 6 gateways periféricos.</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-xs font-semibold" type="reset">
+                Restablecer Campos
+              </button>
+<button class="flex-1 sm:flex-none px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 shadow-md" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                Confirmar y Desplegar Evento (Task_2)
+              </button>
+</div>
+</div>
+</form>
+</section>
+<!-- ==================== MÓDULO DE CONSULTA DE EVENTO (TASK_3) ==================== -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg space-y-space-md" id="modulo-consulta">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-space-sm border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Consulta de Eventos · Auditoría Ingress</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Task_3: Exploración reactiva con filtrado multifactor y telemetría de aforos en tiempo real.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-on-surface-variant">Actualizado hace:</span>
+<span class="font-mono text-xs font-bold text-primary">4 seg</span>
+</div>
+</div>
+<!-- Filtros y Barra de Búsqueda -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-sm">
+<div class="md:col-span-2 relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg pl-9 pr-3 py-2 text-xs text-on-surface placeholder-outline focus:border-primary outline-none" placeholder="Buscar por código, sala o nombre de evento..." type="text"/>
+</div>
+<div>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 text-xs text-on-surface focus:border-primary outline-none">
+<option>Estado: Todos los Estados</option>
+<option selected="">Estado: Activo / En Venta</option>
+<option>Estado: Finalizado</option>
+<option>Estado: Cancelado</option>
+</select>
+</div>
+<div>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-2 text-xs text-on-surface focus:border-primary outline-none">
+<option>Recinto: Todas las Salas</option>
+<option>Sala Apolo Central</option>
+<option>Teatro Principal Barcelona</option>
+<option>Sant Jordi Club</option>
+</select>
+</div>
+</div>
+<!-- Tabla de Datos Estructurada -->
+<div class="overflow-x-auto border border-outline-variant rounded-lg">
+<table class="w-full text-left text-xs whitespace-nowrap">
+<thead class="bg-surface-container text-on-surface-variant font-code-sm uppercase border-b border-outline-variant">
+<tr>
+<th class="py-3 px-4">Código Evento</th>
+<th class="py-3 px-4">Nombre</th>
+<th class="py-3 px-4">Local / Recinto</th>
+<th class="py-3 px-4">Fecha &amp; Apertura</th>
+<th class="py-3 px-4">Restricción</th>
+<th class="py-3 px-4">Validación Dual</th>
+<th class="py-3 px-4 min-w-[140px]">Aforo Vendido</th>
+<th class="py-3 px-4 text-right">Acciones Rápidas</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 font-body-sm text-on-surface">
+<!-- Fila 1 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 font-mono font-bold text-primary">EVT-2025-BCN-094</td>
+<td class="py-3.5 px-4 font-semibold">Nocturna Sound Wave</td>
+<td class="py-3.5 px-4 text-on-surface-variant">Sala Apolo Central</td>
+<td class="py-3.5 px-4 font-mono text-[11px]">18/05/25 · 21:00h</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded font-mono text-[10px] bg-amber-950/60 text-amber-300 border border-amber-800 font-semibold">+18 Años</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 font-mono text-[10px]">
+<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">BLE</span>
+<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">QR 2D</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="space-y-1">
+<div class="flex justify-between font-mono text-[10px]">
+<span>1.890 / 2.250</span>
+<span class="text-secondary font-bold">84%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 84%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1 text-on-surface-variant">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Ver Métricas">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1 hover:text-tertiary hover:bg-surface-container rounded" title="Editar Evento">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:text-error hover:bg-surface-container rounded" title="Dar de Baja">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 2 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 font-mono font-bold text-primary">EVT-2025-BCN-089</td>
+<td class="py-3.5 px-4 font-semibold">Techno Vanguard Residency</td>
+<td class="py-3.5 px-4 text-on-surface-variant">Razzmatazz Sala 1</td>
+<td class="py-3.5 px-4 font-mono text-[11px]">24/05/25 · 23:30h</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded font-mono text-[10px] bg-amber-950/60 text-amber-300 border border-amber-800 font-semibold">+18 Años</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 font-mono text-[10px]">
+<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">BLE</span>
+<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">QR 2D</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="space-y-1">
+<div class="flex justify-between font-mono text-[10px]">
+<span>2.100 / 2.100</span>
+<span class="text-tertiary font-bold">100% Sold Out</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1 text-on-surface-variant">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Ver Métricas">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1 hover:text-tertiary hover:bg-surface-container rounded" title="Editar Evento">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:text-error hover:bg-surface-container rounded" title="Dar de Baja">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 3 -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 font-mono font-bold text-primary">EVT-2025-BCN-071</td>
+<td class="py-3.5 px-4 font-semibold">Sinfónica Contemporánea</td>
+<td class="py-3.5 px-4 text-on-surface-variant">Teatro Principal</td>
+<td class="py-3.5 px-4 font-mono text-[11px]">30/05/25 · 19:30h</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded font-mono text-[10px] bg-surface-container-high text-on-surface-variant border border-outline-variant font-semibold">Todo Público</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1 font-mono text-[10px]">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-outline border border-outline-variant">Sin BLE</span>
+<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">QR 2D</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="space-y-1">
+<div class="flex justify-between font-mono text-[10px]">
+<span>640 / 1.100</span>
+<span class="text-on-surface font-bold">58%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 58%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1 text-on-surface-variant">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Ver Métricas">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1 hover:text-tertiary hover:bg-surface-container rounded" title="Editar Evento">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 hover:text-error hover:bg-surface-container rounded" title="Dar de Baja">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- ==================== MÓDULOS CONDICIONALES: EDICIÓN (TASK_4) Y BAJA (TASK_5) ==================== -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Módulo de Edición de Evento (Task_4) -->
+<section class="bg-surface-container-low border border-outline-variant rounded-xl p-space-md space-y-space-md" id="modulo-edicion">
+<div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">edit_calendar</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Edición Rápida · Task_4</h3>
+</div>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Modo Modificación</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Ajuste dinámico sobre evento seleccionado: <strong class="text-on-surface font-mono">EVT-2025-BCN-094</strong>.
+          </p>
+<div class="space-y-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Ajuste de Capacidad / Cupo de Emergencia</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 font-code-sm text-code-sm text-on-surface focus:border-tertiary outline-none" type="number" value="2300"/>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant text-xs font-semibold hover:border-tertiary text-on-surface">
+                  +50 Entradas
+                </button>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Retraso Operativo de Ingress</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 text-xs text-on-surface focus:border-tertiary outline-none">
+<option>Mantener horario programado (21:00h)</option>
+<option>Apertura anticipada de puertas (-30 min)</option>
+<option>Prórroga de cierre de ingress (+60 min)</option>
+</select>
+</div>
+<div class="p-3 rounded-lg bg-surface-container border border-outline-variant flex items-center justify-between text-xs">
+<span class="text-on-surface-variant">Propagar actualización a tornos BLE:</span>
+<button class="px-3 py-1 rounded bg-tertiary-container text-on-tertiary-container font-mono font-bold hover:brightness-110">
+                Sincronizar (Task_4)
+              </button>
+</div>
+</div>
+</section>
+<!-- Módulo de Baja de Evento (Task_5) -->
+<section class="bg-surface-container-low border border-error/40 rounded-xl p-space-md space-y-space-md" id="modulo-baja">
+<div class="flex items-center justify-between pb-2 border-b border-error/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-error">Baja y Desactivación · Task_5</h3>
+</div>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-error-container/40 text-error font-bold">ZONA CRÍTICA</span>
+</div>
+<!-- Alert Destructivo -->
+<div class="p-3 rounded-lg bg-error-container/20 border border-error/50 text-xs text-on-surface space-y-1.5">
+<div class="flex items-center gap-1.5 font-bold text-error">
+<span class="material-symbols-outlined text-[16px]">report</span>
+<span>Aviso de Protocolo de Revocación de Pases</span>
+</div>
+<p class="text-on-surface-variant text-[11px] leading-tight">
+              Al confirmar la baja de un evento, los tokens criptográficos en Apple Wallet y Google Wallet quedarán invalidados en el siguiente ciclo BLE de las puertas. Se emitirá señal de reembolso automático vía webhook bancario.
+            </p>
+</div>
+<div class="space-y-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Motivo Legal / Operativo de Cese</label>
+<select class="w-full bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 text-xs text-on-surface focus:border-error outline-none">
+<option>Fuerza Mayor / Climatología Adversa</option>
+<option>Cancelación Voluntaria del Artista</option>
+<option>Inspección de Aforo / Clausura Preventiva</option>
+<option>Error de Configuración Administrativa</option>
+</select>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-mono text-[11px] text-outline">Código confirmación: REVOKE-P1</span>
+<button class="px-4 py-2 rounded-lg bg-error-container text-on-error-container border border-error hover:bg-error hover:text-on-error text-xs font-bold transition-colors flex items-center gap-1.5" onclick="if(confirm('¿Está seguro de revocar y dar de baja el evento? Esta acción no se puede deshacer.')) alert('Evento dado de baja. Flujo redirigido a Gateway_2 y EndEvent_1.');">
+<span class="material-symbols-outlined text-[16px]">event_busy</span>
+                Ejecutar Baja de Evento (Task_5)
+              </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Micro-script de Interacción -->
+<script>
+    // Console status log
+    console.info("PassLive Console: Process_1 (Gestión de Evento) initialized with Verde Mate v1.2 theme tokens.");
+  </script>
+</body></html>
