@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Entrada - PassLive Verde Mate Tactical Console</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-dim": "#151312",
+            "on-secondary-container": "#304b00",
+            "secondary-container": "#83c300",
+            "on-tertiary-fixed": "#2a1700",
+            "inverse-primary": "#2c694e",
+            "outline": "#8a938c",
+            "outline-variant": "#404943",
+            "primary-fixed": "#b1f0ce",
+            "secondary-fixed": "#b2f746",
+            "primary": "#95d4b3",
+            "surface-bright": "#3c3837",
+            "surface-container": "#221f1e",
+            "secondary": "#9ddf2e",
+            "background": "#151312",
+            "surface-container-highest": "#373433",
+            "surface-variant": "#373433",
+            "on-secondary-fixed": "#121f00",
+            "on-secondary-fixed-variant": "#334f00",
+            "surface-container-lowest": "#100e0d",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#865400",
+            "secondary-fixed-dim": "#98da27",
+            "on-tertiary-container": "#ffd29e",
+            "inverse-on-surface": "#33302e",
+            "primary-fixed-dim": "#95d4b3",
+            "primary-container": "#2d6a4f",
+            "surface": "#151312",
+            "error": "#ffb4ab",
+            "on-tertiary": "#472a00",
+            "on-surface-variant": "#bfc9c1",
+            "on-primary": "#003824",
+            "inverse-surface": "#e8e1df",
+            "on-surface": "#e8e1df",
+            "tertiary-fixed-dim": "#ffb95f",
+            "on-error": "#690005",
+            "surface-container-high": "#2c2928",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#0e5138",
+            "surface-container-low": "#1d1b1a",
+            "on-primary-fixed": "#002114",
+            "on-tertiary-fixed-variant": "#653e00",
+            "surface-tint": "#95d4b3",
+            "on-background": "#e8e1df",
+            "on-secondary": "#213600",
+            "on-primary-container": "#a8e7c5",
+            "tertiary": "#ffb95f",
+            "tertiary-fixed": "#ffddb8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "margin-desktop": "2.5rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-2xl": "3rem",
+            "margin-tablet": "1.5rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Inter"],
+            "label-caps": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-code-sm": ["JetBrains Mono"],
+            "label-code-md": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-code-lg": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-xl-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-code-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "label-code-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+            "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-code-lg": ["16px", {"lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-xl-mobile": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(30, 27, 26, 0.5);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(64, 73, 67, 0.6);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(149, 212, 179, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TOP NAV BAR (Shared Component Anchor) -->
+<header class="sticky top-0 z-50 flex items-center justify-between w-full px-space-lg h-16 border-b border-outline-variant bg-surface-container dark:bg-surface-container shadow-xs">
+<!-- Brand + Search Group -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-container to-surface-container-lowest flex items-center justify-center border border-primary/30 shadow-sm text-secondary">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-on-surface dark:text-on-surface">PassLive Console</span>
+<span class="font-label-code-sm text-label-code-sm px-space-xs py-0.5 rounded-full bg-primary-container/40 text-primary border border-primary/20">v1.2 Verde Mate</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Control de Acceso &amp; Torniquetes</span>
+</div>
+</div>
+<!-- Quick Search Bar (Left aligned) -->
+<div class="hidden xl:flex items-center bg-surface-container-low border border-outline-variant rounded-lg px-space-sm py-1.5 w-72 focus-within:border-secondary transition-colors duration-150">
+<span class="material-symbols-outlined text-outline mr-2 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-0 p-0 text-on-surface placeholder:text-outline text-body-sm font-body-sm focus:ring-0 w-full" placeholder="Buscar token, QR o DNI..." type="text"/>
+<kbd class="font-label-code-sm text-label-code-sm bg-surface-container-highest px-1.5 py-0.5 rounded text-outline border border-outline-variant">⌘K</kbd>
+</div>
+<!-- Nav Links -->
+<nav class="hidden lg:flex items-center gap-space-md ml-space-sm">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-high px-space-sm py-1 rounded transition-colors duration-150" href="#turnstiles">Turnstiles</a>
+<a class="border-b-2 border-secondary text-secondary dark:text-secondary font-semibold pb-1 font-body-md text-body-md" href="#telemetry">Zone Telemetry</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-high px-space-sm py-1 rounded transition-colors duration-150" href="#logs">Live Logs</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-high px-space-sm py-1 rounded transition-colors duration-150" href="#audit">Audit</a>
+</nav>
+</div>
+<!-- Trailing Actions & Operator Indicator -->
+<div class="flex items-center gap-space-md">
+<!-- BLE Broadcast Indicator Pill -->
+<div class="hidden sm:flex items-center gap-2 px-space-sm py-1 rounded-full bg-surface-container-lowest border border-outline-variant">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+<span class="font-label-code-sm text-label-code-sm text-secondary font-medium">BLE Broadcast: Active</span>
+<span class="font-label-code-sm text-label-code-sm text-outline border-l border-outline-variant pl-2">T-A04</span>
+</div>
+<!-- Icon Actions -->
+<div class="flex items-center gap-1 border-r border-outline-variant pr-space-sm">
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface active:scale-[0.98] transition-all" id="themeToggleBtn" title="Cambiar Tema">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface active:scale-[0.98] transition-all relative" title="Sensores de Puerta">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface active:scale-[0.98] transition-all" title="Notificaciones del Sistema">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+<!-- Primary Emergency Trailing Action -->
+<button class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-error-container/20 border border-error text-error font-body-sm text-body-sm font-semibold hover:bg-error-container/40 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="emergency_home">emergency_home</span>
+        Emergency Halt
+      </button>
+<!-- Operator Steward Avatar & Profile -->
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center border border-primary/40 text-on-primary font-headline-md text-body-sm font-bold shadow-xs" title="Operator Steward Avatar">
+          TN
+        </div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="font-body-sm text-body-sm font-semibold leading-tight text-on-surface">Operador: Turno Noche</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Arena Central · Stw#042</span>
+</div>
+</div>
+</div>
+</header>
+<!-- APP SHELL CONTAINER (Sidebar + Workspace) -->
+<div class="flex flex-1 w-full min-h-[calc(100vh-4rem)]">
+<!-- SIDE NAV BAR (Shared Component Anchor) -->
+<aside class="w-72 shrink-0 border-r border-outline-variant bg-surface-container-low dark:bg-surface-container-low flex flex-col justify-between p-space-md hidden lg:flex">
+<!-- Upper Section -->
+<div class="flex flex-col gap-space-lg">
+<!-- Sidebar Brand/Arena Key Header -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-outline-variant/60">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-primary" title="Venue Arena Master Key Icon">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">Gestión de Entrada</span>
+<span class="font-label-code-sm text-label-code-sm text-secondary">Process_1 Node: Active</span>
+</div>
+</div>
+<span class="flex h-2 w-2 rounded-full bg-secondary"></span>
+</div>
+<!-- Section Label -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline tracking-wider uppercase px-space-xs">OPERACIONES ENTRADA</span>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-1">
+<!-- 1. Alta de Entrada (ACTIVE) -->
+<button class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-surface-container-highest dark:bg-surface-container-highest text-secondary dark:text-secondary border-l-4 border-secondary font-semibold active:scale-[0.98] transition-all text-left" id="nav-item-alta" onclick="setOperationTab('alta')">
+<span class="material-symbols-outlined" data-icon="add_card">add_card</span>
+<span class="font-body-sm text-body-sm flex-1">Alta de Entrada</span>
+<span class="font-label-code-sm text-label-code-sm px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant">REQ</span>
+</button>
+<!-- 2. Consulta de QR -->
+<button class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 active:scale-[0.98] text-left" id="nav-item-consulta" onclick="setOperationTab('consulta')">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-body-sm text-body-sm flex-1">Consulta de QR</span>
+<span class="font-label-code-sm text-label-code-sm px-1.5 py-0.2 rounded bg-surface-container-lowest text-outline">SCAN</span>
+</button>
+<!-- 3. Modificación y Estado -->
+<button class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 active:scale-[0.98] text-left" id="nav-item-edicion" onclick="setOperationTab('edicion')">
+<span class="material-symbols-outlined" data-icon="edit_document">edit_document</span>
+<span class="font-body-sm text-body-sm flex-1">Modificación y Estado</span>
+</button>
+<!-- 4. Baja e Invalidación BLE -->
+<button class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-error hover:bg-error-container/20 transition-colors duration-150 active:scale-[0.98] text-left" id="nav-item-baja" onclick="setOperationTab('baja')">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+<span class="font-body-sm text-body-sm flex-1 font-medium">Baja e Invalidación BLE</span>
+<span class="font-label-code-sm text-label-code-sm px-1.5 py-0.2 rounded bg-error-container/40 text-error">CRIT</span>
+</button>
+</nav>
+</div>
+<!-- Mode CTA Trigger -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-body-sm text-body-sm font-semibold active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-secondary" data-icon="flip_camera_android">flip_camera_android</span>
+          Scan Mode Switch
+        </button>
+<!-- Tactical Blueprint / ADN de Diseño Card -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/60 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-secondary uppercase font-bold tracking-wider">Protocolo BLE + QR Dual</span>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="security">security</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Beacons activos a 2.4GHz, cifrado dinámico de 45s anti-captura, aforo en recinto auditado en nodo de torniquete.
+          </p>
+<div class="pt-2 border-t border-outline-variant/50 flex flex-col gap-1">
+<div class="flex justify-between items-center text-label-code-sm font-label-code-sm">
+<span class="text-outline">BEACON_UUID:</span>
+<span class="text-primary font-mono">4a9f-881c-ble</span>
+</div>
+<div class="flex justify-between items-center text-label-code-sm font-label-code-sm">
+<span class="text-outline">GATEWAY:</span>
+<span class="text-on-surface font-mono">PORTAL-NORTH-01</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action Links -->
+<div class="pt-space-md border-t border-outline-variant/60 flex flex-col gap-1">
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-body-sm text-body-sm" href="#gateways">
+<span class="material-symbols-outlined text-sm" data-icon="sensor_door">sensor_door</span>
+          Turnstile Gateway
+        </a>
+<a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-body-sm text-body-sm" href="#audit-trail">
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span>
+          Audit Trail
+        </a>
+</div>
+</aside>
+<!-- MAIN WORKSPACE CONTENT -->
+<main class="flex-1 flex flex-col p-space-md lg:p-space-xl overflow-y-auto custom-scroll max-w-[1600px] mx-auto w-full">
+<!-- 1. PROCESS HERO BANNER (Tactical Mission Visual) -->
+<section class="rounded-2xl p-space-lg lg:p-8 bg-gradient-to-br from-primary-container via-surface-container-low to-surface-container-lowest text-on-surface shadow-xl border border-primary/30 relative overflow-hidden mb-space-lg">
+<!-- Atmospheric Grid overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(rgba(149, 212, 179, 0.4) 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="relative z-10 flex flex-col gap-space-md">
+<!-- Eyebrow & Badges -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label-caps text-label-caps font-bold uppercase tracking-wider border border-primary/30 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+              PROCESO OPERATIVO · PROCESS_1
+            </span>
+<div class="flex items-center gap-2">
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-surface-container-highest border border-outline-variant text-on-surface-variant">
+                BPMN 2.0 Engine: Sync
+              </span>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-secondary-container/40 text-secondary border border-secondary/40 font-semibold">
+                NODE: ARENA-A1
+              </span>
+</div>
+</div>
+<!-- Headline and Description -->
+<div class="max-w-3xl">
+<h1 class="text-headline-lg font-headline-lg text-on-surface font-bold tracking-tight">Gestión de Entrada</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+              Control integral de ciclo de vida del ticket: alta con generación QR, verificación en lector, reasignación de tipo y revocación de transmisión Bluetooth en torniquetes.
+            </p>
+</div>
+<!-- BPMN Visual Process Flow Stepper -->
+<div class="pt-space-md mt-2 border-t border-outline-variant/40">
+<div class="font-label-caps text-label-caps text-outline uppercase tracking-wider mb-space-sm">Flujo Operativo de Transacción (BPMN Lifecycle):</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+<!-- Node 1: Completed -->
+<div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-highest/60 border border-primary/40">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-sm text-label-code-sm font-semibold truncate text-on-surface">StartEvent_1</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Inicio Gestión</span>
+</div>
+</div>
+<!-- Node 2: Active -->
+<div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-highest border-2 border-secondary shadow-sm ring-2 ring-secondary/20">
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shrink-0">
+                  2
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-sm text-label-code-sm font-semibold truncate text-secondary">Task_1: Operación</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Seleccionar Modo</span>
+</div>
+</div>
+<!-- Node 3: Conditional Gateway -->
+<div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant">
+<div class="w-6 h-6 rotate-45 border border-tertiary text-tertiary flex items-center justify-center font-bold text-xs shrink-0 bg-surface-container-lowest">
+<span class="-rotate-45">✕</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-sm text-label-code-sm font-semibold truncate text-on-surface">Gateway_1</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">¿Qué Operación?</span>
+</div>
+</div>
+<!-- Node 4: Subprocesses -->
+<div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant">
+<div class="w-6 h-6 rounded-md bg-surface-container text-outline flex items-center justify-center font-bold text-xs shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="account_tree">account_tree</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-sm text-label-code-sm font-semibold truncate text-on-surface">Sub-Procesos</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Alta · Scan · Edic · Baja</span>
+</div>
+</div>
+<!-- Node 5: End -->
+<div class="col-span-2 md:col-span-1 flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant">
+<div class="w-6 h-6 rounded-full border-2 border-outline flex items-center justify-center text-outline text-xs shrink-0">
+                  ●
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-code-sm text-label-code-sm font-semibold truncate text-on-surface">EndEvent_1</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Fin Transacción</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Real-Time Metrics Strip -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-space-sm pt-space-sm">
+<div class="p-space-sm bg-surface-container-lowest/80 rounded-xl border border-outline-variant/50">
+<span class="font-label-caps text-label-caps text-outline uppercase">Total Entradas Emitidas</span>
+<div class="text-headline-md font-headline-md font-bold text-on-surface font-mono mt-1">1,420 <span class="text-body-sm font-body-sm text-primary font-normal">/ 2,000 cap</span></div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest/80 rounded-xl border border-outline-variant/50">
+<span class="font-label-caps text-label-caps text-outline uppercase">En Recinto (Admitidos)</span>
+<div class="text-headline-md font-headline-md font-bold text-secondary font-mono mt-1">842 <span class="text-body-sm font-body-sm text-on-surface-variant font-normal">(59.2%)</span></div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest/80 rounded-xl border border-outline-variant/50">
+<span class="font-label-caps text-label-caps text-tertiary uppercase">VIP Gold Validados</span>
+<div class="text-headline-md font-headline-md font-bold text-tertiary font-mono mt-1">186 <span class="text-body-sm font-body-sm text-on-surface-variant font-normal">Palco &amp; Pista</span></div>
+</div>
+<div class="p-space-sm bg-surface-container-lowest/80 rounded-xl border border-outline-variant/50">
+<span class="font-label-caps text-label-caps text-error uppercase">Invalidada / Baja</span>
+<div class="text-headline-md font-headline-md font-bold text-error font-mono mt-1">14 <span class="text-body-sm font-body-sm text-on-surface-variant font-normal">Revocadas</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. DECISION POINT & INTERACTIVE OPERATION SWITCHER -->
+<section class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="alt_route">alt_route</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Punto de Decisión: ¿Qué operación realizar?</h2>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">Selector Operativo BPMN</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- 1. Alta Tab -->
+<button class="group relative text-left p-space-md rounded-xl border-2 transition-all duration-150 bg-surface-container-highest border-secondary ring-1 ring-secondary/30" id="tab-btn-alta" onclick="setOperationTab('alta')">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="add_card">add_card</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded-full bg-secondary-container/50 text-secondary font-semibold">ACTIVO</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">1. Registrar Entrada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Alta asistida y token QR con despacho de beacon</p>
+</button>
+<!-- 2. Consulta Tab -->
+<button class="group relative text-left p-space-md rounded-xl border transition-all duration-150 bg-surface-container-low hover:bg-surface-container border-outline-variant hover:border-outline" id="tab-btn-consulta" onclick="setOperationTab('consulta')">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest text-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-outline">OPTICAL</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">2. Consultar Entrada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Lector QR y verificación criptográfica nonce</p>
+</button>
+<!-- 3. Edición Tab -->
+<button class="group relative text-left p-space-md rounded-xl border transition-all duration-150 bg-surface-container-low hover:bg-surface-container border-outline-variant hover:border-outline" id="tab-btn-edicion" onclick="setOperationTab('edicion')">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest text-tertiary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="edit_document">edit_document</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-outline">MOD</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">3. Editar Entrada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Upgrade a VIP Gold o cambio de sector</p>
+</button>
+<!-- 4. Baja Tab -->
+<button class="group relative text-left p-space-md rounded-xl border transition-all duration-150 bg-surface-container-low hover:bg-surface-container border-outline-variant hover:border-error/40" id="tab-btn-baja" onclick="setOperationTab('baja')">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-error-container/20 text-error flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded-full bg-error-container/30 text-error">REVOKE</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">4. Dar de Baja</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Invalidación forzada y cese de señal BLE</p>
+</button>
+</div>
+</section>
+<!-- 3. INTERACTIVE OPERATION PANELS (Split Layout: Interactive Forms vs Telemetry Pass) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg items-start">
+<!-- LEFT COLUMN: Forms Container (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- TAB CONTENT 1: ALTA DE ENTRADA -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant shadow-sm flex flex-col gap-space-md" id="panel-alta">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/60">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-primary-container text-on-primary-container material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Alta de Nueva Entrada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Generación de credencial criptográfica e inducción a torniquete</p>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-secondary/10 text-secondary border border-secondary/30">
+                PROCESO_1.1
+              </span>
+</div>
+<form class="flex flex-col gap-space-md" id="formAltaEntrada" onsubmit="handleAltaSubmit(event)">
+<!-- Field Row 1: Attendee Info -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Nombre Completo del Asistente *</label>
+<input class="rounded-lg bg-surface-container border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-on-surface font-body-md text-body-md px-3 py-2.5" id="altaNombre" required="" type="text" value="Valentina Morales Ortiz"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">DNI / Pasaporte (+18 Verif.) *</label>
+<input class="rounded-lg bg-surface-container border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-on-surface font-label-code-md text-label-code-md px-3 py-2.5" id="altaDni" required="" type="text" value="48.910.432-K"/>
+</div>
+</div>
+<!-- Field Row 2: Ticket Tier Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Selector de Tipo de Entrada *</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="cursor-pointer border-2 border-primary/60 bg-surface-container p-3 rounded-xl flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2">
+<input class="text-secondary focus:ring-secondary bg-surface-container-low border-outline-variant" name="tipoEntrada" type="radio" value="General"/>
+<span class="font-body-md text-body-md font-semibold text-on-surface">General Pass</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-mono">STAND</span>
+</label>
+<label class="cursor-pointer border-2 border-tertiary bg-surface-container p-3 rounded-xl flex items-center justify-between hover:bg-surface-container-high transition-colors ring-1 ring-tertiary/20">
+<div class="flex items-center gap-2">
+<input checked="" class="text-tertiary focus:ring-tertiary bg-surface-container-low border-outline-variant" name="tipoEntrada" type="radio" value="VIP Gold"/>
+<span class="font-body-md text-body-md font-semibold text-tertiary">VIP Gold</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2 py-0.5 rounded bg-tertiary-container text-on-tertiary-container font-mono font-bold">PALCO</span>
+</label>
+</div>
+</div>
+<!-- Field Row 3: Gate Assignment & Initial State -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Puerta Asignada / Torniquete *</label>
+<select class="rounded-lg bg-surface-container border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-on-surface font-body-md text-body-md px-3 py-2.5" id="altaPuerta">
+<option value="Acceso Pista Norte (T-04)">Acceso Pista Norte (T-04)</option>
+<option selected="" value="Palco VIP Lateral B (T-01)">Palco VIP Lateral B (T-01)</option>
+<option value="Tribuna Principal (T-08)">Tribuna Principal (T-08)</option>
+<option value="Acceso General Sur (T-12)">Acceso General Sur (T-12)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Estado Inicial de Credencial</label>
+<div class="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-surface-container border border-outline-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-code-md text-label-code-md font-semibold text-secondary">VÁLIDA (Pre-autorizada)</span>
+<span class="ml-auto material-symbols-outlined text-outline text-sm" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+<!-- Field Row 4: BLE Activation Toggle -->
+<div class="p-space-md rounded-xl bg-surface-container border border-outline-variant/80 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="bluetooth_searching">bluetooth_searching</span>
+<div>
+<span class="font-body-md text-body-md font-semibold text-on-surface block">Habilitar Transmisión Bluetooth Beacon</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Abre torniquete en proximidad &lt; 1.2m sin contacto</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="altaBleToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<!-- Submit Button -->
+<div class="pt-space-sm flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-outline">Nonce hash: SHA-256 (45s rotativo)</span>
+<button class="px-5 py-2.5 rounded-lg bg-primary-container hover:bg-inverse-primary text-on-primary-container font-body-md text-body-md font-semibold flex items-center gap-2 shadow-xs active:scale-[0.98] transition-all" type="submit">
+<span class="material-symbols-outlined" data-icon="qr_code_2">qr_code_2</span>
+                  Generar Entrada y Código QR
+                </button>
+</div>
+</form>
+</div>
+<!-- TAB CONTENT 2: CONSULTAR ENTRADA (Lector QR) -->
+<div class="hidden p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant shadow-sm flex flex-col gap-space-md" id="panel-consulta">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/60">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-surface-container-highest text-secondary material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Consulta &amp; Verificación de Token</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Inspección de firma criptográfica y lectura en base de datos local</p>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-surface-container-highest text-outline border border-outline-variant">
+                MODO: FAST-SCAN
+              </span>
+</div>
+<!-- Search Bar Field -->
+<div class="flex flex-col sm:flex-row gap-space-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-3 text-outline" data-icon="qr_code">qr_code</span>
+<input class="w-full rounded-lg bg-surface-container border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-on-surface font-label-code-md text-label-code-md pl-10 pr-3 py-2.5" id="consultaInput" placeholder="Ingresar código QR (ej: QR-8842-X) o Token BLE..." type="text" value="QR-2025-VLT-9921"/>
+</div>
+<button class="px-5 py-2.5 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-all" onclick="simulateScanSearch()">
+<span class="material-symbols-outlined" data-icon="search_check">search_check</span>
+                Escanear / Consultar
+              </button>
+</div>
+<!-- Quick Result Card -->
+<div class="p-space-md rounded-xl bg-surface-container border border-primary/30 flex flex-col md:flex-row gap-space-md items-center">
+<div class="w-32 h-32 bg-white p-2 rounded-lg flex items-center justify-center shrink-0 border-2 border-outline-variant">
+<!-- SVG Vector Simulated Monocrome Safe QR -->
+<svg class="w-full h-full" fill="#100e0d" viewbox="0 0 100 100">
+<rect height="30" width="30" x="0" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="5" y="5"></rect>
+<rect height="10" width="10" x="10" y="10"></rect>
+<rect height="30" width="30" x="70" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="75" y="5"></rect>
+<rect height="10" width="10" x="80" y="10"></rect>
+<rect height="30" width="30" x="0" y="70"></rect>
+<rect fill="#ffffff" height="20" width="20" x="5" y="75"></rect>
+<rect height="10" width="10" x="10" y="80"></rect>
+<rect height="8" width="8" x="40" y="10"></rect>
+<rect height="8" width="8" x="52" y="10"></rect>
+<rect height="8" width="12" x="40" y="25"></rect>
+<rect height="10" width="10" x="10" y="42"></rect>
+<rect height="12" width="8" x="25" y="42"></rect>
+<rect height="20" width="20" x="40" y="40"></rect>
+<rect height="10" width="10" x="70" y="42"></rect>
+<rect height="15" width="8" x="85" y="42"></rect>
+<rect height="10" width="10" x="40" y="70"></rect>
+<rect height="8" width="12" x="55" y="75"></rect>
+<rect height="20" width="10" x="70" y="70"></rect>
+<rect height="12" width="8" x="85" y="75"></rect>
+</svg>
+</div>
+<div class="flex-1 flex flex-col gap-1.5 w-full">
+<div class="flex items-center justify-between">
+<span class="font-label-code-md text-label-code-md text-primary font-bold">QR-2025-VLT-9921</span>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary-container font-semibold border border-primary/40">
+                    VÁLIDA
+                  </span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Valentina Morales Ortiz</span>
+<div class="grid grid-cols-2 gap-2 text-body-sm font-body-sm pt-1">
+<div>
+<span class="text-outline block text-xs">Tipo de Entrada:</span>
+<span class="text-tertiary font-semibold">VIP Gold (Palco B)</span>
+</div>
+<div>
+<span class="text-outline block text-xs">Evento:</span>
+<span class="text-on-surface">Sonora 2025 · Arena</span>
+</div>
+<div>
+<span class="text-outline block text-xs">Emisión:</span>
+<span class="font-mono text-on-surface-variant">Hoy 21:14:02</span>
+</div>
+<div>
+<span class="text-outline block text-xs">Handshake BLE:</span>
+<span class="text-secondary font-mono">Sincronizado (-42dBm)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB CONTENT 3: EDITAR ENTRADA -->
+<div class="hidden p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant shadow-sm flex flex-col gap-space-md" id="panel-edicion">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/60">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-surface-container-highest text-tertiary material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Modificar Estado y Sector</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Reasignación de aforo, upgrade de categoría o suspensión temporal</p>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-tertiary-container/30 text-tertiary border border-tertiary/30">
+                AUDIT LOGGED
+              </span>
+</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Entrada Seleccionada para Modificación</label>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">QR-2025-VLT-9921 · Valentina Morales</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-tertiary font-mono">Palco B</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Reasignar Categoría</label>
+<select class="rounded-lg bg-surface-container border border-outline-variant focus:border-tertiary focus:ring-1 focus:ring-tertiary text-on-surface font-body-md text-body-md px-3 py-2.5" id="editTipoSelect">
+<option value="VIP Gold">VIP Gold (Acceso Preferente)</option>
+<option value="General">General (Pista Norte)</option>
+<option value="Backstage Crew">Backstage / Staff Tier</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Cambiar Estado</label>
+<select class="rounded-lg bg-surface-container border border-outline-variant focus:border-tertiary focus:ring-1 focus:ring-tertiary text-on-surface font-body-md text-body-md px-3 py-2.5" id="editEstadoSelect">
+<option value="VÁLIDA">Válida (Habilitado)</option>
+<option value="SUSPENDIDA">Suspendida (Revisión Stewards)</option>
+<option value="INGRESADA">Ingresada (Dentro de Recinto)</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Motivo de Modificación / Auditoría *</label>
+<input class="rounded-lg bg-surface-container border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary text-on-surface font-body-md text-body-md px-3 py-2.5" placeholder="Ej: Upgrade de cortesía por sponsor oficial, reubicación médica..." type="text" value="Upgrade de cortesía autorizado por Dirección de Sala"/>
+</div>
+<div class="pt-2 flex justify-end">
+<button class="px-5 py-2.5 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface font-body-md text-body-md font-semibold flex items-center gap-2 border border-outline-variant active:scale-[0.98] transition-all" onclick="alert('Modificaciones guardadas y reflejadas en el clúster de torniquetes.')">
+<span class="material-symbols-outlined text-secondary" data-icon="save">save</span>
+                  Guardar Modificaciones
+                </button>
+</div>
+</div>
+</div>
+<!-- TAB CONTENT 4: DAR DE BAJA ENTRADA (INVALIDACIÓN BLE) -->
+<div class="hidden p-space-lg rounded-2xl bg-surface-container-low border-2 border-error/50 shadow-sm flex flex-col gap-space-md" id="panel-baja">
+<div class="flex items-center justify-between pb-space-sm border-b border-error/30">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-error-container/30 text-error material-symbols-outlined" data-icon="gpp_bad">gpp_bad</span>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-error">Invalidación Definitiva de Ticket</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Revocación irreversible de credencial de acceso físico y apagado de beacon</p>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded bg-error-container text-on-error-container font-bold">
+                OPERACIÓN CRÍTICA
+              </span>
+</div>
+<!-- Warning Callout -->
+<div class="p-3.5 rounded-xl bg-error-container/10 border border-error/40 flex flex-col gap-2">
+<span class="font-body-md text-body-md font-bold text-error flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
+                Acciones automáticas al confirmar la baja:
+              </span>
+<ul class="font-body-sm text-body-sm text-on-surface-variant space-y-1 pl-5 list-disc">
+<li>Desactivación instantánea del nonce dinámico QR en torniquetes.</li>
+<li>Bloqueo de handshake Bluetooth Beacon (BLE) en todas las puertas del recinto.</li>
+<li>Alerta enviada a PDAs de stewards en torniquetes perimetrales.</li>
+</ul>
+</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Token o ID de Ticket a Invalidar</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container border border-error/40 focus:border-error focus:ring-1 focus:ring-error text-error font-label-code-md text-label-code-md px-3 py-2.5" id="bajaTicketId" type="text" value="QR-2025-VLT-9921"/>
+<span class="absolute right-3 top-3 font-label-code-sm text-label-code-sm text-error font-bold">TARGET LOCKED</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Causal de Baja Obligatoria *</label>
+<select class="rounded-lg bg-surface-container border border-outline-variant focus:border-error text-on-surface font-body-md text-body-md px-3 py-2.5">
+<option>Entrada clonada / Intento de doble pase</option>
+<option>Devolución o reembolso procesado en taquilla</option>
+<option>Falta a las normas de seguridad del recinto</option>
+<option>Pérdida de credencial reportada por titular</option>
+</select>
+</div>
+<div class="pt-2 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Requiere confirmación de operador nivel 2</span>
+<button class="px-5 py-2.5 rounded-lg bg-error-container hover:bg-error-container/80 text-on-error-container font-body-md text-body-md font-bold flex items-center gap-2 active:scale-[0.98] transition-all shadow-xs" onclick="handleInvalidarBaja()">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+                  Confirmar Baja e Invalidación
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Panel de Telemetría y Vista Previa en Vivo (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Tactical Pass Credential (PassLive Pass Component) -->
+<div class="rounded-2xl bg-surface-container-low border border-primary/30 p-space-md shadow-xl relative overflow-hidden flex flex-col gap-space-md">
+<!-- Top Credential Header -->
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs">
+                  PL
+                </div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface block leading-tight">PassLive Credential</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">ARENA-MASTER-TICKET</span>
+</div>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 font-bold" id="passBadgeTier">
+                VIP GOLD
+              </span>
+</div>
+<!-- Pass Attendee Header -->
+<div class="flex flex-col gap-0.5">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Titular de Acceso</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface" id="passNombreDisplay">Valentina Morales Ortiz</span>
+<span class="font-label-code-sm text-label-code-sm text-primary font-mono" id="passDniDisplay">DNI: 48.910.432-K · +18 VERIFICADO</span>
+</div>
+<!-- Perforation Visual Line -->
+<div class="relative py-2 flex items-center">
+<div class="absolute -left-6 w-5 h-5 rounded-full bg-background border-r border-outline-variant"></div>
+<div class="w-full border-b-2 border-dashed border-outline-variant"></div>
+<div class="absolute -right-6 w-5 h-5 rounded-full bg-background border-l border-outline-variant"></div>
+</div>
+<!-- Central Optical + QR Safe Cryptographic Zone -->
+<div class="bg-surface-container p-space-md rounded-xl border border-outline-variant/80 flex flex-col items-center text-center gap-space-sm">
+<span class="font-label-caps text-label-caps text-secondary uppercase font-bold tracking-wider">CÓDIGO QR DINÁMICO TÁCTICO</span>
+<!-- Safe White Container for 100% Turnstile Laser Contrast -->
+<div class="bg-white p-3 rounded-lg shadow-sm border border-stone-300 relative group">
+<svg class="w-36 h-36" fill="#151312" viewbox="0 0 120 120">
+<!-- Corner Finders -->
+<rect height="36" width="36" x="0" y="0"></rect>
+<rect fill="#ffffff" height="24" width="24" x="6" y="6"></rect>
+<rect height="12" width="12" x="12" y="12"></rect>
+<rect height="36" width="36" x="84" y="0"></rect>
+<rect fill="#ffffff" height="24" width="24" x="90" y="6"></rect>
+<rect height="12" width="12" x="96" y="12"></rect>
+<rect height="36" width="36" x="0" y="84"></rect>
+<rect fill="#ffffff" height="24" width="24" x="6" y="90"></rect>
+<rect height="12" width="12" x="12" y="96"></rect>
+<!-- Pattern Matrix -->
+<rect height="8" width="8" x="44" y="8"></rect>
+<rect height="8" width="14" x="58" y="8"></rect>
+<rect height="8" width="20" x="44" y="24"></rect>
+<rect height="12" width="16" x="12" y="44"></rect>
+<rect height="14" width="14" x="36" y="40"></rect>
+<rect height="10" width="22" x="58" y="40"></rect>
+<rect height="24" width="12" x="86" y="44"></rect>
+<rect height="12" width="8" x="104" y="44"></rect>
+<rect height="18" width="10" x="44" y="60"></rect>
+<rect height="14" width="18" x="60" y="58"></rect>
+<rect height="12" width="12" x="44" y="86"></rect>
+<rect height="20" width="10" x="64" y="86"></rect>
+<rect height="8" width="28" x="84" y="86"></rect>
+<rect height="10" width="14" x="84" y="102"></rect>
+<rect height="12" width="8" x="104" y="100"></rect>
+</svg>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center pointer-events-none">
+<span class="font-label-code-sm text-label-code-sm px-2 py-1 bg-surface-container-lowest text-secondary rounded">LASER ALIGNED</span>
+</div>
+</div>
+<!-- Live Nonce & Refresh Cycle -->
+<div class="w-full flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-code-lg text-label-code-lg text-on-surface font-mono font-bold tracking-wider" id="passTokenCode">
+                    QR-2025-VLT-9921
+                  </span>
+</div>
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span id="nonceTimer">42s</span>
+</div>
+</div>
+<!-- Rotating Timer Bar -->
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full transition-all duration-1000" id="nonceProgressBar" style="width: 84%;"></div>
+</div>
+</div>
+<!-- BLE Gateway Telemetry Info -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest border border-outline-variant/60 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">TELEMETRÍA DE PROXIMIDAD BLE</span>
+<span class="flex items-center gap-1 text-label-code-sm font-label-code-sm text-secondary">
+<span class="material-symbols-outlined text-xs" data-icon="bluetooth_connected">bluetooth_connected</span>
+                  Óptimo
+                </span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-label-code-sm font-label-code-sm">
+<div>
+<span class="text-outline block">RSSI Medido:</span>
+<span class="text-on-surface font-mono font-bold">-42 dBm (&lt; 0.8m)</span>
+</div>
+<div>
+<span class="text-outline block">Beacon ID:</span>
+<span class="text-primary font-mono font-bold">BC-091-TORN</span>
+</div>
+<div>
+<span class="text-outline block">Torniquete:</span>
+<span class="text-on-surface" id="passPuertaDisplay">T-01 (Palco Lateral)</span>
+</div>
+<div>
+<span class="text-outline block">Estado Cripto:</span>
+<span class="text-secondary font-bold" id="passEstadoDisplay">AUTORIZADO</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<button class="py-2 px-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-body-sm text-body-sm font-semibold flex items-center justify-center gap-1 active:scale-[0.98] transition-all" onclick="alert('Señal BLE re-emitida hacia el gateway de torniquetes.')">
+<span class="material-symbols-outlined text-sm" data-icon="cell_tower">cell_tower</span>
+                Re-emitir BLE
+              </button>
+<button class="py-2 px-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-body-sm text-body-sm font-semibold flex items-center justify-center gap-1 active:scale-[0.98] transition-all" onclick="navigator.clipboard?.writeText('QR-2025-VLT-9921'); alert('Token seguro copiado al portapapeles');">
+<span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span>
+                Copiar Token
+              </button>
+<button class="py-2 px-2 rounded-lg bg-primary-container hover:bg-inverse-primary text-on-primary-container font-body-sm text-body-sm font-semibold flex items-center justify-center gap-1 active:scale-[0.98] transition-all" onclick="alert('Disparo de prueba: Torniquete A-04 desbloqueado en simulador (0.8s).')">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+                Test Torniquete
+              </button>
+</div>
+</div>
+<!-- Live Gate Status Card -->
+<div class="p-space-md rounded-2xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-secondary border border-secondary/30">
+<span class="material-symbols-outlined" data-icon="sensor_door">sensor_door</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Torniquete A-04 (Pista Norte)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Modo: Flujo Libre Bidireccional Asistido</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-code-md text-label-code-md font-bold text-secondary font-mono">1.2 seg</span>
+<span class="font-label-code-sm text-label-code-sm text-outline block">Latencia Media</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. DATA TABLE: REGISTRO DE ENTRADAS RECIENTES (AUDITORÍA EN TIEMPO REAL) -->
+<section class="rounded-2xl p-space-md lg:p-space-lg bg-surface-container-low border border-outline-variant shadow-sm flex flex-col gap-space-md">
+<!-- Table Header & Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-sm border-b border-outline-variant/60">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Registro de Entradas y Estado en Torniquete</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Inspección de credenciales y registros de paso por radiofrecuencia y lectura óptica</p>
+</div>
+<!-- Table Filters & Search -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-container rounded-lg border border-outline-variant p-1">
+<button class="px-2.5 py-1 rounded text-body-sm font-body-sm font-semibold bg-surface-container-highest text-secondary" id="filter-all" onclick="filterTable('all')">Todas (1,420)</button>
+<button class="px-2.5 py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface" id="filter-valida" onclick="filterTable('valida')">Válidas</button>
+<button class="px-2.5 py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface" id="filter-vip" onclick="filterTable('vip')">VIP Gold</button>
+<button class="px-2.5 py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface" id="filter-baja" onclick="filterTable('baja')">Dadas de Baja</button>
+</div>
+<div class="relative">
+<input class="rounded-lg bg-surface-container border border-outline-variant focus:border-secondary text-body-sm font-body-sm px-3 py-1.5 w-48 lg:w-60 text-on-surface" onkeyup="searchTable(this.value)" placeholder="Filtrar asistente o token..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto custom-scroll">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-outline font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-3 px-3">Código QR / Token</th>
+<th class="py-3 px-3">Asistente &amp; DNI</th>
+<th class="py-3 px-3">Tipo</th>
+<th class="py-3 px-3">Estado</th>
+<th class="py-3 px-3">BLE Proximidad</th>
+<th class="py-3 px-3">Puerta de Acceso</th>
+<th class="py-3 px-3 text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 font-body-md text-body-md" id="ticketsTableBody">
+<!-- Row 1: Active VIP -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="qr_code_2">qr_code_2</span>
+<span class="font-label-code-md text-label-code-md font-mono font-bold text-on-surface">QR-2025-VLT-9921</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Valentina Morales Ortiz</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">DNI: 48.910.432-K</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 font-bold">
+                    VIP Gold
+                  </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-secondary font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    VÁLIDA
+                  </span>
+</td>
+<td class="py-3 px-3 font-label-code-sm text-label-code-sm text-on-surface font-mono">
+<span class="text-secondary">● Activo</span> (-42dBm)
+                </td>
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">
+                  Palco Lateral B (T-01)
+                </td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('consulta')" title="Ver en Inspector">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('edicion')" title="Modificar">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container/30 text-error" onclick="setOperationTab('baja')" title="Invalidar">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: General Admitted -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="qr_code_2">qr_code_2</span>
+<span class="font-label-code-md text-label-code-md font-mono font-bold text-on-surface">QR-2025-GEN-1044</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Mateo Silva Rivas</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">DNI: 33.109.821-B</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant border border-outline-variant font-medium">
+                    General
+                  </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-primary font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    INGRESADA
+                  </span>
+</td>
+<td class="py-3 px-3 font-label-code-sm text-label-code-sm text-outline font-mono">
+                  Validado (21:04)
+                </td>
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">
+                  Acceso Pista Norte (T-04)
+                </td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('consulta')">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('edicion')">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Revoked / Baja -->
+<tr class="hover:bg-surface-container/60 transition-colors bg-error-container/5">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm" data-icon="cancel">cancel</span>
+<span class="font-label-code-md text-label-code-md font-mono font-bold text-error line-through">QR-2025-REV-0819</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface-variant line-through">Carlos Andrés Mendoza</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">DNI: 19.452.110-M</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full bg-surface-container text-outline border border-outline-variant">
+                    General
+                  </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-error font-semibold">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                    INVALIDADA / BAJA
+                  </span>
+</td>
+<td class="py-3 px-3 font-label-code-sm text-label-code-sm text-error font-mono">
+                  Revocado (Bloqueo)
+                </td>
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">
+                  Tribuna Principal (T-08)
+                </td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-outline" onclick="alert('Ticket auditado bajo causal: Intento de doble lectura óptica.')">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: VIP Gold In Attendance -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="qr_code_2">qr_code_2</span>
+<span class="font-label-code-md text-label-code-md font-mono font-bold text-on-surface">QR-2025-VLT-8812</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Sofia Carrizo Larraín</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">DNI: 50.119.340-X</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 font-bold">
+                    VIP Gold
+                  </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-secondary font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    VÁLIDA
+                  </span>
+</td>
+<td class="py-3 px-3 font-label-code-sm text-label-code-sm text-on-surface font-mono">
+<span class="text-secondary">● Activo</span> (-51dBm)
+                </td>
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">
+                  Palco VIP Lateral B (T-01)
+                </td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('consulta')">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="setOperationTab('edicion')">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Telemetry Sync Status -->
+<div class="flex flex-col sm:flex-row items-center justify-between text-body-sm font-body-sm text-outline pt-space-xs border-t border-outline-variant/40">
+<span>Mostrando 4 de 1,420 entradas sincronizadas con el clúster perimetral.</span>
+<div class="flex items-center gap-2 font-label-code-sm text-label-code-sm mt-2 sm:mt-0">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Gateway Node: Turnstiles 1-12 ONLINE (100% Signal)</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- INTERACTION LOGIC (Modular Vanilla JS) -->
+<script>
+    // Tab Switching Logic for Operation Panels
+    function setOperationTab(mode) {
+      const panels = ['alta', 'consulta', 'edicion', 'baja'];
+      
+      panels.forEach(p => {
+        const panelEl = document.getElementById(`panel-${p}`);
+        const tabBtn = document.getElementById(`tab-btn-${p}`);
+        const navItem = document.getElementById(`nav-item-${p}`);
+
+        if (p === mode) {
+          panelEl?.classList.remove('hidden');
+          
+          // Style Tab Selector
+          if (tabBtn) {
+            tabBtn.className = "group relative text-left p-space-md rounded-xl border-2 transition-all duration-150 bg-surface-container-highest border-secondary ring-1 ring-secondary/30";
+          }
+          // Style Sidebar Item
+          if (navItem) {
+            navItem.className = "flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-surface-container-highest dark:bg-surface-container-highest text-secondary dark:text-secondary border-l-4 border-secondary font-semibold active:scale-[0.98] transition-all text-left";
+          }
+        } else {
+          panelEl?.classList.add('hidden');
+          
+          // Style Inactive Tab Selector
+          if (tabBtn) {
+            tabBtn.className = "group relative text-left p-space-md rounded-xl border transition-all duration-150 bg-surface-container-low hover:bg-surface-container border-outline-variant hover:border-outline";
+          }
+          // Style Inactive Sidebar Item
+          if (navItem) {
+            navItem.className = "flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 active:scale-[0.98] text-left";
+          }
+        }
+      });
+    }
+
+    // Alta Form Submission & Real-Time Pass Preview Update
+    function handleAltaSubmit(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('altaNombre').value;
+      const dni = document.getElementById('altaDni').value;
+      const puerta = document.getElementById('altaPuerta').value;
+      const tipoInputs = document.getElementsByName('tipoEntrada');
+      let tipo = 'VIP Gold';
+      for (const t of tipoInputs) {
+        if (t.checked) tipo = t.value;
+      }
+
+      // Generate simulated sequential token
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      const generatedCode = `QR-2025-${tipo === 'VIP Gold' ? 'VIP' : 'GEN'}-${randomId}`;
+
+      // Update Live Credential Pass Component on Right Column
+      document.getElementById('passNombreDisplay').textContent = nombre;
+      document.getElementById('passDniDisplay').textContent = `DNI: ${dni} · +18 VERIFICADO`;
+      document.getElementById('passTokenCode').textContent = generatedCode;
+      document.getElementById('passPuertaDisplay').textContent = puerta;
+      
+      const badgeTier = document.getElementById('passBadgeTier');
+      if (tipo === 'VIP Gold') {
+        badgeTier.textContent = 'VIP GOLD';
+        badgeTier.className = "font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-tertiary-container/30 text-tertiary border border-tertiary/40 font-bold";
+      } else {
+        badgeTier.textContent = 'GENERAL PASS';
+        badgeTier.className = "font-label-code-sm text-label-code-sm px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container border border-primary/40 font-bold";
+      }
+
+      // Add Row to Table
+      const tableBody = document.getElementById('ticketsTableBody');
+      const newRow = document.createElement('tr');
+      newRow.className = "hover:bg-surface-container/60 transition-colors bg-primary-container/10";
+      newRow.innerHTML = `
+        <td class="py-3 px-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-sm" data-icon="qr_code_2">qr_code_2</span>
+            <span class="font-label-code-md text-label-code-md font-mono font-bold text-on-surface">${generatedCode}</span>
+          </div>
+        </td>
+        <td class="py-3 px-3">
+          <div class="flex flex-col">
+            <span class="font-semibold text-on-surface">${nombre}</span>
+            <span class="font-label-code-sm text-label-code-sm text-outline">DNI: ${dni}</span>
+          </div>
+        </td>
+        <td class="py-3 px-3">
+          <span class="font-label-code-sm text-label-code-sm px-2.5 py-0.5 rounded-full ${tipo === 'VIP Gold' ? 'bg-tertiary-container/30 text-tertiary border border-tertiary/40 font-bold' : 'bg-surface-container text-on-surface-variant border border-outline-variant'}">
+            ${tipo}
+          </span>
+        </td>
+        <td class="py-3 px-3">
+          <span class="inline-flex items-center gap-1.5 font-label-code-sm text-label-code-sm text-secondary font-semibold">
+            <span class="w-2 h-2 rounded-full bg-secondary"></span>
+            VÁLIDA
+          </span>
+        </td>
+        <td class="py-3 px-3 font-label-code-sm text-label-code-sm text-on-surface font-mono">
+          <span class="text-secondary">● Activo</span> (-39dBm)
+        </td>
+        <td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">
+          ${puerta}
+        </td>
+        <td class="py-3 px-3 text-right">
+          <div class="flex items-center justify-end gap-1">
+            <button onclick="setOperationTab('consulta')" class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface">
+              <span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+            </button>
+            <button onclick="setOperationTab('edicion')" class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface">
+              <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+            </button>
+          </div>
+        </td>
+      `;
+      tableBody.insertBefore(newRow, tableBody.firstChild);
+
+      alert(`¡Entrada generada con éxito!\nToken: ${generatedCode}\nBeacon despachado hacia el torniquete.`);
+    }
+
+    // Invalidation Handler
+    function handleInvalidarBaja() {
+      const ticketId = document.getElementById('bajaTicketId').value;
+      if (confirm(`¿Confirma la revocación irreversible del ticket ${ticketId}? Esta acción desconectará el beacon bluetooth y cerrará el paso en torniquetes.`)) {
+        document.getElementById('passEstadoDisplay').textContent = 'REVOCADO';
+        document.getElementById('passEstadoDisplay').className = 'text-error font-bold line-through';
+        alert(`Ticket ${ticketId} ha sido dado de baja en el sistema. Todos los torniquetes han recibido la orden de rechazo.`);
+      }
+    }
+
+    // Scan Search Simulator
+    function simulateScanSearch() {
+      const val = document.getElementById('consultaInput').value;
+      alert(`Consulta en base perimetral: Token "${val}" verificado.\nFirma criptográfica válida, sin registros previos de egreso/ingreso no autorizado.`);
+    }
+
+    // Dynamic 45-second Nonce Timer Simulation
+    let nonceRemaining = 42;
+    setInterval(() => {
+      nonceRemaining--;
+      if (nonceRemaining <= 0) {
+        nonceRemaining = 45;
+      }
+      const timerEl = document.getElementById('nonceTimer');
+      const barEl = document.getElementById('nonceProgressBar');
+      if (timerEl && barEl) {
+        timerEl.textContent = `${nonceRemaining}s`;
+        const pct = Math.floor((nonceRemaining / 45) * 100);
+        barEl.style.width = `${pct}%`;
+      }
+    }, 1000);
+
+    // Table Filter and Search Helpers
+    function filterTable(category) {
+      const buttons = ['all', 'valida', 'vip', 'baja'];
+      buttons.forEach(b => {
+        const btn = document.getElementById(`filter-${b}`);
+        if (b === category) {
+          btn.className = "px-2.5 py-1 rounded text-body-sm font-body-sm font-semibold bg-surface-container-highest text-secondary";
+        } else {
+          btn.className = "px-2.5 py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface";
+        }
+      });
+    }
+
+    function searchTable(query) {
+      const rows = document.querySelectorAll('#ticketsTableBody tr');
+      const q = query.toLowerCase();
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        r.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    // Theme Toggle Handler
+    const themeBtn = document.getElementById('themeToggleBtn');
+    themeBtn?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+</body></html>
