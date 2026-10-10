@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Cliente — PassLive Verde Mate</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              300: '#86EFAC',
+              400: '#4ADE80',
+              500: '#2D6A4F',
+              600: '#1B4332',
+              700: '#081C15',
+              800: '#061611',
+              900: '#030B08',
+            },
+            accent: {
+              lime: '#A3E635',
+              amber: '#F59E0B',
+              emerald: '#10B981',
+              violet: '#8B5CF6',
+            },
+            slate: {
+              850: '#151E2E',
+              950: '#0B1120',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(45,106,79,0.3);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-100 font-sans antialiased min-h-screen transition-colors duration-200 selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP BAR (Sticky) -->
+  <header class="sticky top-0 z-50 px-6 py-3.5 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 shadow-xs flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <!-- Logotipo Brand Mark -->
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-brand-600 text-white shadow-sm ring-2 ring-emerald-500/20 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2.5">
+          <span class="text-base font-bold tracking-tight text-stone-900 dark:text-white">PassLive</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-mono font-medium">v1.2 Verde Mate</span>
+        </div>
+        <p class="text-xs text-stone-500 dark:text-stone-400">Control de Accesos & Validación BLE / QR 2D</p>
+      </div>
+    </div>
+
+    <!-- Central Status / Process Indicator -->
+    <div class="hidden md:flex items-center space-x-3 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wider font-mono">BPMN: Process_1</span>
+      <span class="text-stone-300 dark:text-stone-600">|</span>
+      <span class="text-xs text-stone-600 dark:text-stone-400">Gestión de Cliente</span>
+      <span class="text-xs font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">EN LÍNEA</span>
+    </div>
+
+    <!-- Actions: Theme Toggle & Admin Profile -->
+    <div class="flex items-center space-x-3">
+      <button id="themeToggle" onclick="toggleTheme()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 transition-colors flex items-center space-x-2 text-stone-700 dark:text-stone-200">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Modo Oscuro</span>
+      </button>
+
+      <div class="h-6 w-px bg-stone-200 dark:bg-stone-800"></div>
+
+      <div class="flex items-center space-x-2 pl-1">
+        <div class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs ring-2 ring-emerald-500/20">
+          OP
+        </div>
+        <div class="hidden sm:block text-left">
+          <p class="text-xs font-semibold text-stone-800 dark:text-stone-200 leading-tight">Operador Torniquete 04</p>
+          <p class="text-[10px] text-stone-500 font-mono">Sala Arena Central</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="hidden lg:block w-64 shrink-0 sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-y-auto custom-scrollbar">
+      <div class="space-y-6">
+        <div>
+          <div class="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider px-3 mb-2 font-mono">
+            Proceso Activo
+          </div>
+          <nav class="space-y-1">
+            <a href="#proceso-flow" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 transition-colors border border-emerald-800/20">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+              <span>Flujo de Decisión BPMN</span>
+            </a>
+          </nav>
+        </div>
+
+        <div>
+          <div class="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider px-3 mb-2 font-mono">
+            Operaciones de Cliente
+          </div>
+          <nav class="space-y-1" id="sidebarOperations">
+            <button onclick="switchTab('alta')" id="nav-alta" class="w-full text-left flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+              </svg>
+              <span>Registrar Nuevo</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">ALTA</span>
+            </button>
+
+            <button onclick="switchTab('consulta')" id="nav-consulta" class="w-full text-left flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <span>Consultar Datos</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">BUSCAR</span>
+            </button>
+
+            <button onclick="switchTab('edicion')" id="nav-edicion" class="w-full text-left flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              <span>Editar Datos</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">MODIF</span>
+            </button>
+
+            <button onclick="switchTab('baja')" id="nav-baja" class="w-full text-left flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-700 dark:hover:text-red-300 transition-colors">
+              <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"></path>
+              </svg>
+              <span>Dar de Baja</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300">BAJA</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Dispositivos y Validación Dual -->
+        <div>
+          <div class="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider px-3 mb-2 font-mono">
+            Canales de Acceso
+          </div>
+          <div class="space-y-2 px-3">
+            <div class="p-2.5 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="text-xs font-semibold">Beacon BLE</span>
+              </div>
+              <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Activo (4m)</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="text-xs font-semibold">Escáner QR 2D</span>
+              </div>
+              <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Listo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADN de Diseño Card -->
+        <div class="mt-8 p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-stone-900 dark:text-stone-100">ADN PassLive</span>
+            <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">#2D6A4F</span>
+          </div>
+          <p class="text-stone-600 dark:text-stone-400 text-xs leading-relaxed mb-3">
+            Acabado Verde Mate apagado, optimizado para entornos de baja luminosidad y control de acceso riguroso (+18/+21 & VIP).
+          </p>
+          <div class="pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between font-mono text-[11px] text-stone-500">
+            <span>WCAG 2.1 AA</span>
+            <span class="text-emerald-600 font-semibold">OK 4.8:1</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 space-y-8 min-w-0">
+
+      <!-- HERO SECTION -->
+      <section class="p-8 rounded-2xl bg-gradient-to-br from-emerald-900 via-stone-900 to-stone-950 text-white shadow-xl border border-emerald-800/40 relative overflow-hidden">
+        <!-- Halo decorativo -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold uppercase tracking-wider border border-emerald-500/30 font-mono">
+                BPMN 2.0 • Process_1
+              </span>
+              <span class="text-xs text-stone-300 font-mono flex items-center space-x-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Inicio: Solicitud de administración de Cliente</span>
+              </span>
+            </div>
+            <div class="text-xs font-mono text-stone-400 flex items-center space-x-2">
+              <span>9 Conexiones</span>
+              <span>•</span>
+              <span class="text-emerald-400 font-semibold">4 Tareas Operativas</span>
+            </div>
+          </div>
+
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+              Gestión Integral de Cliente
+            </h1>
+            <p class="text-base sm:text-lg leading-relaxed text-stone-300 max-w-3xl mt-1">
+              Punto de decisión central para registro, auditoría de credenciales, edición y baja de clientes con vinculación a tags Bluetooth BLE y validación de acceso.
+            </p>
+          </div>
+
+          <!-- Grid de especificaciones internas -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-stone-800">
+            <div>
+              <p class="text-xs text-stone-400 uppercase tracking-wider font-mono">Inicio</p>
+              <p class="text-sm font-semibold text-stone-100 mt-0.5">StartEvent_1</p>
+              <p class="text-[11px] text-emerald-400 font-mono">Solicitud de admin.</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400 uppercase tracking-wider font-mono">Punto Decisión</p>
+              <p class="text-sm font-semibold text-stone-100 mt-0.5">Gateway_Operacion</p>
+              <p class="text-[11px] text-accent-lime font-mono">¿Operación a realizar?</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400 uppercase tracking-wider font-mono">Estado Sistema</p>
+              <p class="text-sm font-semibold text-stone-100 mt-0.5">Verificación Dual</p>
+              <p class="text-[11px] text-accent-emerald font-mono">BLE + QR Dinámico</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400 uppercase tracking-wider font-mono">Cierre</p>
+              <p class="text-sm font-semibold text-stone-100 mt-0.5">EndEvent_Final</p>
+              <p class="text-[11px] text-stone-300 font-mono">Admin. finalizada</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DECISIÓN DE PROCESO (GATEWAY INTERACTIVO) -->
+      <section id="proceso-flow" class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-200 dark:border-stone-800 gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-accent-lime"></span>
+              <h2 class="text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100">
+                Punto de Decisión: <span class="font-mono text-emerald-600 dark:text-emerald-400">Gateway_Operacion</span>
+              </h2>
+            </div>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+              Seleccione la bifurcación del proceso para activar el formulario y flujo correspondiente.
+            </p>
+          </div>
+          <!-- Flujo visual mini -->
+          <div class="flex items-center space-x-1.5 font-mono text-[11px] bg-stone-100 dark:bg-stone-800 px-3 py-1.5 rounded-lg border border-stone-200 dark:border-stone-700">
+            <span class="text-stone-500">Start</span>
+            <span class="text-stone-400">→</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">Gateway</span>
+            <span class="text-stone-400">→</span>
+            <span id="gatewayTargetDisplay" class="text-brand-500 dark:text-brand-300 font-semibold uppercase">Task_Alta</span>
+            <span class="text-stone-400">→</span>
+            <span class="text-stone-500">End</span>
+          </div>
+        </div>
+
+        <!-- Botones de Operación (Selector de Gateway) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          
+          <!-- Botón Task_Alta -->
+          <button onclick="switchTab('alta')" id="btn-alta" class="gateway-card p-4 rounded-xl border text-left transition-all duration-150 relative bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-600 dark:border-emerald-500 shadow-xs ring-1 ring-emerald-500/30">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-brand-500 text-white flex items-center justify-center font-bold text-xs">
+                +
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 dark:bg-emerald-900/80 dark:text-emerald-200 font-semibold">
+                Task_Alta
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Registrar Cliente</h3>
+            <p class="text-xs text-stone-600 dark:text-stone-400 mt-1">Alta de credencial, vinculación BLE y asignación de perfil.</p>
+            <div class="mt-3 flex items-center text-[11px] font-mono text-emerald-700 dark:text-emerald-400 font-semibold">
+              <span>Activado</span>
+              <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+          </button>
+
+          <!-- Botón Task_Consulta -->
+          <button onclick="switchTab('consulta')" id="btn-consulta" class="gateway-card p-4 rounded-xl border border-stone-200 dark:border-stone-800 text-left transition-all duration-150 relative hover:border-emerald-500/50 bg-stone-50 dark:bg-stone-850/60">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-bold text-xs">
+                🔍
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 font-semibold">
+                Task_Consulta
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Consultar Datos</h3>
+            <p class="text-xs text-stone-600 dark:text-stone-400 mt-1">Búsqueda por DNI, UID BLE o ticket para validar accesos.</p>
+            <div class="mt-3 flex items-center text-[11px] font-mono text-stone-500 group-hover:text-emerald-600">
+              <span>Seleccionar</span>
+              <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+          </button>
+
+          <!-- Botón Task_Edicion -->
+          <button onclick="switchTab('edicion')" id="btn-edicion" class="gateway-card p-4 rounded-xl border border-stone-200 dark:border-stone-800 text-left transition-all duration-150 relative hover:border-emerald-500/50 bg-stone-50 dark:bg-stone-850/60">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300 flex items-center justify-center font-bold text-xs">
+                ✏️
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 font-semibold">
+                Task_Edicion
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Editar Datos</h3>
+            <p class="text-xs text-stone-600 dark:text-stone-400 mt-1">Actualizar estado VIP, nivel de acceso, beacon asociado o teléfono.</p>
+            <div class="mt-3 flex items-center text-[11px] font-mono text-stone-500">
+              <span>Seleccionar</span>
+              <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+          </button>
+
+          <!-- Botón Task_Baja -->
+          <button onclick="switchTab('baja')" id="btn-baja" class="gateway-card p-4 rounded-xl border border-stone-200 dark:border-stone-800 text-left transition-all duration-150 relative hover:border-red-500/50 bg-stone-50 dark:bg-stone-850/60">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-xs">
+                ✕
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-950/70 text-red-700 dark:text-red-300 font-semibold">
+                Task_Baja
+              </span>
+            </div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Dar de Baja</h3>
+            <p class="text-xs text-stone-600 dark:text-stone-400 mt-1">Revocación de credencial de acceso, desvinculación BLE y lista negra.</p>
+            <div class="mt-3 flex items-center text-[11px] font-mono text-red-600 dark:text-red-400">
+              <span>Seleccionar</span>
+              <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- CONDITIONAL TASK FORMS CONTAINER -->
+
+      <!-- TAB 1: REGISTRAR NUEVO CLIENTE (Task_Alta) -->
+      <section id="panel-alta" class="task-panel bg-white dark:bg-stone-900 rounded-2xl p-6 sm:p-8 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 dark:border-stone-800 gap-4">
+          <div>
+            <div class="flex items-center space-x-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+              <span class="text-xs font-bold text-brand-600 dark:text-brand-300 uppercase tracking-wider font-mono">BPMN TASK: Task_Alta</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-mono">Estado: Inicial</span>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100 mt-1">
+              Registrar nuevo Cliente
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+              Complete los datos del cliente, verificación de mayoría de edad y aprovisionamiento de credencial PassLive.
+            </p>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-mono text-stone-400">Paso 1 de 2: Formulario</span>
+          </div>
+        </div>
+
+        <form id="formAlta" onsubmit="event.preventDefault(); simulateProcessEnd('Alta de cliente completada exitosamente. Credencial BLE generada.');" class="space-y-6">
+          
+          <!-- Banner informativo de validación de edad -->
+          <div class="p-4 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 flex items-start space-x-3">
+            <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div class="text-xs text-stone-700 dark:text-stone-300">
+              <span class="font-bold text-emerald-800 dark:text-emerald-200">Requisito de Acceso Sala:</span> Todos los clientes deben registrar un DNI válido y superar la verificación obligatoria de edad (+18/+21) para emitir el token dinámico de acceso.
+            </div>
+          </div>
+
+          <!-- Campos: Información Personal -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-bold text-stone-800 dark:text-stone-200 uppercase tracking-wider font-mono">
+              1. Datos de Identidad
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Nombre Completo <span class="text-red-500">*</span>
+                </label>
+                <input type="text" required placeholder="Ej. Carlos Mendoza Gil" class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Documento de Identidad (DNI/NIE/Pasaporte) <span class="text-red-500">*</span>
+                </label>
+                <input type="text" required placeholder="48291048K" class="w-full px-3.5 py-2 text-sm font-mono rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Fecha de Nacimiento <span class="text-red-500">*</span>
+                </label>
+                <input type="date" required value="1998-05-14" class="w-full px-3.5 py-2 text-sm font-mono rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Correo Electrónico <span class="text-red-500">*</span>
+                </label>
+                <input type="email" required placeholder="carlos.mendoza@passlive.app" class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Teléfono Móvil (Validación BLE) <span class="text-red-500">*</span>
+                </label>
+                <input type="tel" required placeholder="+34 612 345 678" class="w-full px-3.5 py-2 text-sm font-mono rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+                  Nivel de Acreditación / Perfil <span class="text-red-500">*</span>
+                </label>
+                <select class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors">
+                  <option value="estandar">Entrada General (Acceso Pista)</option>
+                  <option value="vip">VIP Gold (Zona Reservados + Barra Libre)</option>
+                  <option value="staff">Personal / Crew de Producción</option>
+                  <option value="prensa">Prensa / Invitación Especial</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Campos: Configuración de Canales BLE & QR -->
+          <div class="space-y-4 pt-4 border-t border-stone-200 dark:border-stone-800">
+            <h3 class="text-sm font-bold text-stone-800 dark:text-stone-200 uppercase tracking-wider font-mono">
+              2. Vinculación de Acceso y Hardware
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-semibold text-stone-800 dark:text-stone-200">Asignar Beacon BLE UUID</span>
+                  </div>
+                  <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">Auto-Generado</span>
+                </div>
+                <input type="text" readonly value="BLE-PASS-78FA-992C-E01" class="w-full px-3 py-1.5 text-xs font-mono rounded bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 select-all">
+                <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-1.5">Permite validación pasiva por proximidad en torniquetes automáticos.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-semibold text-stone-800 dark:text-stone-200">Emisión QR Dinámico 2D</span>
+                  </div>
+                  <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">Rotativo 30s</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <input type="text" readonly value="QR2D-PASSLIVE-HMAC-SHA256" class="w-full px-3 py-1.5 text-xs font-mono rounded bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300">
+                  <span class="px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-bold">+18 OK</span>
+                </div>
+                <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-1.5">Cifrado con clave efímera para evitar reventa o clonación.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Acciones de Formulario -->
+          <div class="pt-5 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-xs text-stone-500 font-mono">
+              Destino BPMN: <span class="text-emerald-600 dark:text-emerald-400">Administración de Cliente finalizada</span>
+            </div>
+
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+              <button type="reset" class="px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 transition-colors w-full sm:w-auto">
+                Limpiar Formulario
+              </button>
+              <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-sm transition-colors flex items-center justify-center space-x-2 w-full sm:w-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Guardar y Registrar Cliente</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- TAB 2: CONSULTAR DATOS DE CLIENTE (Task_Consulta) -->
+      <section id="panel-consulta" class="task-panel hidden bg-white dark:bg-stone-900 rounded-2xl p-6 sm:p-8 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 dark:border-stone-800 gap-4">
+          <div>
+            <div class="flex items-center space-x-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-accent-lime"></span>
+              <span class="text-xs font-bold text-brand-600 dark:text-brand-300 uppercase tracking-wider font-mono">BPMN TASK: Task_Consulta</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-mono">Filtro de Datos</span>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100 mt-1">
+              Consultar datos de Cliente
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+              Búsqueda de expediente de cliente por DNI, identificador Bluetooth BLE, código de ticket o teléfono.
+            </p>
+          </div>
+        </div>
+
+        <!-- Barra de Búsqueda -->
+        <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700">
+          <form onsubmit="event.preventDefault();" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div class="md:col-span-2">
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Criterio de búsqueda</label>
+              <div class="relative">
+                <input type="text" id="consultaInput" value="48291048K" placeholder="Ingrese DNI, Nombre, UUID BLE o Teléfono..." class="w-full pl-9 pr-3.5 py-2 text-sm rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <svg class="w-4 h-4 text-stone-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Filtro de Perfil</label>
+              <select class="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="todos">Todos los perfiles</option>
+                <option value="vip">VIP Gold (#F59E0B)</option>
+                <option value="general">Entrada General</option>
+                <option value="staff">Staff Técnico</option>
+              </select>
+            </div>
+
+            <div class="flex items-end">
+              <button type="button" class="w-full px-4 py-2 text-xs font-semibold rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-sm transition-colors flex items-center justify-center space-x-1.5 h-[38px]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Buscar Cliente</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tarjeta de Expediente de Cliente Encontrado -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-200 dark:border-stone-800 gap-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-600 to-brand-600 text-white flex items-center justify-center font-bold text-base shadow-sm ring-2 ring-emerald-500/20">
+                CM
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h3 class="text-base font-bold text-stone-900 dark:text-stone-100">Carlos Mendoza Gil</h3>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300 font-mono text-xs font-bold border border-amber-300 dark:border-amber-800">
+                    VIP Gold
+                  </span>
+                </div>
+                <p class="text-xs text-stone-500 font-mono">ID: CLI-2024-88491 • DNI: 48291048K</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 font-mono">Credencial Activa</span>
+            </div>
+          </div>
+
+          <!-- Ficha de Datos Detallada -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-3 rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+              <p class="text-[11px] font-mono text-stone-500 uppercase">Contacto</p>
+              <p class="text-xs font-semibold text-stone-800 dark:text-stone-200 mt-1">carlos.mendoza@passlive.app</p>
+              <p class="text-xs font-mono text-stone-600 dark:text-stone-400 mt-0.5">+34 612 345 678</p>
+            </div>
+
+            <div class="p-3 rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+              <p class="text-[11px] font-mono text-stone-500 uppercase">Verificación de Edad</p>
+              <p class="text-xs font-semibold text-stone-800 dark:text-stone-200 mt-1">26 años (14/05/1998)</p>
+              <span class="inline-block mt-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-semibold">+18 / +21 Aprobado</span>
+            </div>
+
+            <div class="p-3 rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+              <p class="text-[11px] font-mono text-stone-500 uppercase">Hardware BLE Asignado</p>
+              <p class="text-xs font-mono text-emerald-700 dark:text-emerald-400 font-semibold mt-1">BLE-PASS-78FA-992C-E01</p>
+              <p class="text-[10px] text-stone-500 mt-0.5">Emparejado a pulsera activa</p>
+            </div>
+
+            <div class="p-3 rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-800">
+              <p class="text-[11px] font-mono text-stone-500 uppercase">Último Acceso Registrado</p>
+              <p class="text-xs font-semibold text-stone-800 dark:text-stone-200 mt-1">Torniquete 02 (Arena)</p>
+              <p class="text-[11px] font-mono text-stone-500 mt-0.5">Hoy 23:42:10 CET</p>
+            </div>
+          </div>
+
+          <!-- Historial de Validaciones Recientes -->
+          <div>
+            <h4 class="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider font-mono mb-2">
+              Historial de Accesos y Eventos
+            </h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden">
+                <thead class="bg-stone-100 dark:bg-stone-850 text-stone-600 dark:text-stone-400 font-mono">
+                  <tr>
+                    <th class="px-3.5 py-2">Fecha / Hora</th>
+                    <th class="px-3.5 py-2">Canal</th>
+                    <th class="px-3.5 py-2">Zona</th>
+                    <th class="px-3.5 py-2">Estado</th>
+                    <th class="px-3.5 py-2">Código Verificación</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-stone-200 dark:divide-stone-800 font-mono text-[11px]">
+                  <tr class="hover:bg-stone-50 dark:hover:bg-stone-850/50">
+                    <td class="px-3.5 py-2">2025-02-15 23:42</td>
+                    <td class="px-3.5 py-2 text-emerald-600 dark:text-emerald-400">Bluetooth BLE (2.1m)</td>
+                    <td class="px-3.5 py-2 text-stone-900 dark:text-stone-200 font-sans">Torniquete Principal</td>
+                    <td class="px-3.5 py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-bold">VALIDADO</span></td>
+                    <td class="px-3.5 py-2 text-stone-500">AUTH-OK-9921</td>
+                  </tr>
+                  <tr class="hover:bg-stone-50 dark:hover:bg-stone-850/50">
+                    <td class="px-3.5 py-2">2025-02-15 23:10</td>
+                    <td class="px-3.5 py-2 text-stone-600 dark:text-stone-400">QR 2D Escaneado</td>
+                    <td class="px-3.5 py-2 text-stone-900 dark:text-stone-200 font-sans">Acceso VIP Lounge</td>
+                    <td class="px-3.5 py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-bold">VALIDADO</span></td>
+                    <td class="px-3.5 py-2 text-stone-500">AUTH-VIP-4412</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Acciones de consulta -->
+          <div class="pt-4 border-t border-stone-200 dark:border-stone-800 flex justify-end space-x-3">
+            <button onclick="switchTab('edicion')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 border border-stone-200 dark:border-stone-700">
+              Modificar este Cliente →
+            </button>
+            <button onclick="simulateProcessEnd('Consulta finalizada. Registro conforme.');" class="px-4 py-1.5 text-xs font-semibold rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-sm">
+              Finalizar Consulta (EndEvent)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: EDITAR DATOS DE CLIENTE (Task_Edicion) -->
+      <section id="panel-edicion" class="task-panel hidden bg-white dark:bg-stone-900 rounded-2xl p-6 sm:p-8 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 dark:border-stone-800 gap-4">
+          <div>
+            <div class="flex items-center space-x-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-accent-amber"></span>
+              <span class="text-xs font-bold text-brand-600 dark:text-brand-300 uppercase tracking-wider font-mono">BPMN TASK: Task_Edicion</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300 font-mono">Modificación Activa</span>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100 mt-1">
+              Editar datos de Cliente
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+              Modifique atributos de contacto, reasigne hardware BLE o cambie el nivel de acreditación VIP.
+            </p>
+          </div>
+          <div class="text-xs font-mono px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400">
+            Editando: <span class="font-bold text-stone-900 dark:text-stone-200">Carlos Mendoza Gil (48291048K)</span>
+          </div>
+        </div>
+
+        <form id="formEdicion" onsubmit="event.preventDefault(); simulateProcessEnd('Datos de cliente actualizados correctamente.');" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Nombre Completo</label>
+              <input type="text" value="Carlos Mendoza Gil" class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Documento Identidad (Bloqueado por auditoría)</label>
+              <input type="text" value="48291048K" readonly class="w-full px-3.5 py-2 text-sm font-mono rounded-lg bg-stone-200/70 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-400 cursor-not-allowed">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Teléfono Móvil</label>
+              <input type="tel" value="+34 612 345 678" class="w-full px-3.5 py-2 text-sm font-mono rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Correo Electrónico</label>
+              <input type="email" value="carlos.mendoza@passlive.app" class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Acreditación / Perfil</label>
+              <select class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="vip" selected>VIP Gold (#F59E0B)</option>
+                <option value="estandar">Entrada General</option>
+                <option value="staff">Staff Técnico</option>
+                <option value="prensa">Prensa / Invitado</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Estado Operativo de Credencial</label>
+              <select class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="activa" selected>Activa (Acceso Autorizado)</option>
+                <option value="pausada">Pausada temporalmente</option>
+                <option value="bloqueada">Bloqueada por seguridad</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Reasignación de Hardware BLE -->
+          <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-stone-800 dark:text-stone-200 uppercase tracking-wider font-mono">
+                Reasignación de Hardware Bluetooth BLE
+              </span>
+              <button type="button" onclick="regenerateBle()" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-mono">
+                Generar nuevo UUID
+              </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] text-stone-500 mb-1">UUID Beacon Proximidad</label>
+                <input type="text" id="editBleInput" value="BLE-PASS-78FA-992C-E01" class="w-full px-3 py-1.5 text-xs font-mono rounded bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200">
+              </div>
+              <div>
+                <label class="block text-[11px] text-stone-500 mb-1">Rango Máximo de Detección (m)</label>
+                <input type="number" value="4" min="1" max="15" class="w-full px-3 py-1.5 text-xs font-mono rounded bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200">
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-5 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+            <button type="button" onclick="switchTab('consulta')" class="px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300">
+              Cancelar
+            </button>
+            <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-sm transition-colors flex items-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+              <span>Guardar Cambios (Task_Edicion)</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- TAB 4: DAR DE BAJA CLIENTE (Task_Baja) -->
+      <section id="panel-baja" class="task-panel hidden bg-white dark:bg-stone-900 rounded-2xl p-6 sm:p-8 border border-red-200 dark:border-red-900/40 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 dark:border-stone-800 gap-4">
+          <div>
+            <div class="flex items-center space-x-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider font-mono">BPMN TASK: Task_Baja</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-950/70 dark:text-red-300 font-mono">Acción Crítica</span>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100 mt-1">
+              Dar de baja Cliente
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 mt-0.5">
+              Revocación inmediata de credenciales, expulsión de lista de acceso y registro de motivo para auditoría.
+            </p>
+          </div>
+        </div>
+
+        <form id="formBaja" onsubmit="event.preventDefault(); simulateProcessEnd('Cliente dado de baja. Beacon revocado y proceso finalizado.');" class="space-y-6">
+          <!-- Alerta de Advertencia -->
+          <div class="p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 flex items-start space-x-3">
+            <svg class="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <div class="text-xs text-red-900 dark:text-red-200 leading-relaxed">
+              <span class="font-bold">Advertencia de Seguridad:</span> Esta acción invalidará de forma inmediata las balizas Bluetooth (BLE) y el token QR dinámico asociado en todos los torniquetes de la sala. No podrá reingresar sin un nuevo proceso de alta.
+            </div>
+          </div>
+
+          <!-- Selección de Cliente para Baja -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Cliente a Dar de Baja</label>
+              <input type="text" value="Carlos Mendoza Gil (DNI: 48291048K)" readonly class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-100 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-mono">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Motivo de Baja <span class="text-red-500">*</span></label>
+              <select required class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option value="solicitud">Solicitud voluntaria del cliente (Derecho Supresión RGPD)</option>
+                <option value="seguridad">Infracción de normas del local / Alteración del orden</option>
+                <option value="fraude">Intento de clonación de ticket / Reventa no autorizada</option>
+                <option value="fin_evento">Cierre de temporada / Expiración de abono</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">Observaciones adicionales de Auditoría</label>
+            <textarea rows="3" placeholder="Detalle las razones o número de atestado/incidencia..." class="w-full px-3.5 py-2 text-sm rounded-lg bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center space-x-2.5 text-xs text-stone-700 dark:text-stone-300">
+              <input type="checkbox" required class="rounded text-red-600 focus:ring-red-500 dark:bg-stone-800 border-stone-300 dark:border-stone-700">
+              <span>Confirmo que deseo anular la credencial física/BLE y dar por concluida la administración de este cliente.</span>
+            </label>
+          </div>
+
+          <div class="pt-5 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+            <button type="button" onclick="switchTab('consulta')" class="px-4 py-2 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300">
+              Cancelar
+            </button>
+            <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-lg bg-red-600 hover:bg-red-700 text-white shadow-sm transition-colors flex items-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              <span>Ejecutar Baja (Task_Baja)</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- NOTIFICACIÓN DE FINALIZACIÓN DE PROCESO (Modal / Toast simulado) -->
+      <div id="processEndAlert" class="hidden p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-400 dark:border-emerald-700/60 text-emerald-900 dark:text-emerald-100 flex items-center justify-between transition-all">
+        <div class="flex items-center space-x-3">
+          <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0">
+            ✓
+          </div>
+          <div>
+            <p class="text-xs font-bold font-mono text-emerald-700 dark:text-emerald-300 uppercase">Administración de Cliente finalizada</p>
+            <p id="processEndMessage" class="text-xs text-stone-600 dark:text-stone-300 mt-0.5">Operación completada con éxito.</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('processEndAlert').classList.add('hidden')" class="text-xs font-mono px-2 py-1 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+          Cerrar
+        </button>
+      </div>
+
+      <!-- PALETA CROMÁTICA & VALIDACIÓN DE SISTEMA (Muestras de Color según Design System) -->
+      <section class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-stone-800 dark:text-stone-200 uppercase tracking-wider font-mono">
+              Tokens Activos — Paleta PassLive &quot;Verde Mate&quot;
+            </h3>
+            <p class="text-xs text-stone-500 mt-0.5">Conformidad con WCAG 2.1 AA y arquitectura visual PassLive v1.2</p>
+          </div>
+          <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Base: #2D6A4F</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 pt-2">
+          
+          <!-- Swatch Brand-500 -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#2D6A4F] flex items-end p-2">
+              <span class="text-[10px] font-mono text-white/90">brand-500</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#2D6A4F</span>
+            </div>
+          </div>
+
+          <!-- Swatch Brand-600 -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#1B4332] flex items-end p-2">
+              <span class="text-[10px] font-mono text-white/90">brand-600</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#1B4332</span>
+            </div>
+          </div>
+
+          <!-- Swatch Accent-Lime -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#A3E635] flex items-end p-2">
+              <span class="text-[10px] font-mono text-stone-900 font-bold">accent-lime</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#A3E635</span>
+            </div>
+          </div>
+
+          <!-- Swatch Accent-Amber (VIP) -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#F59E0B] flex items-end p-2">
+              <span class="text-[10px] font-mono text-stone-950 font-bold">VIP Gold</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#F59E0B</span>
+            </div>
+          </div>
+
+          <!-- Swatch Slate-850 -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#151E2E] flex items-end p-2">
+              <span class="text-[10px] font-mono text-white/90">slate-850</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#151E2E</span>
+            </div>
+          </div>
+
+          <!-- Swatch Brand-300 -->
+          <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 shadow-xs">
+            <div class="h-14 bg-[#86EFAC] flex items-end p-2">
+              <span class="text-[10px] font-mono text-stone-900 font-bold">brand-300</span>
+            </div>
+            <div class="p-2 bg-stone-50 dark:bg-stone-800 text-xs">
+              <span class="font-mono text-[11px] font-semibold text-stone-700 dark:text-stone-300">#86EFAC</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- SCRIPT INTERACTIVO: Control de Tabs BPMN, Tema y Flujo -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      if (isDark) {
+        icon.textContent = '🌙';
+        text.textContent = 'Modo Oscuro';
+      } else {
+        icon.textContent = '☀️';
+        text.textContent = 'Modo Claro';
+      }
+    }
+
+    function switchTab(task) {
+      // Hide all panels
+      const panels = ['alta', 'consulta', 'edicion', 'baja'];
+      panels.forEach(p => {
+        const el = document.getElementById('panel-' + p);
+        if (el) el.classList.add('hidden');
+        
+        // Reset gateway button styling
+        const btn = document.getElementById('btn-' + p);
+        if (btn) {
+          btn.className = 'gateway-card p-4 rounded-xl border border-stone-200 dark:border-stone-800 text-left transition-all duration-150 relative bg-stone-50 dark:bg-stone-850/60';
+        }
+
+        // Reset nav button styling
+        const nav = document.getElementById('nav-' + p);
+        if (nav) {
+          nav.classList.remove('bg-emerald-50', 'dark:bg-emerald-950/40', 'text-emerald-700', 'dark:text-emerald-300', 'border', 'border-emerald-800/20');
+        }
+      });
+
+      // Show selected panel
+      const targetPanel = document.getElementById('panel-' + task);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+      }
+
+      // Highlight gateway button
+      const activeBtn = document.getElementById('btn-' + task);
+      if (activeBtn) {
+        if (task === 'baja') {
+          activeBtn.className = 'gateway-card p-4 rounded-xl border text-left transition-all duration-150 relative bg-red-50/70 dark:bg-red-950/40 border-red-500 shadow-xs ring-1 ring-red-500/30';
+        } else {
+          activeBtn.className = 'gateway-card p-4 rounded-xl border text-left transition-all duration-150 relative bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-600 dark:border-emerald-500 shadow-xs ring-1 ring-emerald-500/30';
+        }
+      }
+
+      // Highlight nav button
+      const activeNav = document.getElementById('nav-' + task);
+      if (activeNav) {
+        activeNav.classList.add('bg-emerald-50', 'dark:bg-emerald-950/40', 'text-emerald-700', 'dark:text-emerald-300');
+      }
+
+      // Update Gateway target label
+      const targetLabels = {
+        'alta': 'Task_Alta',
+        'consulta': 'Task_Consulta',
+        'edicion': 'Task_Edicion',
+        'baja': 'Task_Baja'
+      };
+      const display = document.getElementById('gatewayTargetDisplay');
+      if (display) display.textContent = targetLabels[task] || 'Task';
+    }
+
+    function simulateProcessEnd(message) {
+      const alertBox = document.getElementById('processEndAlert');
+      const msgBox = document.getElementById('processEndMessage');
+      if (alertBox && msgBox) {
+        msgBox.textContent = message;
+        alertBox.classList.remove('hidden');
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function regenerateBle() {
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      const hex = Math.floor(Math.random()*16777215).toString(16).toUpperCase().substring(0,4);
+      const input = document.getElementById('editBleInput');
+      if (input) {
+        input.value = `BLE-PASS-${hex}-${rand}-E02`;
+      }
+    }
+  </script>
+</body>
+</html>
