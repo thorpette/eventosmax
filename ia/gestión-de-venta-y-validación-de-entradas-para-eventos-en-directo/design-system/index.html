@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Diseño: PassLive — Ticketing & Acceso en Directo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#2d6a4f', // Verde mate corporativo principal
+              600: '#1b4332', // Verde mate profundo
+              700: '#081c15',
+              800: '#061611',
+              900: '#030b08',
+            },
+            accent: {
+              lime: '#a3e635',
+              amber: '#f59e0b',
+              emerald: '#10b981',
+              violet: '#8b5cf6',
+            },
+            slate: {
+              850: '#151e2e',
+              950: '#0b1120',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(45,106,79,0.3);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-100 transition-colors duration-200 antialiased min-h-screen flex flex-col">
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 px-6 py-3.5 flex items-center justify-between shadow-xs">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-brand-600 flex items-center justify-center text-white shadow-sm ring-2 ring-emerald-500/20">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-lg tracking-tight text-stone-900 dark:text-white">PassLive DS</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300 font-medium">v1.2 Verde Mate</span>
+        </div>
+        <p class="text-xs text-stone-500 dark:text-stone-400">Guía de Estilo &amp; Arquitectura UI • Ticketing, Bluetooth BLE &amp; Control de Acceso</p>
+      </div>
+    </div>
+
+    <!-- Acciones cabecera -->
+    <div class="flex items-center space-x-4">
+      <div class="hidden sm:flex items-center space-x-2 text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-3 py-1.5 rounded-lg border border-stone-200 dark:border-stone-700">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>BLE Validator Online</span>
+      </div>
+
+      <!-- Toggle Dark Mode -->
+      <button id="themeToggleBtn" onclick="toggleTheme()" class="flex items-center space-x-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 transition-colors" title="Alternar modo claro / oscuro">
+        <span id="themeIcon">🌙</span>
+        <span id="themeLabel">Modo Oscuro</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Principal con Sidebar + Contenido -->
+  <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-8">
+    
+    <!-- Sidebar de Navegación -->
+    <aside class="w-64 shrink-0 hidden lg:block sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-y-auto custom-scrollbar pr-2">
+      <nav class="space-y-1">
+        <p class="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider px-3 mb-2">Fundamentos</p>
+        <a href="#overview" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>1. Resumen y Contexto</span>
+        </a>
+        <a href="#color-palette" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 4 4 0 014-4 4 4 0 014 4 4 4 0 01-4 4zm0 0l1.5-4.5M12 3v4m0 0l-2-2m2 2l2-2m6 10a4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4 4 4 0 014 4zm0 0l-1.5-4.5"/></svg>
+          <span>2. Paleta Cromática</span>
+        </a>
+        <a href="#typography" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 5v14m6-8h6m-3-4v8"/></svg>
+          <span>3. Tipografía &amp; Escala</span>
+        </a>
+        <a href="#spacing" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/></svg>
+          <span>4. Sistema de Espaciado</span>
+        </a>
+        <a href="#borders-radius" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/></svg>
+          <span>5. Bordes, Radios &amp; Sombras</span>
+        </a>
+
+        <p class="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider px-3 pt-4 mb-2">Componentes &amp; UI</p>
+        <a href="#component-catalog" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>6. Catálogo de Componentes</span>
+        </a>
+        <a href="#app-specific-components" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          <span>7. Módulos BLE &amp; QR VIP</span>
+        </a>
+        <a href="#layout-patterns" class="flex items-center space-x-2.5 px-3 py-2 text-sm font-medium rounded-lg text-stone-700 dark:text-stone-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM14 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1h-6a1 1 0 01-1-1v-6z"/></svg>
+          <span>8. Patrones de Layout</span>
+        </a>
+      </nav>
+
+      <!-- Resumen de tokens rápidos -->
+      <div class="mt-8 p-4 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs">
+        <span class="font-semibold block mb-1 text-stone-900 dark:text-white">ADN de Diseño</span>
+        <p class="text-stone-600 dark:text-stone-400 mb-2">Acabado <strong>Verde Mate</strong> orgánico, sobrio y de alta visibilidad para entornos con baja iluminación en salas.</p>
+        <div class="space-y-1 font-mono text-[11px] text-stone-500 dark:text-stone-400">
+          <div>Primary: <span class="text-emerald-600 dark:text-emerald-400 font-bold">#2D6A4F</span></div>
+          <div>Deep: <span class="text-stone-800 dark:text-stone-200 font-bold">#1B4332</span></div>
+          <div>VIP Gold: <span class="text-amber-500 font-bold">#F59E0B</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 space-y-16 min-w-0">
+
+      <!-- Sección 1: Introducción y Contexto de la Aplicación -->
+      <section id="overview" class="p-8 rounded-2xl bg-gradient-to-br from-emerald-900 via-stone-900 to-stone-950 text-white shadow-xl relative overflow-hidden border border-emerald-800/40">
+        <div class="absolute -right-12 -top-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-4 border border-emerald-500/30">
+            <span>Arquitectura UI/UX</span>
+            <span>•</span>
+            <span>PassLive Suite</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+            Sistema de Diseño: PassLive
+          </h1>
+          <p class="text-stone-300 text-base sm:text-lg leading-relaxed mb-6">
+            Guía de componentes y especificaciones para la plataforma integral de venta y validación de entradas a espectáculos. Diseñado para ofrecer <strong>fiabilidad táctica</strong> en torniquetes y puntos de acceso mediante <strong>Bluetooth Beacon (BLE)</strong> y escáner de <strong>códigos QR dinámicos</strong>, con verificación estricta de edad (+18/+21) y acreditación VIP.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-stone-800">
+            <div>
+              <p class="text-xs text-stone-400">Estilo Visual</p>
+              <p class="font-semibold text-emerald-400 text-sm">Verde Mate / Matte Green</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400">Validación Dual</p>
+              <p class="font-semibold text-stone-200 text-sm">Bluetooth BLE + QR 2D</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400">Accesibilidad</p>
+              <p class="font-semibold text-emerald-400 text-sm">WCAG 2.1 AA (4.5:1+)</p>
+            </div>
+            <div>
+              <p class="text-xs text-stone-400">Uso Operativo</p>
+              <p class="font-semibold text-stone-200 text-sm">Locales, Discotecas, Arenas</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Color Palette -->
+      <section id="color-palette" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>1. Paleta Cromática (Color Palette)</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Basada en tonos verdes bosque y esmeralda mate apagados para transmitir seguridad tecnológica sin reflejos molestos en entornos de sala con iluminación nocturna. Todos los pares de texto y fondo cumplen estándar de contraste WCAG AA.
+          </p>
+        </div>
+
+        <!-- Paleta Primaria Verde Mate -->
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+          <h3 class="text-base font-semibold text-stone-900 dark:text-stone-100 flex items-center justify-between">
+            <span>Color Primario — Matte Green / Verde Mate Corporativo</span>
+            <span class="text-xs text-emerald-600 dark:text-emerald-400 font-mono">tokens: --color-brand-*</span>
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <!-- 50 -->
+            <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
+              <div class="h-16 bg-[#f0fdf4] flex items-end p-2">
+                <span class="text-[10px] font-mono text-emerald-950 font-semibold">50</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-semibold text-stone-800 dark:text-stone-200">#F0FDF4</p>
+                <p class="text-[10px] text-stone-500">Fondos sutiles</p>
+              </div>
+            </div>
+            <!-- 100 -->
+            <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
+              <div class="h-16 bg-[#dcfce7] flex items-end p-2">
+                <span class="text-[10px] font-mono text-emerald-950 font-semibold">100</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-semibold text-stone-800 dark:text-stone-200">#DCFCE7</p>
+                <p class="text-[10px] text-stone-500">Badges claros</p>
+              </div>
+            </div>
+            <!-- 300 -->
+            <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
+              <div class="h-16 bg-[#86efac] flex items-end p-2">
+                <span class="text-[10px] font-mono text-emerald-950 font-semibold">300</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-semibold text-stone-800 dark:text-stone-200">#86EFAC</p>
+                <p class="text-[10px] text-stone-500">Bordes activos</p>
+              </div>
+            </div>
+            <!-- 500 (Primary Base) -->
+            <div class="rounded-xl overflow-hidden border-2 border-emerald-500 shadow-sm relative">
+              <span class="absolute top-1 right-1 text-[9px] font-bold bg-emerald-600 text-white px-1.5 py-0.5 rounded">BASE</span>
+              <div class="h-16 bg-[#2d6a4f] flex items-end p-2">
+                <span class="text-[10px] font-mono text-white font-semibold">500</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-bold text-emerald-700 dark:text-emerald-300">#2D6A4F</p>
+                <p class="text-[10px] text-stone-500">Primary / CTA</p>
+              </div>
+            </div>
+            <!-- 600 (Dark Deep) -->
+            <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
+              <div class="h-16 bg-[#1b4332] flex items-end p-2">
+                <span class="text-[10px] font-mono text-white font-semibold">600</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-semibold text-stone-800 dark:text-stone-200">#1B4332</p>
+                <p class="text-[10px] text-stone-500">Hover / Contornos</p>
+              </div>
+            </div>
+            <!-- 700 (Night Surface) -->
+            <div class="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
+              <div class="h-16 bg-[#081c15] flex items-end p-2">
+                <span class="text-[10px] font-mono text-white font-semibold">700</span>
+              </div>
+              <div class="p-2.5 bg-stone-50 dark:bg-stone-800 text-xs">
+                <p class="font-mono text-[11px] font-semibold text-stone-800 dark:text-stone-200">#081C15</p>
+                <p class="text-[10px] text-stone-500">Superficies oscuras</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paletas Semánticas y Neutros -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Colores Semánticos -->
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+            <h3 class="text-base font-semibold text-stone-900 dark:text-stone-100">Colores Semánticos (Validación &amp; Control)</h3>
+            <div class="space-y-3">
+              <!-- Éxito -->
+              <div class="flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#10b981] flex items-center justify-center text-white font-bold text-xs">✓</div>
+                  <div>
+                    <p class="text-xs font-semibold text-emerald-900 dark:text-emerald-200">Success / Acceso Permitido</p>
+                    <p class="text-[11px] text-emerald-700 dark:text-emerald-400 font-mono">#10B981 • Validado BLE/QR</p>
+                  </div>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-stone-800 border text-stone-700 dark:text-stone-300">WCAG 4.9:1</span>
+              </div>
+              <!-- Warning / Revisión Manual -->
+              <div class="flex items-center justify-between p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#f59e0b] flex items-center justify-center text-white font-bold text-xs">!</div>
+                  <div>
+                    <p class="text-xs font-semibold text-amber-900 dark:text-amber-200">Warning / Control DNI (+18 Requerido)</p>
+                    <p class="text-[11px] text-amber-700 dark:text-amber-400 font-mono">#F59E0B • Comprobación edad manual</p>
+                  </div>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-stone-800 border text-stone-700 dark:text-stone-300">WCAG 4.6:1</span>
+              </div>
+              <!-- Error / Rechazo -->
+              <div class="flex items-center justify-between p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#ef4444] flex items-center justify-center text-white font-bold text-xs">✕</div>
+                  <div>
+                    <p class="text-xs font-semibold text-rose-900 dark:text-rose-200">Error / Entrada Duplicada o Inválida</p>
+                    <p class="text-[11px] text-rose-700 dark:text-rose-400 font-mono">#EF4444 • Entrada ya leída / caducada</p>
+                  </div>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-stone-800 border text-stone-700 dark:text-stone-300">WCAG 5.2:1</span>
+              </div>
+              <!-- VIP Especial -->
+              <div class="flex items-center justify-between p-3 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-800/60">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#8b5cf6] flex items-center justify-center text-white font-bold text-xs">★</div>
+                  <div>
+                    <p class="text-xs font-semibold text-violet-900 dark:text-violet-200">VIP &amp; Backstage Pass</p>
+                    <p class="text-[11px] text-violet-700 dark:text-violet-400 font-mono">#8B5CF6 • Acceso reservado y catering</p>
+                  </div>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-stone-800 border text-stone-700 dark:text-stone-300">WCAG 4.8:1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Neutros y Modo Oscuro -->
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+            <h3 class="text-base font-semibold text-stone-900 dark:text-stone-100">Escala de Neutros (Piedra y Carbón Mate)</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3 rounded-xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <div class="h-8 bg-stone-100 rounded mb-2 border border-stone-300"></div>
+                <p class="text-xs font-bold text-stone-800 dark:text-stone-100">Surface Light (#F5F5F4)</p>
+                <p class="text-[11px] text-stone-500">Fondo paneles diurnos</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <div class="h-8 bg-stone-700 rounded mb-2"></div>
+                <p class="text-xs font-bold text-stone-800 dark:text-stone-100">Text Muted (#78716C)</p>
+                <p class="text-[11px] text-stone-500">Metadatos e IDs</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <div class="h-8 bg-stone-900 rounded mb-2"></div>
+                <p class="text-xs font-bold text-stone-800 dark:text-stone-100">Surface Dark (#1C1917)</p>
+                <p class="text-[11px] text-stone-500">Tarjetas modo noche</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <div class="h-8 bg-stone-950 rounded mb-2 border border-stone-800"></div>
+                <p class="text-xs font-bold text-stone-800 dark:text-stone-100">OLED Scanner (#0C0A09)</p>
+                <p class="text-[11px] text-stone-500">Ahorro de batería en terminales</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Typography -->
+      <section id="typography" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>2. Tipografía &amp; Escala Tipográfica (Typography)</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Combinación de <strong>Inter</strong> para alta legibilidad en interfaces de ticketing y <strong>JetBrains Mono</strong> para códigos alfanuméricos de tickets, UUIDs de Bluetooth y hashes criptográficos de entrada.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+          
+          <!-- Familias tipográficas -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
+              <span class="text-xs uppercase font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Familia Primaria (UI &amp; Headings)</span>
+              <h4 class="text-xl font-bold text-stone-900 dark:text-white mt-1">Inter (Sans-serif)</h4>
+              <p class="text-xs text-stone-500 mt-1">Pesos utilizados: 400 (Regular), 500 (Medium), 600 (Semibold), 800 (Extrabold)</p>
+              <p class="text-sm text-stone-700 dark:text-stone-300 mt-3 font-normal">
+                El acceso ágil a salas de conciertos exige jerarquías claras a más de un metro de distancia en la pantalla del smartphone del asistente.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
+              <span class="text-xs uppercase font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Familia Monoespaciada (Tokens, QR &amp; BLE)</span>
+              <h4 class="text-xl font-mono font-bold text-stone-900 dark:text-white mt-1">JetBrains Mono</h4>
+              <p class="text-xs text-stone-500 mt-1">Pesos utilizados: 400 (Regular), 600 (Bold) para strings criptográficos</p>
+              <div class="mt-3 p-2 bg-stone-900 text-emerald-400 rounded font-mono text-xs overflow-x-auto">
+                TKT-2025-BCN-9981-BLE#a4:f2:31
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla de Escalas -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead>
+                <tr class="border-b border-stone-200 dark:border-stone-800 text-xs text-stone-400 font-mono">
+                  <th class="pb-3">NIVEL / TOKEN</th>
+                  <th class="pb-3">TAMAÑO &amp; LINE-HEIGHT</th>
+                  <th class="pb-3">PESO</th>
+                  <th class="pb-3">EJEMPLO VISUAL</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-100 dark:divide-stone-800/60">
+                <tr>
+                  <td class="py-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">text-4xl / Display</td>
+                  <td class="py-3 text-xs text-stone-500 font-mono">36px (2.25rem) / 1.15</td>
+                  <td class="py-3 text-xs text-stone-700 dark:text-stone-300 font-semibold">Extrabold (800)</td>
+                  <td class="py-3"><span class="text-3xl font-extrabold text-stone-900 dark:text-white">CONCIERTO VIP PASS</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">text-2xl / H1 Screen</td>
+                  <td class="py-3 text-xs text-stone-500 font-mono">24px (1.5rem) / 1.25</td>
+                  <td class="py-3 text-xs text-stone-700 dark:text-stone-300 font-semibold">Bold (700)</td>
+                  <td class="py-3"><span class="text-xl font-bold text-stone-900 dark:text-white">Validación de Torniquete #04</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">text-lg / H2 Card</td>
+                  <td class="py-3 text-xs text-stone-500 font-mono">18px (1.125rem) / 1.4</td>
+                  <td class="py-3 text-xs text-stone-700 dark:text-stone-300 font-semibold">Semibold (600)</td>
+                  <td class="py-3"><span class="text-base font-semibold text-stone-900 dark:text-white">Grada Central — Acceso General (+18)</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">text-base / Body</td>
+                  <td class="py-3 text-xs text-stone-500 font-mono">16px (1rem) / 1.5</td>
+                  <td class="py-3 text-xs text-stone-700 dark:text-stone-300">Regular (400)</td>
+                  <td class="py-3"><span class="text-stone-700 dark:text-stone-300 text-sm">Presente el código QR o acerque su dispositivo con Bluetooth activado al sensor.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">text-xs / Meta &amp; Tag</td>
+                  <td class="py-3 text-xs text-stone-500 font-mono">12px (0.75rem) / 1.3</td>
+                  <td class="py-3 text-xs text-stone-700 dark:text-stone-300 font-medium">Medium (500)</td>
+                  <td class="py-3"><span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-mono">BLE-SIGNAL-RSSI -42dBm</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Spacing System -->
+      <section id="spacing" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>3. Sistema de Espaciado (Spacing Scale - Base 4px)</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Basado en múltiplos estrictos de 4px (0.25rem) para garantizar ritmo visual, interfaces táctiles con target de interacción mínimo de 44x44px y layouts balanceados.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-1 (4px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Micro paddings, separadores de tags</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-1 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">4px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-2 (8px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Espaciado entre iconos y textos</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-2 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">8px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-4 (16px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Padding base de botones e inputs</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-4 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">16px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-6 (24px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Padding interno de tarjetas y modales</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-6 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">24px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-8 (32px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Gaps entre columnas del panel de sala</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-8 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">32px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">space-12 (48px)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Espaciado de secciones de venta</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-2">
+                <div class="h-4 w-12 bg-emerald-600 rounded"></div>
+                <span class="text-xs font-mono text-stone-400">48px</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-700 flex flex-col justify-between col-span-1 sm:col-span-2">
+              <div>
+                <span class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">Target Táctil Mínimo (WCAG 2.5.5)</span>
+                <p class="text-xs text-stone-500 mt-0.5">Área táctil para pulsación rápida con guantes o entorno concurrido en puertas de acceso.</p>
+              </div>
+              <div class="mt-4 flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-lg border-2 border-dashed border-emerald-500 flex items-center justify-center text-xs font-mono text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-950/50">
+                  44px
+                </div>
+                <span class="text-xs text-stone-600 dark:text-stone-300">Min Touch Size: 44 × 44 px</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 5: Borders, Radius & Shadows -->
+      <section id="borders-radius" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>4. Bordes, Radios y Elevaciones (Borders, Radius &amp; Shadows)</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Curvaturas orgánicas pero técnicas. Las sombras son suaves y difusas en modo claro, y se complementan con rebordes de luminosidad reducida en modo oscuro para evitar fatiga ocular.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Radios -->
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+            <h3 class="text-base font-semibold text-stone-900 dark:text-white">Curvaturas de Borde (Border Radius)</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700">
+                <div>
+                  <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">rounded-md (6px)</span>
+                  <p class="text-xs text-stone-500">Badges de validación, sub-etiquetas</p>
+                </div>
+                <div class="w-12 h-10 bg-emerald-700 rounded-md"></div>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-xl border border-stone-200 dark:border-stone-700">
+                <div>
+                  <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">rounded-xl (12px)</span>
+                  <p class="text-xs text-stone-500">Botones de compra, inputs de formulario</p>
+                </div>
+                <div class="w-12 h-10 bg-emerald-700 rounded-xl"></div>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-2xl border border-stone-200 dark:border-stone-700">
+                <div>
+                  <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">rounded-2xl (16px)</span>
+                  <p class="text-xs text-stone-500">Entradas digitales, tarjetas QR, modales</p>
+                </div>
+                <div class="w-12 h-10 bg-emerald-700 rounded-2xl"></div>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-full border border-stone-200 dark:border-stone-700">
+                <div>
+                  <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">rounded-full (9999px)</span>
+                  <p class="text-xs text-stone-500">Indicadores de radar Bluetooth BLE</p>
+                </div>
+                <div class="w-12 h-10 bg-emerald-700 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Elevaciones & Sombras -->
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+            <h3 class="text-base font-semibold text-stone-900 dark:text-white">Sistema de Sombras (Elevation Scale)</h3>
+            <div class="space-y-4">
+              <div class="p-3 bg-white dark:bg-stone-850 rounded-xl border border-stone-100 dark:border-stone-700 shadow-xs flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-mono font-bold text-stone-800 dark:text-stone-200">shadow-xs / Flat Surface</p>
+                  <p class="text-[11px] text-stone-500">Cards estáticas y contenedores de datos</p>
+                </div>
+                <span class="text-xs font-mono text-stone-400">0 1px 2px rgba(0,0,0,0.05)</span>
+              </div>
+              <div class="p-3 bg-white dark:bg-stone-850 rounded-xl border border-stone-100 dark:border-stone-700 shadow-md flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-mono font-bold text-stone-800 dark:text-stone-200">shadow-md / Interactive Cards</p>
+                  <p class="text-[11px] text-stone-500">Selector de tipos de ticket en checkout</p>
+                </div>
+                <span class="text-xs font-mono text-stone-400">0 4px 6px -1px rgba(0,0,0,0.1)</span>
+              </div>
+              <div class="p-3 bg-white dark:bg-stone-850 rounded-xl border border-emerald-500/30 shadow-xl shadow-emerald-900/10 flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400">shadow-xl + Glow / Popover &amp; QR</p>
+                  <p class="text-[11px] text-stone-500">Módulo de escáner activo y modal de pase</p>
+                </div>
+                <span class="text-xs font-mono text-stone-400">Verde difuso translúcido</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Sección 6: Component Catalog -->
+      <section id="component-catalog" class="space-y-8">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>5. Catálogo de Componentes Base (Component Catalog)</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Componentes interactivos estilizados bajo la dirección Verde Mate, con soporte de accesibilidad y variantes de estado.
+          </p>
+        </div>
+
+        <!-- Botones -->
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+          <h3 class="text-base font-semibold text-stone-900 dark:text-white">Botones (Buttons)</h3>
+          <div class="flex flex-wrap items-center gap-4">
+            
+            <!-- Primario -->
+            <button class="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-sm transition-all shadow-sm active:scale-95 flex items-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Comprar Entradas</span>
+            </button>
+
+            <!-- Secundario Verde Mate Soft -->
+            <button class="px-5 py-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 dark:bg-emerald-950 dark:hover:bg-emerald-900 dark:text-emerald-200 font-medium text-sm transition-all border border-emerald-300 dark:border-emerald-800">
+              <span>Descargar PDF</span>
+            </button>
+
+            <!-- Ghost / Outlined -->
+            <button class="px-5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200 font-medium text-sm transition-all">
+              <span>Historial de Accesos</span>
+            </button>
+
+            <!-- Danger -->
+            <button class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-medium text-sm transition-all shadow-sm">
+              <span>Revocar Acceso</span>
+            </button>
+
+            <!-- Disabled -->
+            <button disabled class="px-5 py-2.5 rounded-xl bg-stone-200 text-stone-400 dark:bg-stone-800 dark:text-stone-600 font-medium text-sm cursor-not-allowed">
+              <span>Aforo Completo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Formularios e Inputs -->
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+          <h3 class="text-base font-semibold text-stone-900 dark:text-white">Campos de Entrada (Form Inputs &amp; Controls)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Input Text Normal -->
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">Nombre del Asistente</label>
+              <input type="text" value="Carlos Mendoza Vega" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition">
+              <span class="text-[11px] text-stone-400 mt-1 block">Debe coincidir con documento oficial</span>
+            </div>
+
+            <!-- Input con Badge / Validación Activa -->
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5 flex justify-between">
+                <span>DNI / Pasaporte (+18)</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-mono text-[11px]">Verificado ✓</span>
+              </label>
+              <div class="relative">
+                <input type="text" value="48291034-K" class="w-full px-3.5 py-2.5 rounded-xl border border-emerald-500 bg-emerald-50/30 dark:bg-emerald-950/20 text-stone-900 dark:text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <span class="absolute right-3 top-3 text-emerald-600 text-xs font-bold">EDAD: 24</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1 block">Acceso para mayores de edad concedido</span>
+            </div>
+
+            <!-- Select Tipología VIP -->
+            <div>
+              <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">Tipo de Pase</label>
+              <select class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <option>VIP Backstage &amp; Barra Libre</option>
+                <option>Acceso General Pista (+18)</option>
+                <option>Grada Numerada Adulto</option>
+                <option>Acceso Prensa &amp; Staff</option>
+              </select>
+              <span class="text-[11px] text-stone-400 mt-1 block">Modifica los privilegios del chip BLE</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Badges & Indicadores de Estado -->
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+          <h3 class="text-base font-semibold text-stone-900 dark:text-white">Etiquetas de Estado (Badges &amp; Tags)</h3>
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+              <span>BLE SINCRONIZADO</span>
+            </span>
+
+            <span class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-800">
+              <span>ADULTO (+18) VERIFICADO</span>
+            </span>
+
+            <span class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-bold bg-violet-100 text-violet-900 dark:bg-violet-950 dark:text-violet-200 border border-violet-300 dark:border-violet-800">
+              <span>★ VIP ALL-ACCESS</span>
+            </span>
+
+            <span class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800">
+              <span>ENTRADA YA CANJEADA</span>
+            </span>
+
+            <span class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300 border border-stone-300 dark:border-stone-700 font-mono">
+              <span>TORN-PUERTA-B</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Alertas y Notificaciones -->
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-4">
+          <h3 class="text-base font-semibold text-stone-900 dark:text-white">Alertas Operativas (Alerts &amp; Callouts)</h3>
+          <div class="space-y-3">
+            
+            <!-- Success Alert -->
+            <div class="flex items-start space-x-3 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200">
+              <svg class="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider">Validación Instantánea Bluetooth Completada</p>
+                <p class="text-xs text-emerald-800 dark:text-emerald-300 mt-0.5">El teléfono del usuario fue detectado a 0.8 metros del pórtico 2. Torniquete desbloqueado automáticamente.</p>
+              </div>
+            </div>
+
+            <!-- Warning Alert -->
+            <div class="flex items-start space-x-3 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200">
+              <svg class="w-5 h-5 text-amber-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider">Comprobación Obligatoria de Mayoría de Edad</p>
+                <p class="text-xs text-amber-800 dark:text-amber-300 mt-0.5">Evento clasificado para mayores de 18 años. El asistente debe mostrar DNI físico antes de validar el código QR.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Sección 7: Módulos Específicos de la App (Entrada, Bluetooth BLE & Scanner QR) -->
+      <section id="app-specific-components" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>6. Componentes Específicos: Ticket Digital, BLE &amp; Escáner QR</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Piezas clave de la arquitectura de la app: tarjeta de entrada con corte físico simulado, indicador de antena Bluetooth de baja energía y modal de validación en tiempo real.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          
+          <!-- Mockup: Entrada Digital Interactiva VIP -->
+          <div class="bg-gradient-to-b from-stone-900 to-stone-950 text-white rounded-3xl p-6 shadow-2xl border border-stone-800 relative overflow-hidden">
+            <!-- Pestaña superior VIP -->
+            <div class="flex justify-between items-center pb-4 border-b border-stone-800">
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-1 bg-amber-400/20 text-amber-300 text-xs font-extrabold rounded-md border border-amber-400/40 tracking-wider">VIP ACCESS</span>
+                <span class="text-xs text-stone-400 font-mono">#TKT-9941</span>
+              </div>
+              <div class="flex items-center space-x-1.5 text-xs text-emerald-400 font-mono">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>BLE BEACON ON</span>
+              </div>
+            </div>
+
+            <!-- Datos del Evento -->
+            <div class="py-5">
+              <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Festival Electrónica Sonar Live 2025</p>
+              <h4 class="text-2xl font-extrabold text-white mt-1">NOCTURNA SESSIONS</h4>
+              <p class="text-xs text-stone-400 mt-1">Palau Sant Jordi, Barcelona • Puerta 03 (Acceso Preferente)</p>
+            </div>
+
+            <!-- Detalles de Control de Acceso -->
+            <div class="grid grid-cols-3 gap-2 py-3 px-4 bg-stone-900/80 rounded-xl border border-stone-800 mb-6 text-center">
+              <div>
+                <p class="text-[10px] text-stone-500 uppercase">Edad Mínima</p>
+                <p class="text-xs font-bold text-amber-400">+18 Años</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-stone-500 uppercase">Zona Asignada</p>
+                <p class="text-xs font-bold text-stone-200">Palco VIP 2</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-stone-500 uppercase">Hora Apertura</p>
+                <p class="text-xs font-bold text-emerald-400">22:30h</p>
+              </div>
+            </div>
+
+            <!-- Sección QR con corte de entrada tipo ticket -->
+            <div class="relative pt-6 border-t border-dashed border-stone-700 flex flex-col items-center">
+              <!-- Muescas simuladas en bordes -->
+              <div class="absolute -left-9 -top-3 w-6 h-6 rounded-full bg-stone-900"></div>
+              <div class="absolute -right-9 -top-3 w-6 h-6 rounded-full bg-stone-900"></div>
+
+              <!-- QR Representación Vectorial -->
+              <div class="bg-white p-4 rounded-2xl shadow-inner text-stone-950 flex flex-col items-center">
+                <div class="w-40 h-40 bg-stone-950 rounded-lg p-2 flex flex-wrap gap-1 content-between justify-between">
+                  <!-- Cuadrantes de QR estilizados -->
+                  <div class="w-10 h-10 border-4 border-white bg-stone-950 flex items-center justify-center">
+                    <div class="w-4 h-4 bg-white"></div>
+                  </div>
+                  <div class="w-16 h-8 bg-white/20 rounded flex items-center justify-center font-mono text-[8px] text-white">QR DINÁMICO</div>
+                  <div class="w-10 h-10 border-4 border-white bg-stone-950 flex items-center justify-center">
+                    <div class="w-4 h-4 bg-white"></div>
+                  </div>
+                  <div class="w-full flex justify-center py-1">
+                    <div class="w-20 h-6 bg-emerald-500 rounded flex items-center justify-center text-[9px] font-bold text-white tracking-widest font-mono">
+                      PASS-LIVE
+                    </div>
+                  </div>
+                  <div class="w-10 h-10 border-4 border-white bg-stone-950 flex items-center justify-center">
+                    <div class="w-4 h-4 bg-white"></div>
+                  </div>
+                  <div class="w-24 h-10 bg-white/10 rounded flex items-center justify-center text-[8px] text-stone-400 font-mono">
+                    REFRESH 14s
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-stone-400 font-mono mt-3">Código dinámico anti-captura • Regenera cada 30s</p>
+              <div class="mt-4 flex items-center space-x-2 text-xs bg-emerald-950/60 text-emerald-300 px-3.5 py-1.5 rounded-full border border-emerald-800">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Validación rápida por proximidad BLE activa</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Módulo Terminal Operador de Sala (Validación en directo) -->
+          <div class="bg-white dark:bg-stone-900 rounded-3xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+            <div class="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+              <div>
+                <h4 class="font-bold text-stone-900 dark:text-white text-base">Terminal del Personal de Puerta</h4>
+                <p class="text-xs text-stone-500">Monitor de lectura para porteros y validadores</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono text-xs">Pórtico #02</span>
+            </div>
+
+            <!-- Tarjeta de Resultado de Escaneo -->
+            <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border-2 border-emerald-500 text-stone-900 dark:text-white space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">
+                    ✓
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider block">ACCESO CONCEDIDO</span>
+                    <p class="text-sm font-semibold">Beatriz Alarcón Sola</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded bg-violet-600 text-white font-bold text-xs uppercase">VIP TIPO A</span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-emerald-200 dark:border-emerald-800 text-xs font-mono">
+                <div>
+                  <span class="text-stone-500 text-[10px] block">EDAD DETECTADA</span>
+                  <span class="font-bold text-emerald-800 dark:text-emerald-200">26 Años (+18 OK)</span>
+                </div>
+                <div>
+                  <span class="text-stone-500 text-[10px] block">MÉTODO</span>
+                  <span class="font-bold text-emerald-800 dark:text-emerald-200">BLE Proximity</span>
+                </div>
+                <div>
+                  <span class="text-stone-500 text-[10px] block">PULSERA</span>
+                  <span class="font-bold text-violet-700 dark:text-violet-300">Entrega Dorada</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botonera de Gestión de Portería -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button class="p-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs transition flex items-center justify-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Siguiente Asistente</span>
+              </button>
+              <button class="p-3 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 dark:bg-amber-950 dark:hover:bg-amber-900 dark:text-amber-200 border border-amber-300 dark:border-amber-700 font-semibold text-xs transition flex items-center justify-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01"/></svg>
+                <span>Pedir DNI Físico</span>
+              </button>
+            </div>
+
+            <!-- Estado de antenas BLE locales -->
+            <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-850 border border-stone-200 dark:border-stone-700 text-xs">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-medium text-stone-700 dark:text-stone-300">Antena Local BLE (iBeacon v4.2)</span>
+                <span class="text-emerald-600 font-mono text-[11px] font-semibold">100% Calibrada</span>
+              </div>
+              <div class="w-full bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full w-full"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Sección 8: Layout Patterns & Grid -->
+      <section id="layout-patterns" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-stone-900 dark:text-white flex items-center space-x-3">
+            <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+            <span>7. Patrones de Layout &amp; Responsive Grid</span>
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400 text-sm mt-1">
+            Estructuras modulares recomendadas para pantallas de checkout, paneles de promotores de eventos y terminales de mano para personal de control de acceso.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
+          
+          <!-- Breakpoints -->
+          <div>
+            <h3 class="text-sm font-semibold text-stone-900 dark:text-white mb-3">Breakpoints del Sistema</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <span class="font-bold text-emerald-600 dark:text-emerald-400">SM (640px)</span>
+                <p class="text-stone-500 font-sans mt-0.5">Móvil en cola de acceso / Smartphone asistente</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <span class="font-bold text-emerald-600 dark:text-emerald-400">MD (768px)</span>
+                <p class="text-stone-500 font-sans mt-0.5">PDA industrial de escaneo / Tablet taquilla</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <span class="font-bold text-emerald-600 dark:text-emerald-400">LG (1024px)</span>
+                <p class="text-stone-500 font-sans mt-0.5">Consola de control de aforo por zonas</p>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                <span class="font-bold text-emerald-600 dark:text-emerald-400">XL (1280px)</span>
+                <p class="text-stone-500 font-sans mt-0.5">Dashboard del promotor de conciertos</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demostración del Grid de 12 Columnas -->
+          <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-stone-900 dark:text-white">Sistema de Grilla (12 Columns Demo)</h3>
+            <div class="grid grid-cols-12 gap-2 text-center text-[10px] font-mono">
+              <div class="col-span-12 p-2 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 font-bold">12 Columns (Header &amp; Live Bar)</div>
+              <div class="col-span-8 p-2 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700">8 Col: Listado de Asistentes &amp; Venta de Entradas</div>
+              <div class="col-span-4 p-2 rounded bg-emerald-50 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">4 Col: Radar BLE &amp; Aforo</div>
+              <div class="col-span-4 p-2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700">4 Col: Puerta A</div>
+              <div class="col-span-4 p-2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700">4 Col: Puerta B (VIP)</div>
+              <div class="col-span-4 p-2 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700">4 Col: Puerta C (+18)</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Footer Informativo -->
+      <footer class="pt-8 pb-12 border-t border-stone-200 dark:border-stone-800 text-center text-xs text-stone-500 dark:text-stone-400 space-y-2">
+        <p class="font-semibold text-stone-700 dark:text-stone-300">PassLive Design System • Especificación Oficial de Arquitectura UI/UX</p>
+        <p>Diseñado para sistemas de venta de entradas a eventos en directo, Bluetooth Beacon &amp; QR validator, control de edad (+18) y categorías VIP.</p>
+        <div class="flex justify-center space-x-4 pt-2 font-mono text-[11px] text-emerald-600 dark:text-emerald-400">
+          <span>Paleta: Verde Mate (#2D6A4F)</span>
+          <span>•</span>
+          <span>WCAG 2.1 AA Compliant</span>
+          <span>•</span>
+          <span>Tailwind CSS CDN Ready</span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Script para interactividad y Modo Oscuro -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      
+      if (isDark) {
+        icon.textContent = '☀️';
+        label.textContent = 'Modo Claro';
+      } else {
+        icon.textContent = '🌙';
+        label.textContent = 'Modo Oscuro';
+      }
+    }
+
+    // Comprobar preferencia del sistema al cargar
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (icon && label) {
+        icon.textContent = '☀️';
+        label.textContent = 'Modo Claro';
+      }
+    }
+  </script>
+</body>
+</html>
