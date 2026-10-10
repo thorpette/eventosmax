@@ -1,0 +1,22 @@
+{
+  "name": "passlive",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Gestión de Venta y Validación de Entradas para Eventos en Directo (PassLive - Verde Mate)",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=server & npm run dev --workspace=web",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=server && npm run build --workspace=web",
+    "test": "npm run test --workspace=server && npm run test --workspace=web",
+    "lint": "npm run lint --workspaces"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

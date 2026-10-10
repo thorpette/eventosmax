@@ -1,0 +1,10 @@
+# Variables de entorno locales (usar .env.example como plantilla)
+.env
+.env.local
+
+# Dependencias y build
+node_modules/
+dist/
+
+# Datos de persistencia de la API
+data/

@@ -1,0 +1,22 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+*.tsbuildinfo
+
+# Datos de demo / persistencia
+passlive/server/data/
+
+# Entorno
+.env
+.env.local
+
+# Logs
+*.log
+
+# SO / editores
+.DS_Store
+Thumbs.db
+
+docs/demo-*.txt

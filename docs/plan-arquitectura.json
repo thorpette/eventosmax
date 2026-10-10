@@ -1,0 +1,291 @@
+{
+  "resumen_bpmn": {
+    "procesos": [
+      {
+        "archivo": "bpmn/Proceso_de_Venta_de_Entradas.bpmn",
+        "colaboracion": ["Cliente", "Sistema de Venta"],
+        "messageFlows": ["Cliente inicia compra -> Iniciar proceso de venta"],
+        "procesos": [
+          {
+            "id": "Process_1",
+            "participante": "Cliente",
+            "start": [{"id": "StartEvent_1", "name": "Cliente inicia compra", "tipo": "messageStartEvent"}],
+            "tasks": [],
+            "gateways": [],
+            "end": [{"id": "EndEvent_1", "name": "Fin de interacción del cliente"}],
+            "flujos": [{"id": "Flow_1", "from": "StartEvent_1", "to": "EndEvent_1"}]
+          },
+          {
+            "id": "Process_2",
+            "participante": "Sistema de Venta",
+            "start": [{"id": "StartEvent_2", "name": "Iniciar proceso de venta"}],
+            "tasks": [
+              { "id": "Task_1", "tipo": "serviceTask", "name": "Buscar eventos disponibles en el sistema" },
+              { "id": "Task_2", "tipo": "userTask", "name": "Seleccionar evento" },
+              { "id": "Task_3", "tipo": "serviceTask", "name": "Verificar disponibilidad de entradas" },
+              { "id": "Task_4", "tipo": "userTask", "name": "Notificar falta de disponibilidad" },
+              { "id": "Task_5", "tipo": "userTask", "name": "Elegir cantidad y tipo de entrada (VIP o General)" },
+              { "id": "Task_6", "tipo": "serviceTask", "name": "Procesar pago" },
+              { "id": "Task_7", "tipo": "serviceTask", "name": "Generar entrada con código QR único y habilitar validación Bluetooth" },
+              { "id": "Task_8", "tipo": "serviceTask", "name": "Enviar entrada al cliente" }
+            ],
+            "gateways": [
+              { "id": "Gateway_1", "tipo": "exclusiveGateway", "name": "¿Hay disponibilidad?", "condiciones": { "Flow_6": "disponibilidad == false", "Flow_7": "disponibilidad == true" } }
+            ],
+            "end": [
+              { "id": "EndEvent_2", "name": "Compra no completada" },
+              { "id": "EndEvent_3", "name": "Compra completada" }
+            ],
+            "flujos": [
+              { "id": "Flow_2", "from": "StartEvent_2", "to": "Task_1" },
+              { "id": "Flow_3", "from": "Task_1", "to": "Task_2" },
+              { "id": "Flow_4", "from": "Task_2", "to": "Task_3" },
+              { "id": "Flow_5", "from": "Task_3", "to": "Gateway_1" },
+              { "id": "Flow_6", "from": "Gateway_1", "to": "Task_4", "condicion": "No disponible" },
+              { "id": "Flow_7", "from": "Gateway_1", "to": "Task_5", "condicion": "Disponible" },
+              { "id": "Flow_8", "from": "Task_4", "to": "EndEvent_2" },
+              { "id": "Flow_9", "from": "Task_5", "to": "Task_6" },
+              { "id": "Flow_10", "from": "Task_6", "to": "Task_7" },
+              { "id": "Flow_11", "from": "Task_7", "to": "Task_8" },
+              { "id": "Flow_12", "from": "Task_8", "to": "EndEvent_3" }
+            ]
+          }
+        ]
+      },
+      {
+        "archivo": "bpmn/Proceso_de_Validación_de_Entradas_en_Acceso.bpmn",
+        "colaboracion": ["Cliente", "Local"],
+        "messageFlows": [
+          "Solicitar entrada (Local -> Cliente)",
+          "Proporcionar código QR (Cliente -> Task_QR)",
+          "Proporcionar señal Bluetooth (Cliente -> Task_BT)",
+          "Notificar denegación (Task_Denegar -> Cliente)"
+        ],
+        "procesos": [
+          {
+            "id": "Process_1",
+            "participante": "Local",
+            "start": [{ "id": "StartEvent_1", "name": "Cliente llega al punto de acceso" }],
+            "tasks": [
+              { "id": "Task_1", "tipo": "userTask", "name": "Solicitar entrada al cliente" },
+              { "id": "Task_QR", "tipo": "serviceTask", "name": "Validar entrada por código QR" },
+              { "id": "Task_BT", "tipo": "serviceTask", "name": "Validar entrada por Bluetooth" },
+              { "id": "Task_Registrar", "tipo": "serviceTask", "name": "Registrar acceso en el sistema y actualizar estado de entrada" },
+              { "id": "Task_Denegar", "tipo": "userTask", "name": "Denegar acceso y notificar al cliente" }
+            ],
+            "gateways": [
+              { "id": "InclusiveGateway_1", "tipo": "inclusiveGateway", "name": "Seleccionar método de validación" },
+              { "id": "InclusiveGateway_2", "tipo": "inclusiveGateway", "name": "Esperar validaciones" },
+              { "id": "ExclusiveGateway_1", "tipo": "exclusiveGateway", "name": "¿Entrada válida?", "condiciones": { "Flow_8": "entradaValida == true", "Flow_9": "entradaValida == false" } }
+            ],
+            "end": [{ "id": "EndEvent_1", "name": "Proceso de acceso finalizado" }]
+          }
+        ]
+      },
+      {
+        "archivo": "bpmn/Control_de_Acceso_por_Restricciones.bpmn",
+        "participante": "Sistema de Control de Acceso",
+        "messages": ["EntradaValidada", "AccesoDenegado", "AccesoPermitido"],
+        "tasks": [
+          { "id": "Task_1", "tipo": "serviceTask", "name": "Obtener datos del cliente y entrada" },
+          { "id": "Task_2", "tipo": "userTask", "name": "Solicitar documento de identidad" },
+          { "id": "Task_3", "tipo": "serviceTask", "name": "Verificar edad del cliente" },
+          { "id": "Task_4", "tipo": "userTask", "name": "Denegar acceso por restricción de edad" },
+          { "id": "Task_5", "tipo": "serviceTask", "name": "Dirigir a acceso VIP especial" },
+          { "id": "Task_6", "tipo": "serviceTask", "name": "Dirigir a acceso general" },
+          { "id": "Task_7", "tipo": "serviceTask", "name": "Permitir acceso al evento" }
+        ],
+        "gateways": [
+          { "id": "Gateway_1", "name": "¿Evento es para mayores de edad?", "condiciones": { "Flow_3": "esParaMayores", "Flow_4": "not esParaMayores" } },
+          { "id": "Gateway_2", "name": "¿Verificación de edad exitosa?", "condiciones": { "Flow_7": "not edadVerificada", "Flow_8": "edadVerificada" } },
+          { "id": "Gateway_3", "name": "¿Tipo de entrada es VIP?", "condiciones": { "Flow_10": "esVIP", "Flow_11": "not esVIP" } }
+        ]
+      },
+      {
+        "archivo": "bpmn/Colaboración_entre_Sistema_de_Venta_y_Locales.bpmn",
+        "colaboracion": ["Sistema de Venta de Entradas", "Local"],
+        "messageFlows": [
+          "Datos de entrada (QR, tipo, evento): Task_EnviarDatos -> StartEvent_RecibirDatos",
+          "Confirmación de validación: Task_EnviarConfirmacion -> IntermediateCatchEvent_EsperaValidacion"
+        ],
+        "procesos": [
+          {
+            "id": "Process_Sistema",
+            "tasks": [
+              { "id": "Task_EnviarDatos", "tipo": "userTask", "name": "Enviar datos de entrada (QR, tipo, evento) al Local" },
+              { "id": "Task_Actualizar", "tipo": "userTask", "name": "Actualizar estado de entrada en sistema central" }
+            ],
+            "eventos": [
+              { "id": "StartEvent_Venta", "name": "Entrada vendida" },
+              { "id": "IntermediateCatchEvent_EsperaValidacion", "name": "Recibir confirmación de validación" },
+              { "id": "EndEvent_Sincronizado1", "name": "Proceso sincronizado" }
+            ]
+          },
+          {
+            "id": "Process_Local",
+            "tasks": [
+              { "id": "Task_Almacenar", "tipo": "userTask", "name": "Almacenar entrada en base de datos local" },
+              { "id": "Task_Validar", "tipo": "userTask", "name": "Validar entrada" },
+              { "id": "Task_EnviarConfirmacion", "tipo": "userTask", "name": "Enviar confirmación de validación al Sistema de Venta" }
+            ],
+            "eventos": [
+              { "id": "StartEvent_RecibirDatos", "name": "Recibir datos de entrada" },
+              { "id": "EndEvent_Sincronizado2", "name": "Proceso sincronizado" }
+            ]
+          }
+        ]
+      },
+      {
+        "archivo": "bpmn/Gestion_de_Evento.bpmn",
+        "tipo": "CRUD",
+        "name": "Gestión de Evento (Alta, Consulta, Edición y Baja)",
+        "tasks": [
+          "Task_1 Seleccionar Operación",
+          "Task_2 Alta de Evento (datos, local, restricción de edad)",
+          "Task_3 Consulta de Evento",
+          "Task_4 Edición de Evento",
+          "Task_5 Baja de Evento"
+        ],
+        "gateway": { "id": "Gateway_1", "name": "¿Qué operación?", "condiciones": ["alta", "consulta", "edicion", "baja"] }
+      },
+      {
+        "archivo": "bpmn/Gestion_de_Local.bpmn",
+        "tipo": "CRUD",
+        "tasks": ["Task_Alta Alta de Local", "Task_Consulta Consulta de Local", "Task_Edicion Edición de Local", "Task_Baja Baja de Local"],
+        "gateway": { "id": "Gateway_Operacion", "name": "Seleccionar operación" }
+      },
+      {
+        "archivo": "bpmn/Gestion_de_Cliente.bpmn",
+        "tipo": "CRUD",
+        "tasks": ["Task_Alta Registrar nuevo Cliente", "Task_Consulta Consultar datos de Cliente", "Task_Edicion Editar datos de Cliente", "Task_Baja Dar de baja Cliente"],
+        "gateway": { "id": "Gateway_Operacion", "name": "¿Operación a realizar?" }
+      },
+      {
+        "archivo": "bpmn/Gestion_de_Entrada.bpmn",
+        "tipo": "CRUD",
+        "tasks": [
+          "Task_2 Registrar nueva Entrada (Alta) - Generar código QR, asignar tipo (VIP/General), establecer estado Válida",
+          "Task_3 Consultar Entrada - Buscar por código QR, mostrar tipo, estado y datos del evento",
+          "Task_4 Editar Entrada - Modificar tipo (VIP/General), actualizar estado (Válida/Inválida)",
+          "Task_5 Dar de baja Entrada (Baja) - Invalidar ticket, desactivar código QR y validación Bluetooth"
+        ],
+        "gateway": { "id": "Gateway_1", "name": "¿Qué operación realizar?" }
+      }
+    ],
+    "dataObjects": [],
+    "lanes": [],
+    "nota": "Ningún BPMN define lanes ni data objects; no hay pools con lanes. Los participantes (participants) se usan como equivalente de rol/módulo."
+  },
+  "discrepancias_pseudocodigo": [
+    {
+      "tipo": "RECURSO_AUSENTE",
+      "detalle": "El bloque <PSEUDOCODIGO_DERIVADO> solo referencia 'DB/Specs (Requirements iniciales (IA))' pero la carpeta DB/ no existe en el repositorio. No hay pseudocódigo contrastable.",
+      "accion": "Se toma el BPMN como única fuente de verdad. Se lista como SUPUESTO."
+    },
+    {
+      "tipo": "BPMN_SIN_PSEUDOCODIGO",
+      "detalle": "Los 8 BPMN (venta, validación en acceso, control de restricciones, colaboración y los 4 CRUD) no tienen correspondiente pseudocódigo.",
+      "accion": "Derivación 100% desde BPMN + pantallas Stitch."
+    },
+    {
+      "tipo": "CONTRADICCION_BPMN_VS_STITCH",
+      "detalle": "Stitch 'Proceso de Venta' muestra sectores (Pista General, VIP Gold Front, Palcos Terraza), lista de espera y gastos de gestión; el BPMN solo define disponibilidad booleana y tipo VIP/General.",
+      "accion": "SUPUESTO: la disponibilidad es por sector/tipología; la lista de espera se modela como 'notificar falta de disponibilidad'. BPMN tiene prioridad en el flujo."
+    },
+    {
+      "tipo": "BPMN_INCOMPLETO",
+      "detalle": "Proceso_de_Venta: Process_1 (Cliente) solo tiene start de mensaje -> end; no modela la interacción del cliente más allá del message flow inicial.",
+      "accion": "SUPUESTO: la UI de cliente se resuelve en el front (selección de evento) y el start de mensaje representa la invocación del proceso de venta."
+    },
+    {
+      "tipo": "RIESGO",
+      "detalle": "Colaboración define 'envío de datos de entrada al Local' y 'confirmación de validación' como userTask, es decir manuales en el BPMN; en la implementación deben ser eventos/HTTP automáticos.",
+      "accion": "SUPUESTO TÉCNICO: se implementan como webhook/POST síncrono + evento, manteniendo la semántica de mensaje del BPMN."
+    },
+    {
+      "tipo": "RIESGO",
+      "detalle": "Control_de_Acceso usa messages 'AccesoDenegado'/'AccesoPermitido' como eventos finales con messageEventDefinition sin consumidor modelado.",
+      "accion": "SUPUESTO: se emiten como respuestas HTTP al validador y como notificación al cliente (BPMN: 'Notificar denegación' en Validación en Acceso)."
+    },
+    {
+      "tipo": "INFO_FALTANTE",
+      "detalle": "El BPMN 'Verificar edad del cliente' no define la edad mínima. Stitch menciona +18/+21 en el design system y '2007-06-18' como fecha no válida.",
+      "accion": "SUPUESTO: restricción configurable por evento (default 18). Marcado como SUPUESTO, no regla inventada."
+    },
+    {
+      "tipo": "INFO_FALTANTE",
+      "detalle": "No hay BPMN de autenticación/usuarios/roles, ni de pasarela de pago real (Task_6 'Procesar pago' es genérico).",
+      "accion": "SUPUESTO: auth por token (header X-API-Key / Bearer), pago simulado con provedor interfake."
+    }
+  ],
+  "arquitectura": "Monorepo TypeScript estricto con backend Node.js + Express en arquitectura hexagonal (domain / application / infrastructure / interfaces REST) y frontend React + Vite + Tailwind (design system PassLive 'Verde Mate'). Persistencia SQLite vía repositorios (intercambiables). Validación de entrada con Zod. Pruebas con Vitest. Comunicación Venta <-> Local mediante API REST (message flows del BPMN de Colaboración).",
+  "entidades": [
+    { "nombre": "Client", "atributos": ["id", "name", "dni", "birthDate", "email", "phone", "bleToken", "status", "createdAt"], "relaciones": ["1..* Ticket"] },
+    { "nombre": "Venue", "atributos": ["id", "name", "license", "address", "city", "maxCapacity", "capacityPercent", "rssiThreshold", "qrRotationSeconds", "validationTechnology", "status"], "relaciones": ["1..* Event"] },
+    { "nombre": "Event", "atributos": ["id", "name", "code", "date", "startTime", "endTime", "venueId", "ageRestriction", "capacity", "basePrice", "status"], "relaciones": ["*..1 Venue", "1..* TicketType", "1..* Ticket"] },
+    { "nombre": "TicketType", "atributos": ["id", "eventId", "name", "category (GENERAL|VIP)", "price", "fees", "capacity"], "relaciones": ["*..1 Event"] },
+    { "nombre": "Ticket", "atributos": ["id", "qrCode", "bleToken", "type (GENERAL|VIP)", "status (VALID|INVALID|USED|DENIED)", "purchaseDate", "eventId", "clientId", "localId"], "relaciones": ["*..1 Event", "*..1 Client"] },
+    { "nombre": "AccessRecord", "atributos": ["id", "ticketId", "method (QR|BLE)", "result (ALLOWED|DENIED)", "reason", "ageVerified", "route (VIP|GENERAL)", "validatedAt", "operatorNote"], "relaciones": ["*..1 Ticket"] },
+    { "nombre": "SyncMessage", "atributos": ["id", "type (TICKET_SENT|VALIDATION_CONFIRMED)", "ticketId", "localId", "payloadJson", "status (PENDING|SENT|CONFIRMED)", "createdAt"], "relaciones": ["*..1 Ticket"] }
+  ],
+  "endpoints": [
+    { "metodo": "GET", "ruta": "/api/venues", "descripcion": "Listar locales (Consulta)" },
+    { "metodo": "POST", "ruta": "/api/venues", "descripcion": "Alta de Local" },
+    { "metodo": "GET", "ruta": "/api/venues/:id", "descripcion": "Detalle de Local" },
+    { "metodo": "PUT", "ruta": "/api/venues/:id", "descripcion": "Edición de Local" },
+    { "metodo": "DELETE", "ruta": "/api/venues/:id", "descripcion": "Baja de Local" },
+    { "metodo": "GET", "ruta": "/api/events", "descripcion": "Listar eventos (Consulta)" },
+    { "metodo": "POST", "ruta": "/api/events", "descripcion": "Alta de Evento" },
+    { "metodo": "GET", "ruta": "/api/events/:id", "descripcion": "Detalle de Evento" },
+    { "metodo": "PUT", "ruta": "/api/events/:id", "descripcion": "Edición de Evento" },
+    { "metodo": "DELETE", "ruta": "/api/events/:id", "descripcion": "Baja de Evento" },
+    { "metodo": "GET", "ruta": "/api/clients", "descripcion": "Listar clientes (Consulta)" },
+    { "metodo": "POST", "ruta": "/api/clients", "descripcion": "Registrar nuevo Cliente (Alta)" },
+    { "metodo": "GET", "ruta": "/api/clients/:id", "descripcion": "Detalle de Cliente" },
+    { "metodo": "PUT", "ruta": "/api/clients/:id", "descripcion": "Editar datos de Cliente" },
+    { "metodo": "DELETE", "ruta": "/api/clients/:id", "descripcion": "Dar de baja Cliente" },
+    { "metodo": "GET", "ruta": "/api/tickets", "descripcion": "Listar entradas" },
+    { "metodo": "POST", "ruta": "/api/tickets", "descripcion": "Alta de Entrada (QR + BLE)" },
+    { "metodo": "GET", "ruta": "/api/tickets/:id", "descripcion": "Consultar Entrada" },
+    { "metodo": "PUT", "ruta": "/api/tickets/:id", "descripcion": "Editar Entrada (tipo/estado)" },
+    { "metodo": "DELETE", "ruta": "/api/tickets/:id", "descripcion": "Baja de Entrada (invalidar)" },
+    { "metodo": "GET", "ruta": "/api/sales/events", "descripcion": "Task_1 Buscar eventos disponibles" },
+    { "metodo": "GET", "ruta": "/api/sales/events/:eventId/availability", "descripcion": "Task_3 Verificar disponibilidad (Gateway_1)" },
+    { "metodo": "POST", "ruta": "/api/sales/orders", "descripcion": "Task_5/6/7/8 Elegir cantidad+tipo, pagar, generar entrada y enviar" },
+    { "metodo": "POST", "ruta": "/api/sales/waitlist", "descripcion": "Task_4 Notificar falta de disponibilidad (lista de espera)" },
+    { "metodo": "POST", "ruta": "/api/validation/qr", "descripcion": "Task_QR Validar entrada por código QR" },
+    { "metodo": "POST", "ruta": "/api/validation/ble", "descripcion": "Task_BT Validar entrada por Bluetooth" },
+    { "metodo": "POST", "ruta": "/api/validation/access", "descripcion": "Task_Registrar / Task_Denegar registrar acceso y actualizar estado" },
+    { "metodo": "GET", "ruta": "/api/access-control/evaluate/:ticketId", "descripcion": "Control de acceso por restricciones (edad + VIP)" },
+    { "metodo": "POST", "ruta": "/api/sync/tickets", "descripcion": "MessageFlow_1 Datos de entrada al Local" },
+    { "metodo": "POST", "ruta": "/api/sync/confirmations", "descripcion": "MessageFlow_2 Confirmación de validación al Sistema de Venta" }
+  ],
+  "componentes_frontend": [
+    "AppShell (TopNavBar + SideNavBar) — compartido de Stitch",
+    "VentaEntradasPage (Proceso de Venta de Entradas)",
+    "ValidacionAccesoPage (Proceso de Validación de Entradas en Acceso)",
+    "ControlAccesoPage (Control de Acceso por Restricciones)",
+    "ColaboracionPage (Colaboración entre Sistema de Venta y Locales)",
+    "GestionEventoPage (Gestión de Evento - Consola PassLive)",
+    "GestionLocalPage (Gestión de Local)",
+    "GestionClientePage (Gestion de Cliente)",
+    "GestionEntradaPage (Gestión de Entrada)"
+  ],
+  "supuestos": [
+    "No existe carpeta DB/ con requirements; el BPMN y las pantallas Stitch son la fuente de verdad.",
+    "La carpeta de pantallas usa nombres con hash (no los nombres legibles del prompt); se ha mapeado cada HTML/JSON a su proceso por 'title'.",
+    "Edad mínima por defecto 18 años, configurable por evento (ageRestriction).",
+    "Pago simulado: no hay pasarela de pago en BPMN; Task_6 'Procesar pago' se implementa como confirmación transaccional.",
+    "Envío de datos al Local y confirmación de validación se implementan como llamadas HTTP síncronas equivalentes a los message flows.",
+    "Persistencia SQLite en archivo local (sin dependencias externas); repositorios permiten migrar a PostgreSQL.",
+    "Autenticación simple por API key/role header (BPMN no define auth).",
+    "Los textos de UI están en español; identificadores de código en inglés."
+  ],
+  "riesgos": [
+    "Sin DB/Specs no se pueden validar reglas de negocio no modeladas (precios, descuentos, reembolsos).",
+    "La validación Bluetooth real requiere hardware/beacons; se implementa la capa de servidor (token BLE + RSSI simulado) y el front usa el protocolo descrito en Stitch.",
+    "Los message flows entre pools dependen de que ambos sistemas estén disponibles (disponibilidad de red no modelada en BPMN).",
+    "BPMN de Venta no modela errores de pago ni reintentos; el camino de error queda fuera de alcance.",
+    "Capacidad y disponibilidad por sector se infieren de Stitch, no del BPMN (SUPUESTO)."
+  ]
+}
